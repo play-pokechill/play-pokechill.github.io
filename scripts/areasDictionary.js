@@ -374,7 +374,7 @@ areas.beginnerTrainingI = {
     background : `gym`,
     level : wildAreaLevel2,
     unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderBrock.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     icon: item.tmDummy,
     spawns: {
         common : [pkmn.makuhita,pkmn.tyrogue, pkmn.meditite, pkmn.riolu],
@@ -390,7 +390,7 @@ areas.advancedTrainingI = {
     type: `dungeon`,
     background : `gym`,
     unlockDescription : `🔒 Defeat Gym Leader Misty in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderMisty.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderMisty.defeated },
     level : wildAreaLevel3,
     icon: item.tmDummy,
     spawns: {
@@ -407,7 +407,7 @@ areas.expertTrainingI = {
     type: `dungeon`,
     background : `gym`,
     unlockDescription : `🔒 Defeat Gym Leader Phoebe in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderPhoebe.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderPhoebe.defeated },
     level : wildAreaLevel4,
     icon: item.tmDummy,
     spawns: {
@@ -426,7 +426,7 @@ areas.beginnerTrainingII = {
     type: `dungeon`,
     background : `gym`,
     unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderBrock.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     level : wildAreaLevel2,
     icon: item.tmDummy,
     spawns: {
@@ -444,7 +444,7 @@ areas.advancedTrainingII = {
     background : `gym`,
     level : wildAreaLevel3,
     unlockDescription : `🔒 Defeat Gym Leader Misty in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderMisty.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderMisty.defeated },
     icon: item.tmDummy,
     spawns: {
         common : [pkmn.hariyama,pkmn.hitmonchan, pkmn.medicham, pkmn.throh],
@@ -460,7 +460,7 @@ areas.expertTrainingII = {
     type: `dungeon`,
     background : `gym`,
     unlockDescription : `🔒 Defeat Gym Leader Phoebe in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderPhoebe.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderPhoebe.defeated },
     level : wildAreaLevel4,
     icon: item.tmDummy,
     spawns: {
@@ -478,7 +478,7 @@ areas.beginnerTrainingIII = {
     type: `dungeon`,
     background : `gym`,
     unlockDescription : `🔒 Defeat Gym Leader Brock in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderBrock.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderBrock.defeated },
     level : wildAreaLevel2,
     icon: item.tmDummy,
     spawns: {
@@ -495,7 +495,7 @@ areas.advancedTrainingIII = {
     type: `dungeon`,
     background : `gym`,
     unlockDescription : `🔒 Defeat Gym Leader Misty in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderMisty.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderMisty.defeated },
     level : wildAreaLevel3,
     icon: item.tmDummy,
     spawns: {
@@ -513,7 +513,7 @@ areas.expertTrainingIII = {
     background : `gym`,
     level : wildAreaLevel4,
     unlockDescription : `🔒 Defeat Gym Leader Phoebe in VS to unlock`,
-    unlockRequirement : function() { areas.vsGymLeaderPhoebe.defeated },
+    unlockRequirement : function() { return areas.vsGymLeaderPhoebe.defeated },
     icon: item.tmDummy,
     spawns: {
         common : [pkmn.lucario,pkmn.machamp, pkmn.hawlucha, pkmn.mienshao],
@@ -906,17 +906,17 @@ for (const i in areas){
 
     if (areas[i].type == "wild" && areas[i].level == wildAreaLevel2) {
         areas[i].unlockDescription = `🔒 Defeat Gym Leader Brock in VS to unlock`
-        areas[i].unlockRequirement = function() { areas.vsGymLeaderBrock.defeated }
+        areas[i].unlockRequirement = function() { return areas.vsGymLeaderBrock.defeated }
     }
 
     if (areas[i].type == "wild" && areas[i].level == wildAreaLevel3) {
         areas[i].unlockDescription = `🔒 Defeat Gym Leader Misty in VS to unlock`
-        areas[i].unlockRequirement = function() { areas.vsGymLeaderMisty.defeated }
+        areas[i].unlockRequirement = function() { return areas.vsGymLeaderMisty.defeated }
     }
 
     if (areas[i].type == "wild" && areas[i].level == wildAreaLevel4) {
         areas[i].unlockDescription = `🔒 Defeat Gym Leader Phoebe in VS to unlock`
-        areas[i].unlockRequirement = function() { areas.vsGymLeaderPhoebe.defeated }
+        areas[i].unlockRequirement = function() { return areas.vsGymLeaderPhoebe.defeated }
     }
 
 }
