@@ -1143,7 +1143,7 @@ pkmn.onix = {
         sdef: 45,
         spe: 70,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.steelix, item: metalCoat } } },
+    evolve: function() { return { 1: { pkmn: pkmn.steelix, item: item.metalCoat } } },
 }
 
 pkmn.steelix = {
@@ -12231,4 +12231,5 @@ function statToRating(baseStat) {
   const r = 1 + (baseStat - 20) * (5 / 180);
   return Math.min(6, Math.max(1, Math.round(r)));
 }
+
 
