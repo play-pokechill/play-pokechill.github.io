@@ -2521,7 +2521,7 @@ function exploreCombatPlayer() {
         if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == ability.sheerForce.id && move[nextMoveWild].hitEffect)*/
 
 
-        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability != ability.sheerForce.id || (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == ability.sheerForce.id && totalPower>0  )){
+        if (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability != ability.sheerForce.id || (pkmn[ team[exploreActiveMember].pkmn.id ]?.ability == ability.sheerForce.id && totalPower==0  )){
         if (move[nextMovePlayer].hitEffect && typeEffectiveness(move[nextMovePlayer].type, pkmn[saved.currentPkmn].type)!= 0) {
             move[nextMovePlayer].hitEffect("wild")
         }
