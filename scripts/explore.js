@@ -436,6 +436,7 @@ function leaveCombat(){
 
     if (saved.tutorial && saved.tutorialStep === "battle") {saved.tutorialStep = "battleEnd"; openTutorial()}
 
+    saved.currentAreaBuffer = undefined
     currentTrainerSlot = 1
     afkSeconds = 0
     transition()
@@ -6371,3 +6372,4 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
