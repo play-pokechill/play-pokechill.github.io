@@ -551,7 +551,7 @@ function leaveCombat(){
     document.getElementById("area-end-item-title").innerHTML = "New Items!"
 
     //spiraling tower rewards
-    if (saved.currentSpiralFloor!==0 && (saved.currentSpiralFloor == saved.maxSpiralFloor)) {
+    if (saved.currentSpiralFloor!==1 && (saved.currentSpiralFloor == saved.maxSpiralFloor)) {
     const totalRewardsEarned = Math.floor(saved.maxSpiralFloor / 1)
     const rewardsToGive = totalRewardsEarned - saved.spiralRewardsClaimed
 
@@ -6298,3 +6298,4 @@ window.addEventListener('load', function() {
 
     //updateTeamExp()
 });
+
