@@ -662,3 +662,30 @@ function infoMisc(){
       {command:"saved.geneticOperation=1", effect:"Complete Genetics Operation"},
       ]);
 }
+
+function clamp01(x){ return Math.max(0, Math.min(1, x)) }
+
+function setAutoTeamBiasFromPercent(pct){
+  const off = clamp01(pct / 100);
+  const def = clamp01(1 - off);
+  window.autoTeamWeights.offense = off;
+  window.autoTeamWeights.defense = def;
+          
+  const label = document.getElementById("settings-auto-team-label");
+  if (label) label.textContent = `Offense ${Math.round(off*100)}% / Defense ${Math.round(def*100)}%`;
+}
+
+function initAutoTeamBiasSlider(){
+  const slider = document.getElementById("settings-auto-team-bias");
+  if (!slider) return
+  
+  const currentOffPct = Math.round((window.autoTeamWeights?.offense ?? 0.6) * 100);
+  slider.value = String(currentOffPct);
+  setAutoTeamBiasFromPercent(currentOffPct);
+  
+  slider.addEventListener("input", (e) => {
+    setAutoTeamBiasFromPercent(Number(e.target.value))
+  })
+}
+
+document.addEventListener("DOMContentLoaded", initAutoTeamBiasSlider)
