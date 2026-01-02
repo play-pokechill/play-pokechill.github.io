@@ -585,7 +585,6 @@ function setPkmnTeam(){
     // Agrega la clase inactive a todos
     members.forEach(member => member.classList.add('member-inactive'));
 
-
     // Quita la clase inactive al que se hizo click
     div.classList.remove('member-inactive');
         
@@ -638,9 +637,7 @@ function setPkmnTeam(){
             document.getElementById(`explore-team-member-${i}-spriteData`).dataset.pkmnEditor = pkmn[team[i].pkmn.id].id
     }, 1);
 
-
     document.getElementById("explore-team").appendChild(div)
-
 
 
     for (const e in pkmn[team[i].pkmn.id].moves) {
