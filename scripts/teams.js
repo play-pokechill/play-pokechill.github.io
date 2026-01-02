@@ -68,6 +68,8 @@ window.autoTeamWeights = autoTeamWeights;
 
 function updatePreviewTeam() {
 
+    const currentTeam = saved.previewTeams[saved.currentPreviewTeam]
+
     if (saved.tutorial && saved.tutorialStep === "travel") {saved.tutorialStep = "moves"; openTutorial()}
     saved.firstTimePlaying = false
 
