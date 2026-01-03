@@ -4122,14 +4122,20 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-signature`).value == "false" && pkmn[i].signature==undefined ) continue
         
         let missingEvolution = false;
+        let missingLevelEvolution = false;
         if (pkmn[i].evolve !== undefined) {
         for (const evo in pkmn[i]?.evolve()) {
-        if ( pkmn[i].evolve()[evo].pkmn.caught==0 ) missingEvolution = true
+        if ( pkmn[i].evolve()[evo].pkmn.caught==0 ) {
+            missingEvolution = true
+            // Check for uncaught level-based evolutions
+            if ( pkmn[i].evolve()[evo].level !== undefined ) missingLevelEvolution = true
         }
-        } 
- 
-        
-        if (document.getElementById(`pokedex-filter-evolution`).value !== "all" && !missingEvolution  ) continue
+        }
+        }
+
+
+        if (document.getElementById(`pokedex-filter-evolution`).value == "true" && !missingEvolution  ) continue
+        if (document.getElementById(`pokedex-filter-evolution`).value == "level-only" && !missingLevelEvolution  ) continue
 
 
 
