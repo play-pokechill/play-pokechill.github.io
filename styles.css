@@ -1426,6 +1426,20 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     animation: pkmn-active 0.5s infinite;
 }
 
+/* NEW badge styling - matches post-battle badge appearance */
+#pokedex-list .new-badge {
+    position: absolute;
+    top: -0.5rem;
+    z-index: 10;
+    white-space: nowrap;
+    background: rgb(149, 255, 211);
+    color: var(--dark2);
+    padding: 0 0.5rem;
+    border-radius: 0.2rem;
+    box-shadow: 0px 0px 5px 0px rgba(45,255,196,0.93);
+    animation: pkmn-active 0.5s infinite;
+}
+
 .area-end-item img{
     scale: 2;
 }

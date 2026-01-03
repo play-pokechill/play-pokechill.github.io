@@ -659,6 +659,9 @@ function leaveCombat(){
      }
 
 
+    // Track first-time catches for NEW badge
+    let firstTimeCatches = []
+
     if (item.mysteryEgg.got>0 && areas[saved.currentArea].spawns!=undefined) {//wild
 
 
@@ -698,9 +701,10 @@ function leaveCombat(){
     if (pkmn[hatchedPkmn].caught === 0) { //first time got
         const newMove = learnPkmnMove(hatchedPkmn,1)
         pkmn[hatchedPkmn].movepool.push(newMove)
-        pkmn[hatchedPkmn].moves.slot1 = newMove 
-        pkmn[hatchedPkmn].ability = learnPkmnAbility(pkmn[hatchedPkmn].id)    
-        divTag = `<span>New!</span>`
+        pkmn[hatchedPkmn].moves.slot1 = newMove
+        pkmn[hatchedPkmn].ability = learnPkmnAbility(pkmn[hatchedPkmn].id)
+        // divTag = `<span>New!</span>` // Removed - NEW badge only shows in Pokedex/Team screens
+        firstTimeCatches.push(hatchedPkmn)
     } 
 
 
@@ -754,9 +758,10 @@ function leaveCombat(){
     if (pkmn[i].caught === 0) { //first time got
         const newMove = learnPkmnMove(i,1)
         pkmn[i].movepool.push(newMove)
-        pkmn[i].moves.slot1 = newMove 
-        pkmn[i].ability = learnPkmnAbility(pkmn[i].id)    
-        divTag = `<span>New!</span>`
+        pkmn[i].moves.slot1 = newMove
+        pkmn[i].ability = learnPkmnAbility(pkmn[i].id)
+        // divTag = `<span>New!</span>` // Removed - NEW badge only shows in Pokedex/Team screens
+        firstTimeCatches.push(i)
     } 
 
 
@@ -780,7 +785,57 @@ function leaveCombat(){
 
     }
 
+    // Update encounter history for EVERY encounter (both wild and VS battles)
+    // This ensures the "last 3 encounters" window rolls correctly
+    const MAX_ENCOUNTER_HISTORY = 3
 
+    // Initialize encounterHistory if it doesn't exist (safety check)
+    if (!Array.isArray(saved.encounterHistory)) {
+        saved.encounterHistory = []
+    }
+
+    saved.encounterHistory.push({
+        areaId: saved.currentArea,
+        areaType: areas[saved.currentArea].type,
+        pokemon: firstTimeCatches,  // Can be empty array if no first-time catches
+        timestamp: Date.now()
+    })
+
+    // Keep only last 3 encounters (use slice for efficiency)
+    if (saved.encounterHistory.length > MAX_ENCOUNTER_HISTORY) {
+        saved.encounterHistory = saved.encounterHistory.slice(-MAX_ENCOUNTER_HISTORY)
+    }
+
+    // Update recentlyCaught flags based on last 3 encounters
+    let recentPokemon = new Set()
+    for (const encounter of saved.encounterHistory) {
+        // Validate encounter structure
+        if (encounter && Array.isArray(encounter.pokemon)) {
+            for (const pkmnId of encounter.pokemon) {
+                if (pkmn[pkmnId]) {
+                    recentPokemon.add(pkmnId)
+                }
+            }
+        }
+    }
+
+    // Optimize: Only update Pokemon that might have changed
+    const pokemonToCheck = new Set(recentPokemon)
+    // Also check Pokemon that were previously marked as recent (to clear the flag)
+    for (const pkmnId in pkmn) {
+        if (pkmn[pkmnId].recentlyCaught === true) {
+            pokemonToCheck.add(pkmnId)
+        }
+    }
+
+    // Update only the Pokemon that need updates
+    for (const pkmnId of pokemonToCheck) {
+        if (recentPokemon.has(pkmnId)) {
+            pkmn[pkmnId].recentlyCaught = true
+        } else {
+            pkmn[pkmnId].recentlyCaught = undefined
+        }
+    }
 
 
     document.getElementById("area-end-moves-title").style.display = "none"
@@ -4188,6 +4243,12 @@ if (document.getElementById("pokedex-search").value!="") {
         div.dataset.pkmnEditor = i
 
         let nameMarks = ""
+
+        // Add NEW badge for recently caught Pokemon
+        if (pkmn[i].recentlyCaught === true) {
+            nameMarks += `<span class="new-badge">New!</span>`
+        }
+
         let markColor = "#FF4671" //default shiny star color
         if (pkmn[i].tag=="red") markColor = `#FF4942`
         if (pkmn[i].tag=="orange") markColor = `#FFAD42`
