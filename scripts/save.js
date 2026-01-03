@@ -46,6 +46,7 @@ function saveGame() {
     data[i].hiddenAbilityUnlocked = pkmn[i].hiddenAbilityUnlocked;
     data[i].tag = pkmn[i].tag;
     data[i].ribbons = pkmn[i].ribbons;
+    data[i].recentlyCaught = pkmn[i].recentlyCaught;
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -99,6 +100,7 @@ function loadGame() {
       pkmn[i].hiddenAbilityUnlocked = data[i].hiddenAbilityUnlocked;
       pkmn[i].tag = data[i].tag;
       pkmn[i].ribbons = data[i].ribbons;
+      pkmn[i].recentlyCaught = data[i].recentlyCaught;
     }
   }
 

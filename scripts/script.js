@@ -151,6 +151,9 @@ function updateGameVersion() {
   saved.spiralRewardsClaimed = 0
   }
 
+  if (saved.encounterHistory === undefined){
+  saved.encounterHistory = []
+  }
 
 
   saved.version = 2.1
