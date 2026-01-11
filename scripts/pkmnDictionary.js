@@ -2614,7 +2614,7 @@ pkmn.omanyte = {
         sdef: 55,
         spe: 35,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.kabutops, level: evolutionLevel3 } } },
+    evolve: function() { return { 1: { pkmn: pkmn.omastar, level: evolutionLevel3 } } },
     hiddenAbility: ability.swiftSwim,
 }
 
@@ -15974,4 +15974,5 @@ ribbon.smile ={
     name: `Smile Ribbon`,
     description: `Awarded very rarely for spending a lot of time together`
 }
+
 
