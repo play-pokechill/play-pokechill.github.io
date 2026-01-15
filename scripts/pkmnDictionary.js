@@ -340,7 +340,6 @@ pkmn.beedrill = {
     hiddenAbility: ability.adaptability,
 }
 
-
 pkmn.megaBeedrill = {
     type: ["bug","poison"],
     bst: {
