@@ -16125,12 +16125,12 @@ pkmn.ironCrown = {
 pkmn.pecharunt = {
   type: ["poison", "ghost"],
   bst: {
-    hp: 45,
-    atk: 50,
-    def: 35,
-    satk: 55,
-    sdef: 40,
-    spe: 70,
+    hp: 88,
+    atk: 88,
+    def: 160,
+    satk: 88,
+    sdef: 88,
+    spe: 88,
   }
 }
 */
