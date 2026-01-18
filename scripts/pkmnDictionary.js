@@ -17,6 +17,7 @@ pkmn.missingno = {
         spe: 0,
     },
     evolve: function() { return { 1: { pkmn: pkmn.kangaskhan, level: 128 } } },
+    hidden: true
 }
 
 // 001 Bulbasaur → Ivysaur → Venusaur
@@ -134,7 +135,12 @@ pkmn.charizard = {
         sdef: 85,
         spe: 100,
     },
-    evolve: function() { return { 1: { pkmn: pkmn.megaCharizardX, item: item.charizarditeX } } },
+    evolve: function() { 
+        return { 
+            1: { pkmn: pkmn.megaCharizardX, item: item.charizarditeX }, 
+            2: { pkmn: pkmn.megaCharizardY, item: item.charizarditeY },
+        } 
+    },
     hiddenAbility: ability.toughClaws,
     signature : move.flameBurst
 }
@@ -8460,6 +8466,7 @@ pkmn.pansear = {
     spe: 64,
   },
   evolve: function() { return { 1: { pkmn: pkmn.simisear, item: item.fireStone } } },
+    hiddenAbility: ability.scorch,
 }
 
 pkmn.simisear = {
@@ -8472,6 +8479,7 @@ pkmn.simisear = {
     sdef: 63,
     spe: 101,
   },
+    hiddenAbility: ability.scorch,
 }
 
 // 515 Panpour → Simipour
@@ -10162,6 +10170,7 @@ pkmn.heatmor = {
     sdef: 66,
     spe: 65,
   },
+    hiddenAbility: ability.scorch,
 }
 
 // 632 Durant
@@ -12569,7 +12578,8 @@ pkmn.salandit = {
     spe: 77,
   },
   evolve: function() { return { 1: { pkmn: pkmn.salazzle, level: evolutionLevel2 } } },
-    signature : move.fireLash
+    signature : move.fireLash,
+    hiddenAbility: ability.corrosion,
 }
 
 pkmn.salazzle = {
@@ -12582,7 +12592,8 @@ pkmn.salazzle = {
     sdef: 60,
     spe: 117,
   },
-    signature : move.fireLash
+    signature : move.fireLash,
+    hiddenAbility: ability.corrosion,
 }
 
 // 759 Stufful → Bewear
@@ -13985,7 +13996,8 @@ pkmn.sizzlipede = {
     spe: 45,
   },
   evolve: function() { return { 1: { pkmn: pkmn.centiskorch, level: evolutionLevel2 } } },
-    signature : move.burnUp
+    signature : move.burnUp,
+    hiddenAbility: ability.scorch,
 }
 
 pkmn.centiskorch = {
@@ -13998,7 +14010,8 @@ pkmn.centiskorch = {
     sdef: 90,
     spe: 65,
   },
-    signature : move.burnUp
+    signature : move.burnUp,
+    hiddenAbility: ability.scorch,
 }
 
 // 852 Clobbopus → Grapploct

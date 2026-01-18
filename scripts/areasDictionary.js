@@ -2869,7 +2869,7 @@ areas.eventMegaAggron = {
 
 
 areas.alphaRuins = {
-    rotation: 1,
+    rotation: 6,
     type: `event`,
     background : `cave`,
     level : wildAreaLevel1,

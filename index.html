@@ -219,6 +219,42 @@
 
     </div>
 
+
+
+
+
+    <div id="dictionary-menu">
+
+        <div id="dictionary-header">
+
+        <div id="dictionary-filters">
+            <div onclick='dictionaryFilter="pokemon"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Pokemon</div>
+            <div onclick='dictionaryFilter="ability"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Abilities</div>
+            <div onclick='dictionaryFilter="move"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Moves</div>
+            <div onclick='dictionaryFilter="item"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Items</div>
+        </div>
+
+        <input id="dictionary-search" type="text" placeholder="Search Pokemon, Ability, Move, Item...">
+
+        </div>
+
+        
+
+        <div id="dictionary-list">
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
     <div id="pokedex-menu" style="display: none;">
 
         <img class="pokedex-menu-flair" src="img/icons/pokeball.svg">
@@ -1175,6 +1211,11 @@ Game Guide
             <span>Export Reward</span>
         </div>
 
+        <div class="menu-item" id="menu-item-dictionary" onClick="switchMenu('dictionary')">
+            <img src="img/items/journal.png">
+            <span>Dictionary</span>
+        </div>
+
         <div class="menu-item" id="menu-item-guide" onClick="switchMenu('guide')">
             <img src="img/items/tv.png">
             <span>Guide</span>
@@ -1324,6 +1365,7 @@ Game Guide
 
     
     <script src="scripts/PR/autoTeamBuilding.js"></script>
+    <script src="scripts/PR/movesetGenerator.js"></script>
 
 
 
@@ -1333,6 +1375,7 @@ Game Guide
     <script src="scripts/teams.js"></script>
     <script src="scripts/explore.js"></script>
     <script src="scripts/shop.js"></script>
+    <script src="scripts/dictionarySearch.js"></script>
 
     <script src="scripts/save.js"></script>
 </body>

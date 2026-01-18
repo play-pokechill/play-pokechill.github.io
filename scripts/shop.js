@@ -429,6 +429,24 @@ shop.moonblastTm = {
     category: `tm`,
 }
 
+//temp
+
+shop.nastyPlotTm = {
+    icon: item.nastyPlotTm.id,
+    price: 3,
+    currency: `gold`,
+    category: `tm`,
+}
+
+shop.swordsDanceTm = {
+    icon: item.swordsDanceTm.id,
+    price: 3,
+    currency: `gold`,
+    category: `tm`,
+}
+
+
+
 shop.fireBlastTm = {
     icon: item.fireBlastTm.id,
     price: 5,
