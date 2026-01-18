@@ -9845,7 +9845,7 @@ pkmn.lampent = {
     sdef: 60,
     spe: 55,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.chandelure, item: item.fireStone } } },
+  evolve: function() { return { 1: { pkmn: pkmn.chandelure, item: item.duskStone } } },
 }
 
 pkmn.chandelure = {
