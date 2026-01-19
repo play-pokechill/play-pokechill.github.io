@@ -4,51 +4,38 @@
  * A self-contained module for calculating and displaying learnable movesets based on level.
  * Handles data processing, icon caching, and UI rendering within a private scope.
  */
-
 (function () {
     "use strict";
 
-
-
-
-
     // --- 0. Safety Checks & Global Dependencies ---
 
-    // Check for the existence of the 'move' database using typeof to avoid ReferenceErrors.
-    // The script relies on 'move' (database), 'returnTypeColor', and 'stripHTML' from the core game.
     if (typeof move === "undefined") {
         console.warn("[MovesetGenerator] 'move' database not found. This module may not function correctly.");
     }
 
-
-
-
-
     // --- 1. Module State & Constants ---
 
     const ICON_CACHE = {};
-    
-    // Tracks the currently active split filter (Physical/Special)
-    let activeSplitFilter = null; 
+    let activeSplitFilter = null;
 
     const ICONS_TO_PRELOAD = [
-        "special", "physical", "restricted", "normal", "fire", "water", "grass", "electric", "ice",
-        "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon",
-        "dark", "steel", "fairy",
+        "special", "physical", "restricted", "normal", "fire", "water", "grass", "electric",
+        "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost",
+        "dragon", "dark", "steel", "fairy"
     ];
-
-
-
-
 
     // --- 2. Utilities ---
 
     /**
      * Converts a hex color string to an RGBA string.
+     * @param {string} hex - The hex color string.
+     * @param {number} alpha - The alpha channel (0-1).
+     * @returns {string} The RGBA string.
      */
     function hexToRGBA(hex, alpha) {
-        if (!hex) return `rgba(255, 255, 255, ${alpha})`;
-        // Handle shorthand hex if necessary, but assuming standard format from game data
+        if (!hex) {
+            return `rgba(255, 255, 255, ${alpha})`;
+        }
         const r = parseInt(hex.slice(1, 3), 16);
         const g = parseInt(hex.slice(3, 5), 16);
         const b = parseInt(hex.slice(5, 7), 16);
@@ -57,6 +44,8 @@
 
     /**
      * Formats a camelCase or pascalCase string into Title Case with spaces.
+     * @param {string} str - The input string.
+     * @returns {string} The formatted string.
      */
     function formatMoveName(str) {
         return str
@@ -67,22 +56,55 @@
             .join(" ");
     }
 
+    /**
+     * Safely strips HTML tags from a string.
+     * @param {string} html - The input HTML string.
+     * @returns {string} The text content.
+     */
+    function safeStrip(html) {
+        if (typeof stripHTML === "function") {
+            return stripHTML(html);
+        }
+        const tmp = document.createElement("div");
+        tmp.innerHTML = html;
+        return tmp.textContent || tmp.innerText || "";
+    }
 
-
-
+    /**
+     * Retrieves the color for a specific type key.
+     * @param {string} key - The type key.
+     * @returns {string} The hex color code.
+     */
+    function getTypeColor(key) {
+        return typeof returnTypeColor === "function" ? returnTypeColor(key) : "#ffffff";
+    }
 
     // --- 3. Icon Handling ---
 
     /**
-     * Loads an SVG icon, caches it, and wraps it with styling.
+     * Wraps SVG content in a styled span.
+     * @param {string} svg - The raw SVG content.
+     * @param {string} color - The CSS color.
+     * @param {number} size - The size in pixels.
+     * @returns {string} The HTML string.
+     */
+    function wrapSVG(svg, color, size) {
+        const sizedSvg = svg.replace("<svg", `<svg width="${size}" height="${size}"`);
+        return `<span class="icon-wrapper" style="color:${color};">${sizedSvg}</span>`;
+    }
+
+    /**
+     * Loads and caches an SVG icon.
+     * @param {string} name - The icon name.
+     * @param {string} color - The icon color.
+     * @param {number} size - The icon size.
+     * @returns {Promise<string>} The HTML string.
      */
     async function loadSVGIcon(name, color = "#fff", size = 18) {
         const path = `/img/icons/${name}.svg`;
-
         if (ICON_CACHE[path]) {
             return wrapSVG(ICON_CACHE[path], color, size);
         }
-
         try {
             const response = await fetch(path);
             const svg = await response.text();
@@ -94,20 +116,9 @@
         }
     }
 
-    function wrapSVG(svg, color, size) {
-        // Ensure the SVG has the correct dimensions
-        const sizedSvg = svg.replace("<svg", `<svg width="${size}" height="${size}"`);
-        return `<span class="icon-wrapper" style="color:${color};">${sizedSvg}</span>`;
-    }
-
-    // Preload icons immediately
     ICONS_TO_PRELOAD.forEach((name) => {
         loadSVGIcon(name).catch(() => {});
     });
-
-
-
-
 
     // --- 4. Data Logic ---
 
@@ -129,29 +140,16 @@
     function categorizeMovesForPokemon(pkmnObj, level) {
         const types = pkmnObj.type;
         const allPossible = getAllPossibleMovesByTier(level);
-
         const sameType = {};
-        types.forEach((t) => (sameType[t] = []));
 
+        types.forEach((t) => (sameType[t] = []));
         const movesetMatch = [];
         const allTag = [];
-
-        // Helper to safely strip HTML
-        const safeStrip = (html) => {
-            // Check for global function 'stripHTML'
-            if (typeof stripHTML === "function") return stripHTML(html);
-            
-            // Fallback if game function missing
-            const tmp = document.createElement("DIV");
-            tmp.innerHTML = html;
-            return tmp.textContent || tmp.innerText || "";
-        };
 
         allPossible.forEach((m) => {
             const data = move[m];
             const rawInfo = typeof data.info === "function" ? data.info() : "";
             const cleanInfo = safeStrip(rawInfo);
-
             const entry = {
                 ID: m,
                 Type: data.type ?? null,
@@ -170,7 +168,6 @@
         });
 
         const sortByPower = (arr) => arr.sort((a, b) => (b.Power ?? 0) - (a.Power ?? 0));
-
         Object.keys(sameType).forEach((t) => sortByPower(sameType[t]));
 
         return {
@@ -189,19 +186,13 @@
         };
     }
 
+    // --- 5. UI Rendering Logic ---
 
-
-
-
-    // --- 5. Internal UI Logic ---
-
-    /**
-     * Toggles the visual filter for Physical/Special splits.
-     * Updates the DOM based on the `data-split` attribute.
-     */
     function toggleSplitFilter(splitType) {
         const popup = document.getElementById("movePopup");
-        if (!popup) return;
+        if (!popup) {
+            return;
+        }
 
         if (activeSplitFilter === splitType) {
             activeSplitFilter = null;
@@ -222,21 +213,15 @@
         });
     }
 
-    /**
-     * Builds the HTML for a single move table section.
-     */
     async function buildTableHTML(label, arr) {
-        if (!arr.length) return "";
-
-        // Helper to get color
-        const getColor = (key) => typeof returnTypeColor === "function" 
-            ? returnTypeColor(key) 
-            : "#ffffff";
+        if (!arr.length) {
+            return "";
+        }
 
         const rows = await Promise.all(
             arr.map(async (e) => {
                 const key = (e.Type || "").toLowerCase();
-                const muted = hexToRGBA(getColor(key), 0.95);
+                const muted = hexToRGBA(getTypeColor(key), 0.95);
                 const rowBgStyle = muted ? `style="background:${muted}"` : "";
                 const themedColor = "var(--light2, #fff)";
 
@@ -274,8 +259,7 @@
                     </td>
                     <td class="col-bp">${e.Power ?? "-"}</td>
                     <td class="col-info">${e.Info}</td>
-                </tr>
-            `;
+                </tr>`;
             })
         );
 
@@ -307,21 +291,18 @@
                 <tbody>
                     ${rows.join("")}
                 </tbody>
-            </table>
-        `;
+            </table>`;
     }
 
-    /**
-     * Creates and displays the move popup modal.
-     */
     async function showMovePopup(pkmnObj, initialLevel) {
         const old = document.getElementById("movePopup");
-        if (old) old.remove();
+        if (old) {
+            old.remove();
+        }
 
         const wrapper = document.createElement("div");
         wrapper.id = "movePopup";
         wrapper.className = "move-popup-wrapper";
-
         wrapper.oncontextmenu = (e) => {
             e.preventDefault();
             wrapper.remove();
@@ -332,7 +313,7 @@
         box.className = "move-popup-box";
         box.onclick = (e) => e.stopPropagation();
 
-        // --- Header Section ---
+        // Header
         const topBar = document.createElement("div");
         topBar.className = "move-popup-top-bar";
 
@@ -340,7 +321,7 @@
         title.className = "move-popup-title";
         topBar.appendChild(title);
 
-        // --- Slider Control ---
+        // Level Control
         const levelControl = document.createElement("div");
         levelControl.className = "level-control-container";
 
@@ -360,11 +341,10 @@
         topBar.appendChild(levelControl);
         box.appendChild(topBar);
 
-        // --- Content Container ---
+        // Content
         const contentContainer = document.createElement("div");
         box.appendChild(contentContainer);
 
-        // --- Event Delegation for Split Toggles ---
         contentContainer.addEventListener("click", (e) => {
             const trigger = e.target.closest(".split-trigger");
             if (trigger) {
@@ -375,11 +355,9 @@
             }
         });
 
-        // --- Render Logic ---
         async function updateContent(newLevel) {
             const report = getMoveCalculatorReport(pkmnObj, newLevel);
             title.textContent = `Moves for ${report.pokemon}`;
-
             const buckets = report.possibleMoves;
             let contentHTML = "";
 
@@ -390,7 +368,6 @@
                     buckets.sameType[typeName]
                 );
             }
-
             contentHTML += await buildTableHTML("Moveset Tag Matches", buckets.movesetMatch);
             contentHTML += await buildTableHTML("All-Type Moves", buckets.allTag);
 
@@ -415,7 +392,6 @@
             updateContent(val);
         };
 
-        // Initial Render
         await updateContent(initialLevel);
 
         const closeBtn = document.createElement("button");
@@ -428,14 +404,12 @@
         document.body.appendChild(wrapper);
     }
 
-
-
-
-
-    // --- 6. Styles Injection (Self-Contained) ---
+    // --- 6. Styles Injection ---
 
     (function injectMovePopupStyles() {
-        if (document.getElementById("moveset-generator-styles")) return;
+        if (document.getElementById("moveset-generator-styles")) {
+            return;
+        }
 
         const css = `
         .move-popup-wrapper {
@@ -567,10 +541,6 @@
         style.textContent = css;
         document.head.appendChild(style);
     })();
-
-
-
-
 
     // --- 7. Public API ---
 
