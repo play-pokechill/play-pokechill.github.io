@@ -65,9 +65,28 @@
         if (typeof stripHTML === "function") {
             return stripHTML(html);
         }
-        const tmp = document.createElement("div");
-        tmp.innerHTML = html;
-        return tmp.textContent || tmp.innerText || "";
+        if (typeof DOMParser !== "undefined") {
+            const doc = new DOMParser().parseFromString(html, "text/html");
+            return (doc && doc.body && doc.body.textContent) || "";
+        }
+        // Fallback of last resort
+        return html.replace(/<[^>]*>/g, "").trim();
+    }
+
+    /**
+     * Escapes special characters to prevent HTML injection (XSS).
+     * Turns <script> into &lt;script&gt; so it displays as text.
+     * @param {string|number} str - The input to escape.
+     * @returns {string} The escaped string.
+     */
+    function escapeHTML(str) {
+        if (str === null || str === undefined) return "";
+        return String(str)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
     /**
@@ -82,19 +101,43 @@
     // --- 3. Icon Handling ---
 
     /**
-     * Wraps SVG content in a styled span.
-     * @param {string} svg - The raw SVG content.
+     * Parses the SVG string and safely forces the specific size attributes.
+     * Uses DOMParser to handle existing attributes or whitespace correctly.
+     * @param {string} svgString - The raw SVG content.
      * @param {string} color - The CSS color.
      * @param {number} size - The size in pixels.
      * @returns {string} The HTML string.
      */
-    function wrapSVG(svg, color, size) {
-        const sizedSvg = svg.replace("<svg", `<svg width="${size}" height="${size}"`);
-        return `<span class="icon-wrapper" style="color:${color};">${sizedSvg}</span>`;
+    function wrapSVG(svgString, color, size) {
+        if (!svgString) return "";
+
+        try {
+            // Parse the string into a real DOM structure
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(svgString, "image/svg+xml");
+            const svgEl = doc.documentElement;
+
+            // Check for parsing errors
+            if (svgEl.querySelector("parsererror") || svgEl.tagName.toLowerCase() !== "svg") {
+                console.warn("[MovesetGenerator] Invalid SVG data encountered.");
+                return "";
+            }
+
+            // Force the size attributes - safely overwrites existing width/height if they exist
+            svgEl.setAttribute("width", size);
+            svgEl.setAttribute("height", size);
+
+            return `<span class="icon-wrapper" style="color:${color};">${svgEl.outerHTML}</span>`;
+
+        } catch (e) {
+            console.error("[MovesetGenerator] Error processing SVG:", e);
+            return "";
+        }
     }
 
     /**
      * Loads and caches an SVG icon.
+     * Includes error handling for 404s/network issues.
      * @param {string} name - The icon name.
      * @param {string} color - The icon color.
      * @param {number} size - The icon size.
@@ -107,6 +150,12 @@
         }
         try {
             const response = await fetch(path);
+
+            // Prevents caching of 404 responses.
+            if (!response.ok) {
+                throw new Error(`Failed to load ${name}: "${response.status} ${response.statusText}`);
+            }
+
             const svg = await response.text();
             ICON_CACHE[path] = svg;
             return wrapSVG(svg, color, size);
@@ -220,24 +269,40 @@
 
         const rows = await Promise.all(
             arr.map(async (e) => {
+                // Escape all user-facing content to prevent XSS
+                const moveName = escapeHTML(formatMoveName(e.ID));
+                const power = escapeHTML(e.Power ?? "-");
+                const info = escapeHTML(e.Info);
+
+                // Type Icon
+                const themedColor = "var(--light2, #fff)";
+                const typeIcon = e.Type ? await loadSVGIcon(e.Type.toLowerCase(), themedColor) : "";
+
+                // Muted Background
                 const key = (e.Type || "").toLowerCase();
                 const muted = hexToRGBA(getTypeColor(key), 0.95);
                 const rowBgStyle = muted ? `style="background:${muted}"` : "";
-                const themedColor = "var(--light2, #fff)";
 
-                const typeIcon = await loadSVGIcon(e.Type.toLowerCase(), themedColor);
-                const moveName = formatMoveName(e.ID);
-
+                // Restricted Icon
                 let restrictedIcon = "";
                 if (move[e.ID] && move[e.ID].restricted === true) {
                     const iconSvg = await loadSVGIcon("restricted", muted);
                     restrictedIcon = `<span class="restricted-icon">${iconSvg}</span>`;
                 }
 
-                const splitName = (e.Split || "").toLowerCase();
-                const capitalizedSplit = splitName.charAt(0).toUpperCase() + splitName.slice(1);
-                const splitIcon = await loadSVGIcon(splitName, themedColor);
+                // Split Info
+                const rawSplit = e.Split || "";
+                let splitName = "";
+                let capitalizedSplit = "-";
+                let splitIcon = "";
 
+                if (rawSplit) {
+                    splitName = escapeHTML(rawSplit.toLowerCase());
+                    capitalizedSplit = splitName.charAt(0).toUpperCase() + splitName.slice(1);
+                    splitIcon = await loadSVGIcon(splitName, themedColor);
+                }
+
+                // Rendering
                 return `
                 <tr ${rowBgStyle} data-split="${splitName}">
                     <td class="col-type">${typeIcon}</td>
@@ -247,7 +312,7 @@
                     </td>
                     <td class="col-split">
                         <span class="split-trigger" data-split-trigger="${splitName}" 
-                              title="Filter by ${capitalizedSplit}">
+                              title="${splitName ? `Filter by ${capitalizedSplit} moves` : "No split"}">
                             <span class="split-desktop">
                                 <span class="split-icon-desktop">${splitIcon}</span>
                                 <span class="split-text">${capitalizedSplit}</span>
@@ -257,18 +322,20 @@
                             </span>
                         </span>
                     </td>
-                    <td class="col-bp">${e.Power ?? "-"}</td>
-                    <td class="col-info">${e.Info}</td>
+                    <td class="col-bp">${power}</td>
+                    <td class="col-info">${info}</td>
                 </tr>`;
             })
         );
 
+        // Type Icons for Header
         const themedColor = "var(--light2, #fff)";
         const physIcon = await loadSVGIcon("physical", themedColor);
         const specIcon = await loadSVGIcon("special", themedColor);
+        const safeLabel = escapeHTML(label);
 
         return `
-            <h3 class="move-popup-header">${label}</h3>
+            <h3 class="move-popup-header">${safeLabel}</h3>
             <table class="move-table">
                 <thead>
                     <tr>
@@ -295,6 +362,9 @@
     }
 
     async function showMovePopup(pkmnObj, initialLevel) {
+        // Reset the filter state to ensure a clean view for the new popup instance
+        activeSplitFilter = null;
+
         const old = document.getElementById("movePopup");
         if (old) {
             old.remove();
@@ -303,12 +373,22 @@
         const wrapper = document.createElement("div");
         wrapper.id = "movePopup";
         wrapper.className = "move-popup-wrapper";
+
+        // Close on outside click, context menu or escape key
+        const closePopup = () => {
+            wrapper.remove();
+            document.removeEventListener("keydown", handleEsc);
+        };
+        const handleEsc = (e) => {
+            if (e.key === "Escape") closePopup();
+        };
         wrapper.oncontextmenu = (e) => {
             e.preventDefault();
-            wrapper.remove();
+            closePopup();
             return false;
         };
-
+        wrapper.onclick = closePopup;
+        document.addEventListener("keydown", handleEsc);
         const box = document.createElement("div");
         box.className = "move-popup-box";
         box.onclick = (e) => e.stopPropagation();
@@ -327,12 +407,19 @@
 
         const levelLabel = document.createElement("span");
         levelLabel.className = "level-label";
-        levelLabel.innerHTML = `Lv. <span id="levelValueDisplay">${initialLevel}</span>`;
+        levelLabel.appendChild(document.createTextNode("Lv. "));
+
+        const levelValueSpan = document.createElement("span");
+        levelValueSpan.id = "levelValueDisplay";
+        levelValueSpan.textContent = initialLevel;
+        levelLabel.appendChild(levelValueSpan);
+        
         levelControl.appendChild(levelLabel);
 
         const levelInput = document.createElement("input");
         levelInput.type = "range";
         levelInput.className = "level-slider";
+        levelInput.setAttribute("aria-label", "Pokemon Level");
         levelInput.min = 1;
         levelInput.max = 100;
         levelInput.value = initialLevel;
@@ -448,7 +535,13 @@
             border-radius: 50%; background: var(--light2, #fff); cursor: pointer;
             transition: transform 0.1s;
         }
+        .level-slider::-moz-range-thumb {
+            width: 18px; height: 18px; border: none; /* Firefox adds a default border */
+            border-radius: 50%; background: var(--light2, #fff); cursor: pointer;
+            transition: transform 0.1s;
+        }
         .level-slider::-webkit-slider-thumb:hover { transform: scale(1.2); }
+        .level-slider::-moz-range-thumb:hover { transform: scale(1.2); }
         .move-popup-header {
             margin: 10px 0 10px 0; font-size: 22px; color: var(--light2, #fff);
             padding: 6px 5px; border-radius: 6px; background: var(--dark2, #333);
