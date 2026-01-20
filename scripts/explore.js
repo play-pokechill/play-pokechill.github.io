@@ -919,6 +919,9 @@ function leaveCombat(){
     if (rng(shinyPkmnChanceEncounter)){ //shiny
         pkmn[i].shiny = true
         divTag = `<span>✦Shiny✦!</span>`
+        if (saved.raidRefightStopOnShiny == "true"){
+            saved.autoRefight = false
+        }
     }
 
     

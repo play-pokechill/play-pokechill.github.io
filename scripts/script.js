@@ -180,6 +180,11 @@ document.getElementById("settings-hide-got").addEventListener("change", e => {
   saved.hideGotPkmn = document.getElementById(`settings-hide-got`).value
 });
 
+saved.raidRefightStopOnShiny = "false"
+document.getElementById("settings-raid-auto-shiny").addEventListener("change", e => {
+  saved.raidRefightStopOnShiny = document.getElementById(`settings-raid-auto-shiny`).value
+});
+
 function changeTheme(){
 
   if (saved.theme === "dark"){
