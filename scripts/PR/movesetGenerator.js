@@ -171,6 +171,7 @@
 
     // --- 4. Data Logic ---
 
+    // Ignore rng to show possible moves.
     function getMaxRarityTier(level) {
         let tier = 1;
         if (level >= 10) tier++;
@@ -181,24 +182,39 @@
         return Math.min(tier, 3);
     }
 
+    // Use max rarity to show possible moves.
     function getAllPossibleMovesByTier(level) {
-        const maxTier = getMaxRarityTier(level);
-        return Object.keys(move).filter((m) => move[m].rarity <= maxTier);
+        const tier = getMaxRarityTier(level);
+        return Object.keys(move).filter((m) => move[m].rarity <= tier);
     }
 
     function categorizeMovesForPokemon(pkmnObj, level) {
         const types = pkmnObj.type;
         const allPossible = getAllPossibleMovesByTier(level);
-        const sameType = {};
 
+        const sameType = {};
         types.forEach((t) => (sameType[t] = []));
+
         const movesetMatch = [];
         const allTag = [];
 
         allPossible.forEach((m) => {
             const data = move[m];
+
+            const canlearn = 
+                Array.isArray(data.moveset) &&
+                (
+                data.moveset.includes("all") ||
+                types.some((t) => data.moveset.includes(t))
+                );
+
+            if (!canlearn) {
+                return;
+            }
+
             const rawInfo = typeof data.info === "function" ? data.info() : "";
             const cleanInfo = safeStrip(rawInfo);
+
             const entry = {
                 ID: m,
                 Type: data.type ?? null,
@@ -209,10 +225,10 @@
 
             if (types.includes(data.type)) {
                 sameType[data.type].push(entry);
-            } else if (data.moveset && data.moveset.includes("all")) {
-                allTag.push(entry);
-            } else if (data.moveset && types.some((t) => data.moveset.includes(t))) {
+            } else if (types.some((t) => data.moveset.includes(t))) {
                 movesetMatch.push(entry);
+            } else if (data.moveset.includes("all")) {
+                allTag.push(entry);
             }
         });
 
