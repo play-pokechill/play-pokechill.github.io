@@ -1158,7 +1158,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     filter: brightness(1.1);
 }
 
-#area-refight{
+.leave-button{
     width: 95%;
     background: rgb(119, 192, 137);
     border: 2px solid rgb(146, 255, 152);
@@ -1177,21 +1177,26 @@ border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 0 0.2rem;
 }
 
-#area-refight span img{
+#battle-summary{
+        background: rgb(151, 119, 192);
+    border: 2px solid rgb(202, 146, 255);
+}
+
+.leave-button span img{
     margin: 0 -0.3rem;
     margin-top: -1rem;
     transform: translateY(30%);
     
 }
 
-#area-refight span{
+.leave-button span{
     opacity: 0.8;
     margin-left: 0.5rem;
     font-size: 1rem;
 }
 
 
-#area-refight:hover{
+.leave-button:hover{
         background: rgb(103, 167, 95);
 }
 
@@ -1957,7 +1962,10 @@ left: -5rem;
 bottom: 0.5rem;
 transform: rotate(90deg);
 color: var(--dark2);
+z-index: 1;
 }
+
+
 
 .vs-card{
     height: 6rem;
@@ -1988,6 +1996,18 @@ color: var(--dark2);
     flex-direction: column;
     background: transparent;
     opacity: 0.6;
+}
+
+.completed-flair{
+position: absolute;
+opacity: 0.3;
+height: 2rem;
+width:2rem;
+right: 1.6rem;
+bottom: -0.2rem;
+transform: rotate(90deg);
+color: rgb(190, 71, 62);
+z-index: 0;
 }
 
 .vs-card-flair {
@@ -4778,11 +4798,69 @@ background:
 
 
 
+#team-preview .explore-team-member {
+    cursor: move !important;
+    transition: opacity 0.2s;
+}
 
 
+#battle-summary-flex{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3px;
+    position: relative;
+}
 
+#battle-summary-flex img{
+    scale: 0.7;
+    image-rendering: pixelated;
+}
 
+#battle-summary-flex div{
+    background: var(--dark1);
+    border-radius: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 0rem;
+    position: relative;
+    height: 4rem;
+}
 
+#battle-summary-flex span{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-right: 0.5rem;
+    padding-right: 1rem;
+}
+
+.battle-summary-bar{
+    background: rgb(124, 86, 133);
+    border-radius: 2px;
+    height: 0.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    flex-shrink: 0;
+    color: var(--light2);
+    z-index: 0;
+}
+
+.battle-summary-bar text{
+position: absolute;
+right: 0.5rem;
+z-index: 1;
+transform: translateY(-1rem);
+}
 
 
 

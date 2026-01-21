@@ -63,6 +63,8 @@ document.getElementById("team-slot-selector").addEventListener("change", e => {
   updatePreviewTeam()
 });
 
+/*
+
 function updatePreviewTeam(){
 
     const currentTeam = saved.previewTeams[saved.currentPreviewTeam]
@@ -214,6 +216,8 @@ function updatePreviewTeam(){
 }
 }
 
+*/
+
 
 
 function editTeamName(){
@@ -318,6 +322,15 @@ function injectPreviewTeam(){
     team[slot].item = currentTeam[slot].item
 
 
+    }
+
+
+
+
+
+    for (const i in team){
+    if (team[i].pkmn==undefined) continue
+    if (team[i].damageDealt) team[i].damageDealt = 0
     }
 
 
@@ -607,6 +620,433 @@ function setPkmnTeam(){
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------Drag and drop team slots, phone compatible, uses native browser dragging
+//---PR submited by Claude
+
+
+let draggedSlot = null;
+let touchDragElement = null;
+let ghostElement = null;
+let touchStartX = 0;
+let touchStartY = 0;
+let isTouchDragging = false;
+let touchHoldTimeout = null;
+let canStartDrag = false;
+
+function updatePreviewTeam(){
+    const currentTeam = saved.previewTeams[saved.currentPreviewTeam]
+
+    if (saved.tutorial && saved.tutorialStep === "travel") {saved.tutorialStep = "moves"; openTutorial()}
+    saved.firstTimePlaying = false
+
+    document.getElementById("team-preview").innerHTML = ""
+    let slotNumber = 0
+
+    for (const i in currentTeam) {
+    
+        const div = document.createElement("div")
+        div.className = `explore-team-member`
+        div.id = `explore-${i}-member`
+        div.dataset.slot = i; // Importante: guardamos el slot
+        
+        // CONFIGURAR DRAG & DROP NATIVO
+        div.draggable = true; // Hacer el div arrastrable
+        
+        // Event listeners para drag & drop nativo (Desktop)
+        div.addEventListener('dragstart', handleDragStart);
+        div.addEventListener('dragover', handleDragOver);
+        div.addEventListener('drop', handleDrop);
+        div.addEventListener('dragend', handleDragEnd);
+        div.addEventListener('dragenter', handleDragEnter);
+        div.addEventListener('dragleave', handleDragLeave);
+        
+        // Event listeners para touch (Mobile)
+        div.addEventListener('touchstart', handleTouchStart, { passive: false });
+        div.addEventListener('touchmove', handleTouchMove, { passive: false });
+        div.addEventListener('touchend', handleTouchEnd);
+        
+        //change team member by clicking
+        div.addEventListener("click", e => {
+            document.getElementById(`pokedex-menu`).style.display = "flex"
+            document.getElementById(`pokedex-menu`).style.zIndex = "200"
+            document.getElementById(`pokedex-menu`).scrollTop = 0
+            dexTeamSelect = i
+            document.getElementById("pokedex-filters-title").style.display = "flex"
+            document.getElementById("pokedex-filters-title").innerHTML = `Select a Pokemon to add to the team`
+            document.getElementById(`team-menu`).style.display = "none"
+            setTimeout(() => {
+                updatePokedex()    
+            }, 1);
+        })
+
+        //if the pokemon slot aint empty
+        if (currentTeam[i].pkmn !== undefined) {
+            slotNumber++
+
+            let itemDiv = `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><g fill="currentColor"><path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96" opacity="0.2"/><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m48-88a8 8 0 0 1-8 8h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 8 8"/></g></svg>`
+            if (currentTeam[i].item !== undefined) itemDiv = `<img src="img/items/${ currentTeam[i].item }.png">`
+
+            let nameTag = ""
+            if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===1 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) nameTag += ` ⛔`
+            if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===2 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) nameTag += ` ⛔`
+            if (areas[saved.currentAreaBuffer]?.type=="frontier" && rotationFrontierCurrent===3 && (returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="A" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="B" && returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="C" &&  returnPkmnDivision(pkmn[currentTeam[i].pkmn])!="D")) nameTag += ` ⛔`
+
+            let restrictedError = false
+            if (currentTeam[i].pkmn == undefined) continue
+            let restricedActive = 0
+
+            for (const activeMoves in pkmn[currentTeam[i].pkmn].moves) {
+                if (pkmn[currentTeam[i].pkmn].moves[activeMoves] == undefined) continue
+                if (move[pkmn[currentTeam[i].pkmn].moves[activeMoves]].restricted) restricedActive++
+            }
+
+            if (restricedActive>1) restrictedError = true
+            if (restrictedError) nameTag += ` ⛔`
+
+            let pkmnName = `${format(currentTeam[i].pkmn)} ${nameTag} <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ currentTeam[i].pkmn ].level}</span>`
+            if (pkmn[currentTeam[i].pkmn].shiny) pkmnName = `${format(currentTeam[i].pkmn)} ${nameTag} <span style="color:#FF4671;">✦</span> <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[ currentTeam[i].pkmn ].level}</span>`
+
+            let pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+            if (pkmn[currentTeam[i].pkmn].shiny) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/shiny/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+            if (pkmn[currentTeam[i].pkmn].shiny && pkmn[currentTeam[i].pkmn].shinyDisabled == true) pkmnSprite = `<img class="sprite-trim" src="img/pkmn/sprite/${currentTeam[i].pkmn}.png" id="explore-team-member-${i}-sprite">`
+
+            div.innerHTML = `
+                <div class="team-member-slotnumber">#0${slotNumber}</div>
+                <div class="team-held-item" id="team-${i}-held-item" data-item="${currentTeam[i].item}">${itemDiv}</div>
+                <div class="explore-sprite" id="explore-team-member-${i}-spriteData">
+                ${pkmnSprite}
+                </div>
+                <div class="explore-header-infobox">
+                <div class="explore-header-hpbox">
+                <span style="color: white;">${pkmnName}</span>
+                </div>
+                <div class="explore-header-moves" id="explore-team-member-${i}-moves-preview">
+                </div>
+                </div>
+            `
+
+            document.getElementById("team-preview").appendChild(div)
+            document.getElementById(`explore-team-member-${i}-spriteData`).dataset.pkmnEditor = currentTeam[i].pkmn
+
+            //change team item by clicking
+            document.getElementById(`team-${i}-held-item`).addEventListener("click", e => { 
+                e.stopPropagation(); // Prevenir que se abra el menú de pokémon
+                
+                document.getElementById("item-menu-cancel").style.display = "inline"
+                document.getElementById("item-menu-remove").style.display = "inline"
+                document.getElementById(`item-menu`).style.display = "flex"
+                setTimeout(() => {
+                    document.getElementById(`pokedex-menu`).style.display = "none" 
+                }, 1);
+                document.getElementById(`item-menu`).style.zIndex = "900"
+                dexTeamSelect = i
+                updateItemBag()
+                document.getElementById(`team-menu`).style.display = "none"
+            })
+
+            //create moves in the team slots
+            for (const e in pkmn[currentTeam[i].pkmn].moves) {
+                let moveId = pkmn[currentTeam[i].pkmn].moves[e]
+                if (moveId == undefined) { continue }
+
+                let signatureIcon = ""
+                if (move[moveId].moveset == undefined) signatureIcon = `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.951 9.67a1 1 0 0 0-.807-.68l-5.699-.828l-2.548-5.164A.98.98 0 0 0 12 2.486v16.28l5.097 2.679a1 1 0 0 0 1.451-1.054l-.973-5.676l4.123-4.02a1 1 0 0 0 .253-1.025" opacity="0.5"/><path fill="currentColor" d="M11.103 2.998L8.555 8.162l-5.699.828a1 1 0 0 0-.554 1.706l4.123 4.019l-.973 5.676a1 1 0 0 0 1.45 1.054L12 18.765V2.503a1.03 1.03 0 0 0-.897.495"/></svg>`
+                if (move[moveId].restricted) signatureIcon += `<svg style="color:${returnTypeColor(move[moveId].type)}" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.832 21.801c3.126-.626 7.168-2.875 7.168-8.69c0-5.291-3.873-8.815-6.658-10.434c-.619-.36-1.342.113-1.342.828v1.828c0 1.442-.606 4.074-2.29 5.169c-.86.559-1.79-.278-1.894-1.298l-.086-.838c-.1-.974-1.092-1.565-1.87-.971C4.461 8.46 3 10.33 3 13.11C3 20.221 8.289 22 10.933 22q.232 0 .484-.015c.446-.056 0 .099 1.415-.185" opacity="0.5"/><path fill="currentColor" d="M8 18.444c0 2.62 2.111 3.43 3.417 3.542c.446-.056 0 .099 1.415-.185C13.871 21.434 15 20.492 15 18.444c0-1.297-.819-2.098-1.46-2.473c-.196-.115-.424.03-.441.256c-.056.718-.746 1.29-1.215.744c-.415-.482-.59-1.187-.59-1.638v-.59c0-.354-.357-.59-.663-.408C9.495 15.008 8 16.395 8 18.445"/></svg>`
+
+                const divMove = document.createElement("div") 
+                divMove.className = "pkmn-movebox"
+                divMove.style.borderColor = returnTypeColor(move[moveId].type)
+                divMove.id = `pkmn-movebox-${e}-team-${i}-preview`
+                divMove.innerHTML = 
+                    `<div id = "pkmn-movebox-${e}-team-${i}-bar-preview"
+                    class="pkmn-movebox-progress" style="background: ${returnTypeColor(move[ moveId ].type)} "></div><span>`
+                    + format(moveId) + signatureIcon + `</span><img style="background: ${returnTypeColor(move[ moveId ].type)} " src="img/icons/${move[ moveId ].type }.svg">
+                `
+                divMove.dataset.move = moveId
+                document.getElementById(`explore-team-member-${i}-moves-preview`).appendChild(divMove)
+            }
+        }
+
+        //create empty pokemon slot
+        if (currentTeam[i].pkmn == undefined && i !== "name") {
+            div.style.opacity = 0.6
+            div.innerHTML = `
+                <div class="team-held-item" id="team-${i}-held-item"></div>
+                <div class="explore-sprite" id="explore-team-member-${i}-spriteData">
+                <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256"><g fill="currentColor"><path d="M224 128a96 96 0 1 1-96-96a96 96 0 0 1 96 96" opacity="0.2"/><path d="M128 24a104 104 0 1 0 104 104A104.11 104.11 0 0 0 128 24m0 192a88 88 0 1 1 88-88a88.1 88.1 0 0 1-88 88m48-88a8 8 0 0 1-8 8h-32v32a8 8 0 0 1-16 0v-32H88a8 8 0 0 1 0-16h32V88a8 8 0 0 1 16 0v32h32a8 8 0 0 1 8 8"/></g></svg>
+                </div>
+                <div class="explore-header-infobox">
+                <div class="explore-header-hpbox">
+                <span style="color: white;">Add Pokemon</span>
+                </div>
+                <div class="explore-header-moves" id="explore-team-member-${i}-moves-preview">
+                </div>
+                </div>
+            `
+            document.getElementById("team-preview").appendChild(div)
+        }
+    }
+}
+
+// ========== FUNCIONES DRAG & DROP NATIVAS (DESKTOP) ==========
+
+function handleDragStart(e) {
+    draggedSlot = this.dataset.slot;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+    
+    // Estilo visual para el elemento que se está arrastrando
+    setTimeout(() => {
+        this.style.opacity = '0.4';
+    }, 0);
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) {
+        e.preventDefault(); // Necesario para permitir drop
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDragEnter(e) {
+    // Agregar estilo visual cuando entramos sobre un slot válido
+    if (this.dataset.slot !== draggedSlot) {
+        this.classList.add('drag-over');
+    }
+}
+
+function handleDragLeave(e) {
+    // Remover estilo visual cuando salimos del slot
+    this.classList.remove('drag-over');
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) {
+        e.stopPropagation(); // Prevenir que el navegador abra el contenido
+    }
+    
+    const targetSlot = this.dataset.slot;
+    
+    // Solo intercambiar si es un slot diferente
+    if (draggedSlot !== targetSlot) {
+        swapTeamSlots(draggedSlot, targetSlot);
+    }
+    
+    this.classList.remove('drag-over');
+    return false;
+}
+
+function handleDragEnd(e) {
+    // Restaurar opacidad del elemento arrastrado
+    this.style.opacity = '';
+    
+    // Remover clase drag-over de todos los elementos
+    document.querySelectorAll('.explore-team-member').forEach(el => {
+        el.classList.remove('drag-over');
+    });
+}
+
+// ========== FUNCIONES TOUCH (MOBILE) ==========
+
+function handleTouchStart(e) {
+    // No iniciar drag si se toca el item holder
+    if (e.target.closest('.team-held-item')) return;
+    
+    touchDragElement = this;
+    draggedSlot = this.dataset.slot;
+    isTouchDragging = false;
+    canStartDrag = false;
+    
+    const touch = e.touches[0];
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    
+    // Iniciar timeout de 500ms para activar el drag
+    touchHoldTimeout = setTimeout(() => {
+        canStartDrag = true;
+        // Feedback háptico si está disponible
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+        // Feedback visual: escalar un poco el elemento
+        touchDragElement.style.transform = 'scale(1.02)';
+        touchDragElement.style.transition = 'transform 0.1s';
+    }, 500);
+}
+
+function handleTouchMove(e) {
+    if (!touchDragElement) return;
+    
+    const touch = e.touches[0];
+    const moveX = touch.clientX - touchStartX;
+    const moveY = touch.clientY - touchStartY;
+    const distance = Math.sqrt(moveX * moveX + moveY * moveY);
+    
+    // Si se mueve mucho antes del delay, cancelar el drag y permitir scroll
+    if (!canStartDrag && distance > 10) {
+        clearTimeout(touchHoldTimeout);
+        touchDragElement.style.transform = '';
+        touchDragElement = null;
+        draggedSlot = null;
+        return;
+    }
+    
+    // Solo permitir drag si ya pasó el delay
+    if (!canStartDrag) return;
+    
+    // Activar drag
+    if (!isTouchDragging) {
+        isTouchDragging = true;
+        e.preventDefault(); // Prevenir scroll
+        
+        // Crear elemento ghost
+        createGhostElement(touchDragElement, touch.clientX, touch.clientY);
+        
+        // Reducir opacidad del original
+        touchDragElement.style.opacity = '0.4';
+        touchDragElement.style.transform = '';
+    }
+    
+    e.preventDefault(); // Prevenir scroll mientras arrastramos
+    
+    // Mover el ghost
+    if (ghostElement) {
+        ghostElement.style.left = touch.clientX - (ghostElement.offsetWidth / 2) + 'px';
+        ghostElement.style.top = touch.clientY - (ghostElement.offsetHeight / 2) + 'px';
+    }
+    
+    // Detectar sobre qué elemento estamos
+    const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+    const teamMemberBelow = elementBelow?.closest('.explore-team-member');
+    
+    // Remover highlight de todos
+    document.querySelectorAll('.explore-team-member').forEach(el => {
+        el.classList.remove('drag-over');
+    });
+    
+    // Agregar highlight al objetivo
+    if (teamMemberBelow && teamMemberBelow !== touchDragElement) {
+        teamMemberBelow.classList.add('drag-over');
+    }
+}
+
+function handleTouchEnd(e) {
+    // Limpiar timeout si existe
+    clearTimeout(touchHoldTimeout);
+    
+    if (!isTouchDragging) {
+        // Fue un tap, no un drag - dejar que el click se ejecute
+        if (touchDragElement) {
+            touchDragElement.style.transform = '';
+            touchDragElement.style.transition = '';
+        }
+        touchDragElement = null;
+        draggedSlot = null;
+        canStartDrag = false;
+        return;
+    }
+    
+    e.preventDefault(); // Prevenir click después de drag
+    
+    const touch = e.changedTouches[0];
+    const elementBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+    const targetElement = elementBelow?.closest('.explore-team-member');
+    
+    if (targetElement && targetElement !== touchDragElement) {
+        const targetSlot = targetElement.dataset.slot;
+        swapTeamSlots(draggedSlot, targetSlot);
+    }
+    
+    // Limpiar
+    if (ghostElement) {
+        ghostElement.remove();
+        ghostElement = null;
+    }
+    
+    if (touchDragElement) {
+        touchDragElement.style.opacity = '';
+        touchDragElement.style.transform = '';
+        touchDragElement.style.transition = '';
+    }
+    
+    document.querySelectorAll('.explore-team-member').forEach(el => {
+        el.classList.remove('drag-over');
+    });
+    
+    touchDragElement = null;
+    draggedSlot = null;
+    isTouchDragging = false;
+    canStartDrag = false;
+}
+
+function createGhostElement(element, x, y) {
+    ghostElement = element.cloneNode(true);
+    ghostElement.style.position = 'fixed';
+    ghostElement.style.pointerEvents = 'none';
+    ghostElement.style.opacity = '0.8';
+    ghostElement.style.zIndex = '9999';
+    ghostElement.style.transform = 'scale(1.05)';
+    ghostElement.style.transition = 'none';
+    ghostElement.style.left = x - (element.offsetWidth / 2) + 'px';
+    ghostElement.style.top = y - (element.offsetHeight / 2) + 'px';
+    ghostElement.style.width = element.offsetWidth + 'px';
+    
+    document.body.appendChild(ghostElement);
+}
+
+function swapTeamSlots(slot1, slot2) {
+    const currentTeam = saved.previewTeams[saved.currentPreviewTeam];
+    
+    // Intercambiar los pokémon
+    const temp = currentTeam[slot1];
+    currentTeam[slot1] = currentTeam[slot2];
+    currentTeam[slot2] = temp;
+    
+    // Actualizar la vista
+    updatePreviewTeam();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

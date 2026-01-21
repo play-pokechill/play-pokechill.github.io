@@ -12,16 +12,65 @@ const dictionaryItems = []
 
 document.getElementById("dictionary-search").addEventListener("keydown", e => {
   if (e.key === "Enter") {
-    const fuseResults = fuseDictionary.search(document.getElementById("dictionary-search").value)
-    // convert obj to string
-    searchedDictionary = fuseResults.map(result => result.item)
+    let searchValue = document.getElementById("dictionary-search").value.trim()
     document.getElementById("dictionary-search").blur()
-
-    if (document.getElementById("dictionary-search").value!="") dictionaryFilter = "search"
-    if (document.getElementById("dictionary-search").value=="") {dictionaryFilter = "pokemon"; searchedDictionary = []}
-
+    
+    if (searchValue === "") {
+      searchedDictionary = []
+      updateDictionary()
+      return
+    }
+    
+    // Reemplazar " or " con "|" (case insensitive)
+    searchValue = searchValue.replace(/\s+or\s+/gi, ' | ')
+    
+    let allTerms = searchValue.split(/\s+/).filter(t => t !== '')
+    let includeTerms = []
+    let excludeTerms = []
+    
+    allTerms.forEach(term => {
+      if (term.startsWith('!')) {
+        excludeTerms.push(term.substring(1))
+      } else {
+        includeTerms.push(term)
+      }
+    })
+    
+    let results = []
+    let includeQuery = includeTerms.join(' ')
+    
+    if (includeQuery.includes('|')) {
+      // or filter
+      results = fuseDictionary.search(includeQuery).map(r => r.item)
+    } else if (includeTerms.length === 1) {
+      // no filter
+      results = fuseDictionary.search(includeTerms[0]).map(r => r.item)
+    } else if (includeTerms.length > 1) {
+      // and filter
+      let allTermResults = includeTerms.map(term => {
+        return new Set(fuseDictionary.search(term).map(r => r.item))
+      })
+      
+      results = Array.from(allTermResults[0]).filter(item => {
+        return allTermResults.every(termSet => termSet.has(item))
+      })
+    } else if (excludeTerms.length > 0) {
+      results = dictionaryItems.slice()
+    }
+    
+    // optimise exclusion terms
+    if (excludeTerms.length > 0) {
+      let excludeSets = excludeTerms.map(term => {
+        return new Set(fuseDictionary.search(term).map(r => r.item))
+      })
+      
+      results = results.filter(item => {
+        return !excludeSets.some(excludeSet => excludeSet.has(item))
+      })
+    }
+    
+    searchedDictionary = results
     updateDictionary()
-
   }
 });
 
@@ -36,7 +85,11 @@ function updateDictionary(){
     document.getElementById("dictionary-list").innerHTML = ""
 
 
+
     for (const i in ability){
+
+        if (dictionaryFilter!="ability") continue
+
         const div = document.createElement("div")
 
         let icon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M22.833 10.117L16.937 7.24c-.07-.035-.106-.106-.142-.177l-2.912-5.896c-.498-1.03-1.776-1.457-2.807-.96a2.1 2.1 0 0 0-.959.96L7.205 7.063a.8.8 0 0 1-.142.177l-5.896 2.913c-1.03.497-1.457 1.776-.96 2.806a2.1 2.1 0 0 0 .96.96l5.896 2.876c.07.036.106.107.142.142l2.948 5.896c.497 1.03 1.776 1.457 2.806.96a2.1 2.1 0 0 0 .959-.96l2.877-5.896c.036-.07.107-.142.142-.142l5.896-2.912c1.03-.498 1.457-1.776.96-2.806c-.178-.427-.533-.746-.96-.96m-4.368.427l-2.735 2.38c-.533.497-.924 1.136-1.066 1.847l-.71 3.551c-.036.143-.178.25-.32.214c-.071 0-.107-.036-.142-.107l-2.38-2.735c-.497-.533-1.137-.923-1.847-1.066l-3.552-.71c-.142-.035-.249-.178-.213-.32c0-.07.035-.106.106-.142l2.735-2.38c.533-.497.924-1.136 1.066-1.847l.71-3.551c.036-.143.178-.25.32-.214a.27.27 0 0 1 .142.071l2.38 2.735c.497.533 1.137.924 1.847 1.066l3.552.71c.142.036.249.178.213.32a.4.4 0 0 1-.106.178"/></svg>`
@@ -47,15 +100,21 @@ function updateDictionary(){
 
         div.dataset.dictionaryAbility = i
 
-        if (!dictionaryItems.includes(i)) dictionaryItems.push(i)
+        if (!dictionaryItems.includes(ability[i])) dictionaryItems.push(ability[i])
+
+        if (document.getElementById("dictionary-search").value!="" && !searchedDictionary.includes(ability[i])) continue
 
         div.innerHTML = ` ${icon} ${format(i)} `
 
-        if (dictionaryFilter=="ability" || searchedDictionary.includes(i)) document.getElementById("dictionary-list").appendChild(div)
+        document.getElementById("dictionary-list").appendChild(div)
+        
     }
     
 
     for (const i in item){
+        if (dictionaryFilter!="item") continue
+
+
         if (item[i].hidden) continue
         if (item[i].rotation) continue
         const div = document.createElement("div")
@@ -66,28 +125,33 @@ function updateDictionary(){
 
         div.dataset.dictionaryItem = i
 
-        if (!dictionaryItems.includes(i)) dictionaryItems.push(i)
+        if (!dictionaryItems.includes(item[i])) dictionaryItems.push(item[i])
 
+        if (document.getElementById("dictionary-search").value!="" && !searchedDictionary.includes(item[i])) continue
 
         div.innerHTML = ` ${icon} ${format(i)} `
 
-        if (dictionaryFilter=="item" || searchedDictionary.includes(i)) document.getElementById("dictionary-list").appendChild(div)
+         document.getElementById("dictionary-list").appendChild(div)
     }
     
 
     for (const i in move){
+        if (dictionaryFilter!="move") continue
+
+
         const div = document.createElement("div")
 
         let icon = `<span><img src="img/icons/${move[ i ].type }.svg"></span>`
 
         div.dataset.dictionaryMove = i
 
-        if (!dictionaryItems.includes(i)) dictionaryItems.push(i)
+        if (!dictionaryItems.includes(move[i])) dictionaryItems.push(move[i])
 
+        if (document.getElementById("dictionary-search").value!="" && !searchedDictionary.includes(move[i])) continue
 
         div.innerHTML = ` ${icon} ${format(i)} `
 
-        if (dictionaryFilter=="move" || searchedDictionary.includes(i)) document.getElementById("dictionary-list").appendChild(div)
+        document.getElementById("dictionary-list").appendChild(div)
     }
     
 
@@ -95,6 +159,9 @@ function updateDictionary(){
 
     
     for (const i in pkmn){
+        if (dictionaryFilter!="pokemon") continue
+
+
         const div = document.createElement("div")
         if (pkmn[i].hidden) continue
 
@@ -105,23 +172,33 @@ function updateDictionary(){
 
         div.dataset.dictionaryPkmn = i
 
-        if (!dictionaryItems.includes(i)) dictionaryItems.push(i)
+        if (!dictionaryItems.includes(pkmn[i])) dictionaryItems.push(pkmn[i])
 
+        if (document.getElementById("dictionary-search").value!="" && !searchedDictionary.includes(pkmn[i])) continue
 
         div.innerHTML = ` ${icon} ${format(i)} `
 
-        if (dictionaryFilter=="pokemon" || searchedDictionary.includes(i)) document.getElementById("dictionary-list").appendChild(div)
+        document.getElementById("dictionary-list").appendChild(div)
     }
     
 
 
 fuseDictionary = new Fuse(dictionaryItems, {
-  threshold: 0.2
+  keys: [ 
+    { name: 'name', getFn: obj => obj.id }, 
+    'type', 
+    'hiddenAbility.id', 
+    'split', 
+    'tagObtainedIn', 
+    'tagCaught', 
+    'tagShiny',
+    `affectedBy`
+  ],
+  threshold: 0.1,
+  useExtendedSearch: true,
+  ignoreLocation: true,
+  minMatchCharLength: 1
 })
-
-
-
-    
 }
 
 
@@ -277,7 +354,7 @@ document.addEventListener("click", e => {
 
 
             if (areas[i].encounter) {
-                if ( areas[i].team.slot1 == pkmn[el.dataset.dictionaryPkmn] || areas[i].team.reward == [pkmn[el.dataset.dictionaryPkmn]]) encounterSpawn = areas[i].id
+                if ( areas[i].team.slot1 == pkmn[el.dataset.dictionaryPkmn] || areas[i].reward.includes(pkmn[el.dataset.dictionaryPkmn])) encounterSpawn = areas[i].id
             }
         }
 
@@ -296,9 +373,8 @@ document.addEventListener("click", e => {
         if ( exclusiveFrontierPkmn.includes(pkmn[el.dataset.dictionaryPkmn]) ) spawnLocation += `<span>Obtained as a random reward in the Battle Frontier</span>`
         if (encounterSpawn != "") spawnLocation += `<span>Obtained in the event ${format(areas[encounterSpawn].name)} (Rotation ${areas[encounterSpawn].rotation})</span>`
         if (eventSpawn != "") spawnLocation += `<span>Found in the event ${format(eventSpawn)} (Rotation ${areas[eventSpawn].rotation})</span>`
-
-
         if (spawnLocation == "") spawnLocation = `This Pokemon cannot be caught on its current stage`
+        if (pkmn[el.dataset.dictionaryPkmn].tagObtainedIn == "unobtainable") spawnLocation = `This Pokemon is unobtainable`
 
         document.getElementById("tooltipMid").innerHTML = `
         <span style="display:flex; flex-direction:column">${spawnLocation}<span>
@@ -408,6 +484,111 @@ document.addEventListener("click", e => {
 
 
 })
+
+
+
+
+
+
+
+function setSearchTags() {
+    for (const e in pkmn){
+        if (pkmn[e].caught>0) pkmn[e].tagCaught = "caught"
+        if (pkmn[e].shiny) pkmn[e].tagShiny = "shiny"
+        
+        for (const i in areas){
+            if (areas[i].type=="wild") {
+                if (areas[i].spawns.common.includes(pkmn[e]) || areas[i].spawns.uncommon.includes(pkmn[e]) || areas[i].spawns.rare.includes(pkmn[e])){
+                    pkmn[e].tagObtainedIn = "wild"
+                }
+            }
+            if (areas[i].type=="event" && areas[i].uncatchable != true){
+                if (areas[i].spawns?.common?.includes(pkmn[e]) || areas[i].spawns?.uncommon?.includes(pkmn[e]) || areas[i].spawns?.rare?.includes(pkmn[e])){
+                    pkmn[e].tagObtainedIn = "event"
+                }
+            }
+            if (areas[i].encounter) {
+                if ( areas[i].team.slot1 == pkmn[e] || areas[i].reward?.includes(pkmn[e])) {
+                    pkmn[e].tagObtainedIn = "event"
+                }
+            }
+        }
+        
+        if ( wildlifePoolCommon.includes(e) || wildlifePoolUncommon.includes(e) || wildlifePoolRare.includes(e) ) pkmn[e].tagObtainedIn = "park"
+        if ( exclusiveFrontierPkmn.includes(pkmn[e]) ) pkmn[e].tagObtainedIn = "frontier"
+        if (pkmn[e].pokerus) pkmn[e].tagPokerus = "pokerus"
+    }
+
+    
+    
+
+    //only required for unobtainable pokes
+    for (const e in pkmn){
+        if (pkmn[e].tagObtainedIn == undefined) {
+            const family = getEvolutionFamily(pkmn[e]);
+            const familyIsObtainable = Array.from(family).some(member => member.tagObtainedIn !== undefined);
+            
+            if (!familyIsObtainable) {
+                pkmn[e].tagObtainedIn = "unobtainable";
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

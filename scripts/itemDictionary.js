@@ -132,13 +132,13 @@ item.mentalHerb = {
 
 item.flameOrb = {
     type: "held",
-    info: function() {return `When held: Increases the Special Attack of the user by x${this.power()}, but inflicts ${tagBurn}`},
+    info: function() {return `When held: Increases the Damage of the user by x${this.power()}, but inflicts ${tagBurn}`},
     power : function() { return 1+(0.15*returnItemLevel(this.id))}
 }
 
 item.toxicOrb = {
     type: "held",
-    info: function() {return `When held: Increases the Attack of the user by x${this.power()}, but inflicts ${tagPoisoned}`},
+    info: function() {return `When held: Increases the Damage of the user by x${this.power()}, but inflicts ${tagPoisoned}`},
     power : function() { return 1+(0.15*returnItemLevel(this.id))}
 }
 
@@ -281,7 +281,11 @@ item.babiriBerry = {
     power : function() { return 30+(10*returnItemLevel(this.id))}
 }
 
-
+item.roseliBerry = {
+    type: "held",
+    info: function() {return `When held: Reduces the super-effective damage taken from Fairy-Type moves by ${this.power()}%`},
+    power : function() { return 30+(10*returnItemLevel(this.id))}
+}
 
 
 item.dampRock = {
@@ -498,9 +502,10 @@ item.oddRock = {
 
 
 item.everstone = {
+    rename: `neverstone`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Ensures the Pokemon will retain its original ability`},
+    info: function() {return `Genetics-aiding item: Rerolls the ability of the Host Pokemon. It has an increased chance to reroll uncommon and rare abilities`},
 }
 
 item.powerAnklet = {
@@ -539,6 +544,11 @@ item.powerWeight = {
     info: function() {return `Genetics-aiding item: Multiplies by 20 the chance to inherit HP Iv's`},
 }
 
+item.lockCapsule = {
+    type: "key",
+    genetics: true,
+    info: function() {return `Genetics-aiding item: Transfers the currently equipped moves of the sample to the movepool of the host. The host will retain both its equipped moves and the newly transferred ones, but the sample will lose it's equipped ones. Can only be used with at least one level of compatibility`},
+}
 
 item.destinyKnot = {
     type: "key",
@@ -1079,6 +1089,12 @@ item.dazzlingGleamTm = {}
 item.playRoughTm = {}
 
 //shop
+
+
+item.tackleTm = {}
+item.quickAttackTm = {}
+item.leerTm = {}
+
 
 item.bulkUpTm = {}
 item.thunderWaveTm = {}

@@ -50,6 +50,7 @@ function saveGame() {
     data[i].hiddenAbilityUnlocked = pkmn[i].hiddenAbilityUnlocked;
     data[i].tag = pkmn[i].tag;
     data[i].ribbons = pkmn[i].ribbons;
+    data[i].pokerus = pkmn[i].pokerus;
   }
 
   localStorage.setItem("gameData", JSON.stringify(data));
@@ -108,6 +109,7 @@ function loadGame() {
       pkmn[i].hiddenAbilityUnlocked = data[i].hiddenAbilityUnlocked;
       pkmn[i].tag = data[i].tag;
       pkmn[i].ribbons = data[i].ribbons;
+      pkmn[i].pokerus = data[i].pokerus;
     }
   }
 

@@ -33,7 +33,7 @@ const wildRareItemsDragon = [item.dragonFang, item.habanBerry]
 const wildRareItemsDark = [item.blackGlasses, item.colburBerry]
 const wildRareItemsSteel = [item.metalCoat, item.babiriBerry]
 const wildRareItemsNormal = [item.silkScarf]
-const wildRareItemsFairy = [item.fairyFeather]
+const wildRareItemsFairy = [item.fairyFeather, item.roseliBerry]
 //rotation 1
 areas.verdantForest = {
     rotation : 1,
@@ -4620,7 +4620,7 @@ const wildlifePoolCommon = [
     pkmn.purrloin.id, pkmn.blitzle.id, pkmn.drilbur.id, pkmn.karrablast.id, pkmn.tynamo.id, pkmn.shelmet.id, pkmn.bunnelby.id, pkmn.flabebe.id, pkmn.skiddo.id, 
     pkmn.dwebble.id, pkmn.tirtouga.id, pkmn.solosis.id, pkmn.pancham.id, pkmn.spritzee.id, pkmn.clauncher.id, pkmn.bergmite.id, pkmn.yungoos.id, 
     pkmn.wishiwashi.id, pkmn.dewpider.id, pkmn.cutiefly.id, pkmn.fomantis.id, pkmn.morelull.id, pkmn.stufful.id, pkmn.bounsweet.id, pkmn.sandygast.id, pkmn.skwovet.id, pkmn.gossifleur.id, 
-    pkmn.yamper.id, pkmn.toxel.id, pkmn.indeedee.id, pkmn.cufant.id,
+    pkmn.yamper.id, pkmn.toxel.id, pkmn.indeedee.id, pkmn.cufant.id, pkmn.plusle.id, pkmn.chewtle.id,
 
 
     //fodder

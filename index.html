@@ -234,7 +234,7 @@
             <div onclick='dictionaryFilter="item"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Items</div>
         </div>
 
-        <input id="dictionary-search" type="text" placeholder="Search Pokemon, Ability, Move, Item...">
+        <div style="width: 100%;" data-help="searchDictionary"><input style="cursor: help;" id="dictionary-search" type="text" placeholder="Right Click/Long Press to see keywords"></div>
 
         </div>
 
@@ -404,8 +404,8 @@
             </div>
             </div>
 
-            <div class="pokedex-search">
-            <input id="pokedex-search" type="text" placeholder="Search ability, move...">
+            <div class="pokedex-search" data-help="searchPokedex">
+            <input style="cursor: help;" id="pokedex-search" type="text" placeholder="Right Click to see keywords">
             <div style="background: rgb(90, 133, 113); color: white; cursor: default;" id="pokedex-total">caught</div>
             </div>
             
@@ -906,11 +906,7 @@ Game Guide
 
     <div id="area-end" style="display: none;">
 
-    <div class="pkmn-leave-exit" onClick=' saved.autoRefight = false; afkSeconds = 0; storedAfkSeconds = 0
-    if (saved.tutorial && saved.tutorialStep === "battleEnd") {saved.tutorialStep = "none"; openTutorial()}
-    voidAnimation("area-end","tooltipBoxAppear 0.2s reverse 1 ease-in");
-    setTimeout(() => {document.getElementById("area-end").style.display = "none"}, 150);
-    saveGame()'>
+    <div class="pkmn-leave-exit" onClick='exitCombat()'>
         <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
         Save and exit
     </div>
@@ -920,9 +916,14 @@ Game Guide
         Fight Again
     </div>
 
-    <div id="area-refight"  onClick='    afkSeconds = 0; autoRefight();'>
+    <div id="area-refight" class="leave-button"  onClick='    afkSeconds = 0; autoRefight();'>
     <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
     Auto-Refight <span> (Requires an <img src="img/items/autoRefightTicket.png"> Auto-Refight Ticket)</span>
+    </div>
+
+
+    <div id="battle-summary" class="leave-button"  onClick='battleSummary();'>
+    <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-miterlimit="5.759" d="M3 3v16a2 2 0 0 0 2 2h16"/><path stroke-miterlimit="5.759" d="m7 14l4-4l4 4l6-6"/><path d="M18 8h3v3"/></g></svg>        Battle Summary
     </div>
     
     <div class="area-end-category" id="area-end-moves-title" style="display: none;"></div>
