@@ -3297,7 +3297,8 @@ pkmn.unownA = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.adaptability,
 }
 
 pkmn.unownB = {
@@ -3309,7 +3310,8 @@ pkmn.unownB = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.beastBoost,
 }
 
 pkmn.unownC = {
@@ -3321,7 +3323,8 @@ pkmn.unownC = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.climaTact,
 }
 
 pkmn.unownD = {
@@ -3333,7 +3336,8 @@ pkmn.unownD = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.dancer,
 }
 
 pkmn.unownE = {
@@ -3345,7 +3349,8 @@ pkmn.unownE = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.espilate,
 }
 
 pkmn.unownF = {
@@ -3357,7 +3362,8 @@ pkmn.unownF = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.filter,
 }
 
 pkmn.unownG = {
@@ -3369,7 +3375,8 @@ pkmn.unownG = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.gorillaTactics,
 }
 
 pkmn.unownH = {
@@ -3381,7 +3388,8 @@ pkmn.unownH = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.hugePower,
 }
 
 pkmn.unownI = {
@@ -3393,7 +3401,8 @@ pkmn.unownI = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.imposter,
 }
 
 pkmn.unownJ = {
@@ -3405,7 +3414,8 @@ pkmn.unownJ = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.justified,
 }
 
 pkmn.unownK = {
@@ -3429,7 +3439,8 @@ pkmn.unownL = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.libero,
 }
 
 pkmn.unownM = {
@@ -3441,7 +3452,8 @@ pkmn.unownM = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.magicGuard,
 }
 
 pkmn.unownN = {
@@ -3453,7 +3465,8 @@ pkmn.unownN = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.noGuard,
 }
 
 pkmn.unownO = {
@@ -3465,7 +3478,8 @@ pkmn.unownO = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.ownTempo,
 }
 
 pkmn.unownP = {
@@ -3477,7 +3491,8 @@ pkmn.unownP = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.parentalBond,
 }
 
 pkmn.unownQ = {
@@ -3489,7 +3504,8 @@ pkmn.unownQ = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.quarkDrive,
 }
 
 pkmn.unownR = {
@@ -3501,7 +3517,8 @@ pkmn.unownR = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.reckless,
 }
 
 pkmn.unownS = {
@@ -3513,7 +3530,8 @@ pkmn.unownS = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.simple,
 }
 
 pkmn.unownT = {
@@ -3525,7 +3543,8 @@ pkmn.unownT = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.technician,
 }
 
 pkmn.unownU = {
@@ -3537,7 +3556,8 @@ pkmn.unownU = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.unburden,
 }
 
 pkmn.unownV = {
@@ -3549,19 +3569,21 @@ pkmn.unownV = {
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.voltAbsorb,
 }
 
 pkmn.unownW = {
     type: ["psychic"],
     bst: {
-        hp: 48,
+        hp: 1,
         atk: 72,
         def: 48,
         satk: 72,
         sdef: 48,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.wonderGuard,
 }
 
 pkmn.unownX = {
@@ -3609,7 +3631,8 @@ pkmn.unownExclamation = {
         satk: 100,
         sdef: 120,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.angerPoint,
 }
 
 pkmn.unownQuestion = {
@@ -3621,7 +3644,8 @@ pkmn.unownQuestion = {
         satk: 100,
         sdef: 120,
         spe: 48,
-    }
+    },
+    hiddenAbility: ability.unaware,
 }
 
 // 202 Wobbuffet
@@ -5032,7 +5056,8 @@ pkmn.shedinja = {
         satk: 30,
         sdef: 30,
         spe: 40,
-    }
+    },
+    hiddenAbility: ability.wonderGuard,
 }
 
 // 293 Whismur → Loudred → Exploud
@@ -9857,6 +9882,7 @@ pkmn.litwick = {
     spe: 20,
   },
   evolve: function() { return { 1: { pkmn: pkmn.lampent, level: evolutionLevel3 } } },
+    hiddenAbility: ability.flashPyro,
 }
 
 pkmn.lampent = {
@@ -9870,6 +9896,7 @@ pkmn.lampent = {
     spe: 55,
   },
   evolve: function() { return { 1: { pkmn: pkmn.chandelure, item: item.duskStone } } },
+    hiddenAbility: ability.flashPyro,
 }
 
 pkmn.chandelure = {
@@ -9882,6 +9909,7 @@ pkmn.chandelure = {
     sdef: 90,
     spe: 80,
   },
+    hiddenAbility: ability.flashPyro,
 }
 
 // 610 Axew → Fraxure → Haxorus
@@ -10327,6 +10355,7 @@ pkmn.tornadus = {
     sdef: 80,
     spe: 111,
   },
+    hiddenAbility: ability.climaTact,
 }
 
 pkmn.tornadusTherian = {
@@ -10352,6 +10381,7 @@ pkmn.thundurus = {
     sdef: 80,
     spe: 111,
   },
+    hiddenAbility: ability.climaTact,
 }
 
 pkmn.thundurusTherian = {
@@ -13608,7 +13638,7 @@ pkmn.greedent = {
 
 // 821 Rookidee → Corvisquire → Corviknight
 pkmn.rookidee = {
-  type: ["flying","normal"],
+  type: ["flying"],
   bst: {
     hp: 38,
     atk: 47,
@@ -13621,7 +13651,7 @@ pkmn.rookidee = {
 }
 
 pkmn.corvisquire = {
-  type: ["flying","normal"],
+  type: ["flying"],
   bst: {
     hp: 68,
     atk: 67,
@@ -16589,7 +16619,7 @@ ribbon.souvenir ={
 }
 
 ribbon.tower1 ={
-    name: `Endurance Ribbon I`,
+    name: `Endurance Ribbon`,
     description: `Awarded for reaching floor 30 in the Spiraling Tower`
 }
 

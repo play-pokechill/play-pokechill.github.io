@@ -528,11 +528,40 @@ ability.chlorophyll  = {
 
 
 
+
 //tier 3
 
 //tier 3 names based on gemini, pisces, o luna, mars, etc
-//increase atk further by 50% if increased etc
 
+ability.climaTact  = {  
+    type: [`fairy`],
+    rarity: 3,
+    info: function() {return `Weather changed by the user is extended by 15 turns`},
+}
+
+ability.intangible  = {  
+    type: [`dark`],
+    rarity: 3,
+    info: function() {return `Increases Speed by 50% on ${tagFoggy} weather`},
+}
+
+ability.hyperconductor  = {  
+    type: [`steel`],
+    rarity: 3,
+    info: function() {return `Increases Speed by 50% on ${tagElectricTerrain} weather`},
+}
+
+ability.faeRush  = {  
+    type: [`fairy`],
+    rarity: 3,
+    info: function() {return `Increases Speed by 50% on ${tagMistyTerrain} weather`},
+}
+
+ability.moltShed  = {  
+    type: [`bug`],
+    rarity: 3,
+    info: function() {return `Increases Speed by 50% on ${tagGrassyTerrain} weather`},
+}
 
 ability.slushRush  = { 
     type: [`ice`],
@@ -551,6 +580,9 @@ ability.sandRush  = {
     rarity: 3,
     info: function() {return `Increases Speed by 50% on ${tagSandstorm} weather`},
 }
+
+
+
 
 ability.intimidate = {
     type: [`dragon`, `ghost`],
@@ -727,8 +759,12 @@ ability.flashHerba = {
 
 //hidden
 
+ability.wonderGuard = {
+    rarity: 3,
+    info: function() {return `Received damage from non-Super-Effective moves are reduced by 80%`},
+}
 
-ability.tintedLens = {
+ability.tintedLens = {  
     rarity: 3,
     info: function() {return `Moves that are resisted by typing do instead normal damage`},
 }
@@ -742,7 +778,6 @@ ability.galeWings = {
     rarity: 3,
     info: function() {return `Flying and Bug moves are x1.5 faster than usual`},
 }
-
 
 ability.speedBoost = {
     rarity: 3,
@@ -1184,6 +1219,14 @@ move.facade = {
     powerMod : function() { if (team[exploreActiveMember].buffs?.burn > 0 || team[exploreActiveMember].buffs?.poisoned > 0 || team[exploreActiveMember].buffs?.paralysis > 0) { return 2} else return 1 },
 }
 
+move.slash = {
+    moveset: [`normal`, `grass`],
+    split: "physical",
+    rarity: 3,
+    type: "normal",
+    power: 90,
+    affectedBy: [ability.sharpness.id]
+}
 
 move.extremeSpeed = {
     moveset: [`normal`, `all`],
@@ -1200,7 +1243,7 @@ move.strength = {
     split: "physical",
     rarity: 3,
     type: "normal",
-    power: 80
+    power: 100
 }
 
 move.hyperVoice = {
@@ -2304,8 +2347,8 @@ move.silverWind = {
     rarity: 3,
     type: "bug",
     power: 55,
-    info: function() {return `50% chance to decrease enemy Speed by 50%`},
-    hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'spedown1') },
+    info: function() {return `50% chance to decrease enemy Special Defense by 50%`},
+    hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'sdefdown1') },
 }
 
 move.xScissor = {
@@ -3311,7 +3354,7 @@ move.feintAttack = {
     split: "physical",
     rarity: 2,
     type: "dark",
-    power: 60,
+    power: 40,
     timer: defaultPlayerMoveTimer*0.8,
     info: function() {return `Attacks x1.2 faster than usual`},
 }
@@ -3730,7 +3773,7 @@ move.razorShell = {
     type: "water",
     power: t4Base-20,
     info: function() {return `50% chance to decrease enemy Defense by 50%`},
-    hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'sdefdown1') },
+    hitEffect: function(target) { if (rng(0.50)) moveBuff(target,'defdown1') },
     affectedBy: [ability.sharpness.id]
 }
 
@@ -4131,6 +4174,7 @@ move.howl = {
     power: 0,
     info: function() {return `Increases Attack by 50% to the entire team`},
     hitEffect: function(target) { moveBuff(target,'atkup1',"team")},
+    affectedBy: [ability.cacophony.id]
 }
 
 move.aromaticMist = {
@@ -4579,11 +4623,26 @@ const movesAffectedByMetalhead = []
 
 for (const i in move){
 
-    //if the move doesnt have rng on it, exclude from serene grace/pbond
-    if (move[i].hitEffect && !move[i].hitEffect?.toString().includes('rng(')) {
-        if (move[i].unaffectedBy) move[i].unaffectedBy.push(ability.sereneGrace.id, ability.parentalBond.id)
-        else move[i].unaffectedBy = [ability.sereneGrace.id, ability.parentalBond.id]
-    }
+
+
+
+    //sheer force
+    if (move[i].power>0 && move[i].unaffectedBy?.includes(ability.sheerForce.id) ) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sheerForce.id)} else move[i].affectedBy = [ability.sheerForce.id] }
+    //serene grace/pbond
+    if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.sereneGrace.id)} else move[i].affectedBy = [ability.sereneGrace.id] }
+    if (move[i].hitEffect && move[i].hitEffect?.toString().includes('rng(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.parentalBond.id)} else move[i].affectedBy = [ability.parentalBond.id] }
+    //technician
+    if (move[i].power>0 && move[i].power<=60) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.technician.id)} else move[i].affectedBy = [ability.technician.id] }
+    //skill link
+    if (move[i].multihit && move[i].multihit[1]>move[i].multihit[0]) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.skillLink.id)} else move[i].affectedBy = [ability.skillLink.id] }
+    //reckless/libero
+    if (move[i].power>0 && move[i].timer>defaultPlayerMoveTimer) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.reckless.id)} else move[i].affectedBy = [ability.reckless.id] }
+    if (move[i].power>0 && move[i].timer<defaultPlayerMoveTimer) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.libero.id)} else move[i].affectedBy = [ability.libero.id] }
+    //climaTact
+    if (move[i].hitEffect && move[i].hitEffect?.toString().includes('changeWeather(')) { if (move[i].affectedBy) {move[i].affectedBy.push(ability.climaTact.id)} else move[i].affectedBy = [ability.climaTact.id] }
+    
+        
+    
 
 
     if (move[i].affectedBy?.includes(ability.toughClaws.id)) movesAffectedByToughClaws.push(i)

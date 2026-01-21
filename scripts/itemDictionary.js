@@ -327,14 +327,14 @@ item.smoothRock = {
 item.timeCandy = {
     type: "key",
     usable: true,
-    effect: function() {  if(afkSeconds<=0) {afkSeconds = 10*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
+    effect: function() {  if(afkSeconds<=0) {afkSeconds += 10*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
     info: function() {return `Fast-forwards battle time by 10 minutes. Must be used while battling`},
 }
 
 item.timeCandyXL = {
     type: "key",
     usable: true,
-    effect: function() {  if(afkSeconds<=0) {afkSeconds = 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
+    effect: function() {  if(afkSeconds<=0) {afkSeconds += 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
     info: function() {return `Fast-forwards battle time by 30 minutes. Must be used while battling`},
 }
 
@@ -377,7 +377,7 @@ item.abilityCapsule = {
 item.energyRoot = {
     type: "key",
     usable: true,
-    effect: function() {  if(saved.geneticOperation > 1) {afkSecondsGenetics = 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
+    effect: function() {  if(saved.geneticOperation > 1) {afkSecondsGenetics += 30*60; this.got--; updateItemBag()} else {document.getElementById("tooltipTop").style.display = "none"; document.getElementById("tooltipMid").style.display = "none"; document.getElementById("tooltipBottom").innerHTML = `Can't do that right now`; openTooltip()}  },
     info: function() {return `Fast-forwards genetic operation time by 30 minutes. Must be used while an active operation is ongoing`},
 }
 
@@ -569,316 +569,361 @@ item.destinyKnot = {
 item.glalitite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Glalie by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGlalie.id },
 }
 
 item.absolite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Absol by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAbsol.id },
 }
 
 item.aerodactylite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Aerodactyl by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAerodactyl.id },
 }
 
 item.aggronite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Aggron by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAggron.id },
 }
 
 item.alakazite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Alakazam by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAlakazam.id },
 }
 
 item.altarianite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Altaria by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAltaria.id },
 }
 
 item.ampharosite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Ampharos by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAmpharos.id },
 }
 
 item.audinite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Audino by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAudino.id },
 }
 
 item.banettite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Banette by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaBanette.id },
 }
 
 item.beedrillite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Beedrill by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaBeedrill.id },
 }
 
 item.blastoisinite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Blastoise by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaBlastoise.id },
 }
 
 item.blazikenite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Blaziken by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaBlaziken.id },
 }
 
 item.cameruptite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Camerupt by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaCamerupt.id },
 }
 
 item.charizarditeX = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Charizard X by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaCharizardX.id },
 }
 
 item.charizarditeY = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Charizard Y by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaCharizardY.id },
 }
 
 item.diancite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Diancie by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaDiancie.id },
 }
 
 item.galladite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Gallade by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGallade.id },
 }
 
 item.garchompite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Garchomp by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGarchomp.id },
 }
 
 item.gardevoirite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Gardevoir by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGardevoir.id },
 }
 
 item.gengarite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Gengar by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGengar.id },
 }
 
 item.gyaradosite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Gyarados by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGyarados.id },
 }
 
 item.heracronite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Heracross by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaHeracross.id },
 }
 
 item.houndoominite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Houndoom by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaHoundoom.id },
 }
 
 item.kangaskhanite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Kangaskhan by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaKangaskhan.id },
 }
 
 item.lopunnite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Lopunny by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaLopunny.id },
 }
 
 item.lucarionite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Lucario by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaLucario.id },
 }
 
 item.manectite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Manectric by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaManectric.id },
 }
 
 item.mawilite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Mawile by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaMawile.id },
 }
 
 item.medichamite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Medicham by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaMedicham.id },
 }
 
 item.metagrossite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Metagross by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaMetagross.id },
 }
 
 item.mewtwoniteX = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Mewtwo X by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaMewtwoX.id },
 }
 
 item.mewtwoniteY = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Mewtwo Y by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaMewtwoY.id },
 }
 
 item.pidgeotite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Pidgeot by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaPidgeot.id },
 }
 
 item.pinsirite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Pinsir by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaPinsir.id },
 }
 
 item.sablenite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Sableye by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSableye.id },
 }
 
 item.abomasite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Abomasnow by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaAbomasnow.id },
 }
 
 item.salamencite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Salamence by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSalamence.id },
 }
 
 item.sceptilite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Sceptile by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSceptile.id },
 }
 
 item.scizorite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Scizor by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaScizor.id },
 }
 
 item.sharpedonite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Sharpedo by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSharpedo.id },
 }
 
 item.slowbronite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Slowbro by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSlowbro.id },
 }
 
 item.steelixite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Steelix by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSteelix.id },
 }
 
 item.swampertite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Swampert by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaSwampert.id },
 }
 
 item.tyranitarite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Tyranitar by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaTyranitar.id },
 }
 
 item.venusaurite = {
     type: "held",
     evo: true,
-    info: function() {return `When held: Increases the damage dealt by Mega Venusaur by x${this.power()}`},
-    power : function() { return 1+(0.1*returnItemLevel(this.id))}
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaVenusaur.id },
 }
 
 

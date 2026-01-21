@@ -443,6 +443,7 @@ function switchMember(member){
 
 
     if (areas[saved.currentArea].id == "training") return
+    if (exploreActiveMember == member) return
 
 
     //conitions for not switching (will be ignored if the player is dead)

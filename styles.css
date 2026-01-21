@@ -4257,7 +4257,7 @@ background:
 }
 
 
-#genetics-warning{
+.genetics-warning{
     background: rgb(207, 93, 93);
     color: white;
     border-radius: 0.2rem;
@@ -4267,11 +4267,27 @@ background:
     padding: 0.5rem;
 }
 
-#genetics-warning svg{
+.genetics-warning svg{
     margin: 0 0.5rem;
     flex-shrink: 0;
 }
 
+#pokerus-warning{
+    background: rgb(193, 110, 214);
+    display: none;
+}
+
+#text-data-raw{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    height: 2rem;
+    background: white;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 
 
@@ -4861,6 +4877,7 @@ right: 0.5rem;
 z-index: 1;
 transform: translateY(-1rem);
 }
+
 
 
 

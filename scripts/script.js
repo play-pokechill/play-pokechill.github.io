@@ -161,7 +161,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 2.6
+  saved.version = 2.7
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -178,6 +178,11 @@ document.getElementById("settings-theme").addEventListener("change", e => {
 saved.hideGotPkmn = "false"
 document.getElementById("settings-hide-got").addEventListener("change", e => {
   saved.hideGotPkmn = document.getElementById(`settings-hide-got`).value
+});
+
+saved.alternateWildRotation = "false"
+document.getElementById("settings-alternate-rotation").addEventListener("change", e => {
+  saved.alternateWildRotation = document.getElementById(`settings-alternate-rotation`).value
 });
 
 function changeTheme(){
