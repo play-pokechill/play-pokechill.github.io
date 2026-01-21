@@ -5961,6 +5961,7 @@ pkmn.dusclops = {
         sdef: 130,
         spe: 25,
     },
+    evolve: function() { return { 1: { pkmn: pkmn.dusknoir, item: item.oddRock } } },
     hiddenAbility: ability.levitate,
 }
 
@@ -14929,7 +14930,8 @@ pkmn.nymble = {
     sdef: 25,
     spe: 45,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.lokix, level: evolutionLevel1 } } }
+  evolve: function() { return { 1: { pkmn: pkmn.lokix, level: evolutionLevel1 } } },
+  hiddenAbility: ability.tintedLens,
 }
 
 pkmn.lokix = {
@@ -14941,7 +14943,8 @@ pkmn.lokix = {
     satk: 52,
     sdef: 55,
     spe: 92,
-  }
+  },
+  hiddenAbility: ability.tintedLens,
 }
 
 // 921 Pawmi → Pawmo → Pawmot
