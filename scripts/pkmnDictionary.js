@@ -4913,7 +4913,7 @@ pkmn.masquerain = {
         sdef: 82,
         spe: 80,
     },
-    hiddenAbility: ability.intimidate,
+    hiddenAbility: ability.galeWings,
     signature : move.quiverDance
 }
 
@@ -5975,7 +5975,8 @@ pkmn.tropius = {
         satk: 72,
         sdef: 87,
         spe: 51,
-    }
+    },
+    hiddenAbility: ability.galeWings,
 }
 
 // 358 Chimecho
@@ -12826,7 +12827,6 @@ pkmn.miniorBlue = {
     hiddenAbility: ability.brittleArmor,
 }
 
-
 pkmn.miniorGreen = {
   type: ["rock","grass"],
   bst: {
@@ -12839,7 +12839,6 @@ pkmn.miniorGreen = {
   },
     hiddenAbility: ability.brittleArmor,
 }
-
 
 pkmn.miniorIndigo = {
   type: ["rock","ice"],
@@ -12854,7 +12853,6 @@ pkmn.miniorIndigo = {
     hiddenAbility: ability.brittleArmor,
 }
 
-
 pkmn.miniorOrange = {
   type: ["rock","fire"],
   bst: {
@@ -12867,7 +12865,6 @@ pkmn.miniorOrange = {
   },
     hiddenAbility: ability.brittleArmor,
 }
-
 
 pkmn.miniorRed = {
   type: ["rock","psychic"],
@@ -12882,7 +12879,6 @@ pkmn.miniorRed = {
     hiddenAbility: ability.brittleArmor,
 }
 
-
 pkmn.miniorViolet = {
   type: ["rock","ghost"],
   bst: {
@@ -12896,7 +12892,6 @@ pkmn.miniorViolet = {
     hiddenAbility: ability.brittleArmor,
 }
 
-
 pkmn.miniorYellow = {
   type: ["rock","electric"],
   bst: {
@@ -12909,7 +12904,6 @@ pkmn.miniorYellow = {
   },
     hiddenAbility: ability.brittleArmor,
 }
-
 
 // 775 Komala
 pkmn.komala = {
