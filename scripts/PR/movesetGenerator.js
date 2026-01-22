@@ -642,6 +642,10 @@
             .split-header-mobile, .split-mobile {
                 display: inline-block; width: 100%; text-align: center;
             }
+            .col-move-header, .col-move {
+                white-space: normal; 
+            }
+
         }
         `;
 
