@@ -43,20 +43,6 @@
     }
 
     /**
-     * Formats a camelCase or pascalCase string into Title Case with spaces.
-     * @param {string} str - The input string.
-     * @returns {string} The formatted string.
-     */
-    function formatMoveName(str) {
-        return str
-            .replace(/([A-Z])/g, " $1")
-            .trim()
-            .split(/\s+/)
-            .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-            .join(" ");
-    }
-
-    /**
      * Safely strips HTML tags from a string.
      * @param {string} html - The input HTML string.
      * @returns {string} The text content.
@@ -286,7 +272,7 @@
         const rows = await Promise.all(
             arr.map(async (e) => {
                 // Escape all user-facing content to prevent XSS
-                const moveName = escapeHTML(formatMoveName(e.ID));
+                const moveName = escapeHTML(format(e.ID));
                 const power = escapeHTML(e.Power ?? "-");
                 const info = escapeHTML(e.Info);
 
