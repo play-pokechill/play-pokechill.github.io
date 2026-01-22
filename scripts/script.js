@@ -357,6 +357,7 @@ observer.observe(document.body, {
 
 
 //--Gives Pokemon appropiate moves
+/*
 function learnPkmnMove(id, level, mod) {
     let attempts = 0;
     const MAX_ATTEMPTS = 100;
@@ -417,7 +418,7 @@ function learnPkmnMove(id, level, mod) {
     }
 
     return undefined;
-}
+}*/
 
 
 
@@ -452,12 +453,12 @@ function learnPkmnMove(id, level, mod) {
             
             if (!canLearn) return; 
             
-            if (data.moveset.includes("all")) {
-                allTag.push(m);
-            } else if (types.includes(data.type)) {
+            if (types.includes(data.type)) {
                 typeMatch.push(m);
-            } else {
+            } else if (types.some(t => data.moveset.includes(t))) {
                 movesetMatch.push(m);
+            } else if (data.moveset.includes("all")) {
+                allTag.push(m);
             }
         });
         
@@ -602,12 +603,12 @@ const guide = {}
 
 guide.inspecting = {
   name: `Inspecting`,
-  description: function() { return `Right click/long press on most elements can give further information. You can furhter right click/long press on information within information.<br><br>Some elements that can be inspected include areas, trainers, moves, status effects, wild pokemon, team pokemon and items`}
+  description: function() { return `Right click/long press on most elements can give further information. You can further right click/long press on information within information.<br><br>Some elements that can be inspected include areas, trainers, moves, status effects, wild pokemon, team pokemon and items`}
 }
 
 guide.stats = {
   name: `Battle: Stats`,
-  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive ( see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon<br><br>Depending on their base stats, a Division will be asigned to them. You might use this Division letter to quickly assess which Pokemon can perform better on the short term`}
+  description: function() { return `Each species of Pokémon share the same base stats that determine the actual stats of a Pokémon at a given level<br><br>Stats determine how much damage they deal and receive (see Battle: Moves). The speed stat determines how fast a Pokemon executes a move<br><br>Individual Values, or IV's, multiply base stats, and can be increased by getting multiple copies of Pokemon<br><br>Depending on their base stats, a Division will be asigned to them. You might use this Division letter to quickly assess which Pokemon can perform better on the short term`}
 }
 
 guide.abilities = {
