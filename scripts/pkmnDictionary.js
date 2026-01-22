@@ -4928,7 +4928,7 @@ pkmn.surskit = {
         spe: 65,
     },
     evolve: function() { return { 1: { pkmn: pkmn.masquerain, level: evolutionLevel1 } } },
-    hiddenAbility: ability.rainDish,
+    hiddenAbility: ability.simple,
     signature : move.quiverDance
 }
 
