@@ -2418,6 +2418,7 @@ pkmn.mrmime = {
 }
 
 pkmn.galarianMrmime = {
+    rename: `galarian mrMime`,
     type: ["ice","psychic"],
     bst: {
         hp: 50,
@@ -7100,7 +7101,7 @@ pkmn.jirachi = {
     lore: `The embodiment of wishing, awakening only once in a thousand years. In those brief moments, it listens to the desires carried in the hearts of others, and its power brings those wishes into reality.`
 }
 
-// 386 Deoxys (Normal Form)
+// 386 Deoxys
 pkmn.deoxys = {
     type: ["psychic"],
     bst: {
@@ -7110,6 +7111,42 @@ pkmn.deoxys = {
         satk: 150,
         sdef: 50,
         spe: 150,
+    }
+}
+
+pkmn.deoxysAttack = {
+    type: ["psychic"],
+    bst: {
+        hp: 50,
+        atk: 180,
+        def: 20,
+        satk: 180,
+        sdef: 20,
+        spe: 150,
+    }
+}
+
+pkmn.deoxysDefense = {
+    type: ["psychic"],
+    bst: {
+        hp: 50,
+        atk: 70,
+        def: 160,
+        satk: 70,
+        sdef: 160,
+        spe: 90,
+    }
+}
+
+pkmn.deoxysSpeed = {
+    type: ["psychic"],
+    bst: {
+        hp: 50,
+        atk: 95,
+        def: 90,
+        satk: 95,
+        sdef: 90,
+        spe: 180,
     }
 }
 
@@ -7469,6 +7506,7 @@ pkmn.bastiodon = {
 
 // 412 Burmy → Wormadam / Mothim
 pkmn.burmy = {
+    rename: `burmy Plant`,
     type: ["bug"],
     bst: {
         hp: 40,
@@ -7478,22 +7516,83 @@ pkmn.burmy = {
         sdef: 45,
         spe: 36,
     },
-    evolve: function() { 
-        return { 
+    evolve: function() {
+        return {
             1: { pkmn: pkmn.wormadam, item: item.leafStone },
             2: { pkmn: pkmn.mothim, item: item.shinyStone }
         } 
     },
 }
 
+pkmn.burmySand = {
+    type: ["bug"],
+    bst: {
+        hp: 40,
+        atk: 29,
+        def: 45,
+        satk: 29,
+        sdef: 45,
+        spe: 36,
+    },
+    evolve: function() {
+        return {
+            1: { pkmn: pkmn.wormadamSand, item: item.oddRock },
+            2: { pkmn: pkmn.mothim, item: item.shinyStone }
+        } 
+    },
+}
+
+pkmn.burmyTrash = {
+    type: ["bug"],
+    bst: {
+        hp: 40,
+        atk: 29,
+        def: 45,
+        satk: 29,
+        sdef: 45,
+        spe: 36,
+    },
+    evolve: function() {
+        return {
+            1: { pkmn: pkmn.wormadamTrash, item: item.metalCoat },
+            2: { pkmn: pkmn.mothim, item: item.shinyStone }
+        } 
+    },
+}
+
 pkmn.wormadam = {
-    type: ["bug","grass"], // default plant cloak; other cloaks pueden cambiar tipo
+    rename: `wormadam Plant`,
+    type: ["bug","grass"],
+    bst: {
+        hp: 60,
+        atk: 79,
+        def: 105,
+        satk: 59,
+        sdef: 85,
+        spe: 36,
+    }
+}
+
+pkmn.wormadamSand = {
+    type: ["bug","ground"],
     bst: {
         hp: 60,
         atk: 59,
         def: 85,
         satk: 79,
         sdef: 105,
+        spe: 36,
+    }
+}
+
+pkmn.wormadamTrash = {
+    type: ["bug","steel"],
+    bst: {
+        hp: 60,
+        atk: 69,
+        def: 95,
+        satk: 69,
+        sdef: 95,
         spe: 36,
     }
 }
@@ -7613,8 +7712,21 @@ pkmn.cherrim = {
     hiddenAbility: ability.drought,
 }
 
+pkmn.cherrimSunshine = {
+    type: ["grass"],
+    bst: {
+        hp: 70,
+        atk: 90,
+        def: 70,
+        satk: 87,
+        sdef: 117,
+        spe: 85,
+    }
+}
+
 // 422 Shellos → Gastrodon
 pkmn.shellos = {
+    rename: `shellos West`,
     type: ["water"],
     bst: {
         hp: 76,
@@ -7628,7 +7740,34 @@ pkmn.shellos = {
     hiddenAbility: ability.sandForce,
 }
 
+pkmn.shellosEast = {
+    type: ["water"],
+    bst: {
+        hp: 76,
+        atk: 48,
+        def: 48,
+        satk: 57,
+        sdef: 62,
+        spe: 34,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.gastrodonEast, level: evolutionLevel2 } } },
+    hiddenAbility: ability.sandForce,
+}
+
 pkmn.gastrodon = {
+    type: ["water","ground"],
+    bst: {
+        hp: 111,
+        atk: 83,
+        def: 68,
+        satk: 92,
+        sdef: 82,
+        spe: 39,
+    },
+    hiddenAbility: ability.sandForce,
+}
+
+pkmn.gastrodonEast = {
     type: ["water","ground"],
     bst: {
         hp: 111,
@@ -8766,7 +8905,7 @@ pkmn.darkrai = {
     lore: `The embodiment of night shadow. From the earliest ages, it has been bound to dreams, drawing forth fear and unrest where its presence lingers. Nightmares follow in its wake, not by intent, but as a reflection of its nature.`
 }
 
-// 492 Shaymin (Land Form)
+// 492 Shaymin
 pkmn.shaymin = {
     type: ["grass"],
     bst: {
@@ -8781,16 +8920,268 @@ pkmn.shaymin = {
     lore: `Shaymin embodies gratitude and the renewal of life. It has moved across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned.`
 }
 
+pkmn.shayminSky = {
+    type: ["grass", "flying"],
+    bst: {
+        hp: 100,
+        atk: 103,
+        def: 75,
+        satk: 120,
+        sdef: 75,
+        spe: 127,
+    },
+    hiddenAbility: ability.verdify,
+    lore: `Shaymin embodies gratitude and the renewal of life. It has moved across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned.`
+}
+
 // 493 Arceus
 pkmn.arceus = {
     type : ["normal"],
     bst: {
-    hp: 160,
-    atk : 160,
-    def: 160,
-    satk : 160,
-    sdef: 160,
-    spe: 160,
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusFighting = {
+    type : ["fighting"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusflying = {
+    type : ["flying"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusPoison = {
+    type : ["poison"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusGround = {
+    type : ["ground"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusRock = {
+    type : ["rock"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusBug = {
+    type : ["bug"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusGhost = {
+    type : ["ghost"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusSteel = {
+    type : ["steel"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusFire = {
+    type : ["fire"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusWater = {
+    type : ["water"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusGrass = {
+    type : ["grass"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusElectric = {
+    type : ["electric"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusPsychic = {
+    type : ["psychic"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusIce = {
+    type : ["ice"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusDragon = {
+    type : ["dragon"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusDark = {
+    type : ["dark"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
+    },
+    signature : move.judgment,
+    lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
+}
+
+pkmn.arceusFairy = {
+    type : ["fairy"],
+    bst: {
+    hp: 120,
+    atk : 120,
+    def: 120,
+    satk : 120,
+    sdef: 120,
+    spe: 120,
     },
     signature : move.judgment,
     lore: `Emerging from nothing, existence was created from its birth, setting the threads of the universe in motion. The pillars that govern reality shaped by its thousand arms, and yet this is only a vessel, one that the mind can tolerate.`
@@ -9609,6 +10000,7 @@ pkmn.hisuianLilligant = {
 
 // 550 Basculin
 pkmn.basculin = {
+  rename: `basculin Red`,
   type: ["water"],
   bst: {
     hp: 70,
@@ -9619,6 +10011,33 @@ pkmn.basculin = {
     spe: 98,
   },
     hiddenAbility: ability.adaptability,
+}
+
+pkmn.basculinBlue = {
+  type: ["water"],
+  bst: {
+    hp: 70,
+    atk: 92,
+    def: 65,
+    satk: 80,
+    sdef: 55,
+    spe: 98,
+  },
+    hiddenAbility: ability.adaptability,
+}
+
+pkmn.basculinWhite = {
+  type: ["water"],
+  bst: {
+    hp: 70,
+    atk: 92,
+    def: 65,
+    satk: 80,
+    sdef: 55,
+    spe: 98,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.basculegion, level: evolutionLevel2 } } },
+  hiddenAbility: ability.adaptability,
 }
 
 // 551 Sandile → Krokorok → Krookodile
@@ -10166,19 +10585,6 @@ pkmn.deerling = {
     hiddenAbility: ability.sereneGrace,
 }
 
-pkmn.sawsbuck = {
-  type: ["normal","grass"],
-  bst: {
-    hp: 80,
-    atk: 100,
-    def: 70,
-    satk: 60,
-    sdef: 70,
-    spe: 95,
-  },
-    hiddenAbility: ability.sereneGrace,
-}
-
 pkmn.deerlingAutumn = {
   type: ["normal","fire"],
   bst: {
@@ -10190,19 +10596,6 @@ pkmn.deerlingAutumn = {
     spe: 75,
   },
   evolve: function() { return { 1: { pkmn: pkmn.sawsbuckAutumn, level: evolutionLevel2 } } },
-    hiddenAbility: ability.sereneGrace,
-}
-
-pkmn.sawsbuckAutumn = {
-  type: ["normal","fire"],
-  bst: {
-    hp: 80,
-    atk: 100,
-    def: 70,
-    satk: 60,
-    sdef: 70,
-    spe: 95,
-  },
     hiddenAbility: ability.sereneGrace,
 }
 
@@ -10220,19 +10613,6 @@ pkmn.deerlingSpring = {
     hiddenAbility: ability.sereneGrace,
 }
 
-pkmn.sawsbuckSpring = {
-  type: ["normal","fairy"],
-  bst: {
-    hp: 80,
-    atk: 100,
-    def: 70,
-    satk: 60,
-    sdef: 70,
-    spe: 95,
-  },
-    hiddenAbility: ability.sereneGrace,
-}
-
 pkmn.deerlingWinter = {
   type: ["normal","ice"],
   bst: {
@@ -10244,6 +10624,45 @@ pkmn.deerlingWinter = {
     spe: 75,
   },
   evolve: function() { return { 1: { pkmn: pkmn.sawsbuckWinter, level: evolutionLevel2 } } },
+    hiddenAbility: ability.sereneGrace,
+}
+
+pkmn.sawsbuck = {
+  type: ["normal","grass"],
+  bst: {
+    hp: 80,
+    atk: 100,
+    def: 70,
+    satk: 60,
+    sdef: 70,
+    spe: 95,
+  },
+    hiddenAbility: ability.sereneGrace,
+}
+
+pkmn.sawsbuckAutumn = {
+  type: ["normal","fire"],
+  bst: {
+    hp: 80,
+    atk: 100,
+    def: 70,
+    satk: 60,
+    sdef: 70,
+    spe: 95,
+  },
+    hiddenAbility: ability.sereneGrace,
+}
+
+pkmn.sawsbuckSpring = {
+  type: ["normal","fairy"],
+  bst: {
+    hp: 80,
+    atk: 100,
+    def: 70,
+    satk: 60,
+    sdef: 70,
+    spe: 95,
+  },
     hiddenAbility: ability.sereneGrace,
 }
 
@@ -11187,6 +11606,18 @@ pkmn.keldeo = {
   },
 }
 
+pkmn.keldeoResolute = {
+  type: ["water","fighting"],
+  bst: {
+    hp: 91,
+    atk: 72,
+    def: 90,
+    satk: 129,
+    sdef: 90,
+    spe: 108,
+  },
+}
+
 // 648 Meloetta
 pkmn.meloetta = {
   type: ["normal","psychic"],
@@ -11202,6 +11633,20 @@ pkmn.meloetta = {
     signature : move.meloetta
 }
 
+pkmn.meloettaPirouette = {
+  type: ["normal","fighting"],
+  bst: {
+    hp: 100,
+    atk: 128,
+    def: 90,
+    satk: 77,
+    sdef: 77,
+    spe: 128,
+  },
+    hiddenAbility: ability.cacophony,
+    signature : move.meloetta
+}
+
 // 649 Genesect
 pkmn.genesect = {
   type: ["bug","steel"],
@@ -11211,7 +11656,59 @@ pkmn.genesect = {
     def: 95,
     satk: 120,
     sdef: 95,
-    spe: 110,
+    spe: 99,
+  },
+    hiddenAbility: ability.megaLauncher,
+}
+
+pkmn.genesectDouse = {
+  type: ["bug","water"],
+  bst: {
+    hp: 71,
+    atk: 120,
+    def: 95,
+    satk: 120,
+    sdef: 95,
+    spe: 99,
+  },
+    hiddenAbility: ability.megaLauncher,
+}
+
+pkmn.genesectShock = {
+  type: ["bug","electric"],
+  bst: {
+    hp: 71,
+    atk: 120,
+    def: 95,
+    satk: 120,
+    sdef: 95,
+    spe: 99,
+  },
+    hiddenAbility: ability.megaLauncher,
+}
+
+pkmn.genesectBurn = {
+  type: ["bug","fire"],
+  bst: {
+    hp: 71,
+    atk: 120,
+    def: 95,
+    satk: 120,
+    sdef: 95,
+    spe: 99,
+  },
+    hiddenAbility: ability.megaLauncher,
+}
+
+pkmn.genesectChill = {
+  type: ["bug","ice"],
+  bst: {
+    hp: 71,
+    atk: 120,
+    def: 95,
+    satk: 120,
+    sdef: 95,
+    spe: 99,
   },
     hiddenAbility: ability.megaLauncher,
 }
@@ -14098,6 +14595,19 @@ pkmn.magearna = {
     signature : move.gearUp
 }
 
+pkmn.magearnaOriginal = {
+    type: ["steel","fairy"],
+    bst: {
+        hp: 80,
+        atk: 95,
+        def: 115,
+        satk: 130,
+        sdef: 115,
+        spe: 65,
+    },
+    signature : move.gearUp
+}
+
 // 802 Marshadow
 pkmn.marshadow = {
     type: ["fighting","ghost"],
@@ -15369,11 +15879,29 @@ pkmn.kubfu = {
     sdef: 50,
     spe: 72,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.urshifu, level: evolutionLevel3 } } },
+  evolve: function() {
+    return {
+      1: { pkmn: pkmn.urshifu, item: item.blackBelt },
+      2: { pkmn: pkmn.urshifuRapid, item: item.waterStone },
+    }
+  }
 }
 
 pkmn.urshifu = {
+  rename: `urshifu Single`,
   type: ["fighting","dark"],
+  bst: {
+    hp: 100,
+    atk: 130,
+    def: 100,
+    satk: 63,
+    sdef: 60,
+    spe: 97,
+  },
+}
+
+pkmn.urshifuRapid = {
+  type: ["fighting","water"],
   bst: {
     hp: 100,
     atk: 130,
@@ -15386,6 +15914,18 @@ pkmn.urshifu = {
 
 // 893 Zarude
 pkmn.zarude = {
+  type: ["dark","grass"],
+  bst: {
+    hp: 105,
+    atk: 120,
+    def: 105,
+    satk: 70,
+    sdef: 95,
+    spe: 105,
+  },
+}
+
+pkmn.zarudeDada = {
   type: ["dark","grass"],
   bst: {
     hp: 105,
@@ -15488,6 +16028,7 @@ pkmn.calyrexShadow = {
 
 // 903 Sneasler
 pkmn.hisuianSneasler = {
+    rename: `sneasler`,
     type: ["fighting", "poison"],
     bst: {
         hp: 70,
@@ -16460,6 +17001,31 @@ pkmn.dondozo = {
 
 // 978 Tatsugiri
 pkmn.tatsugiri = {
+  rename: `tatsugiri Curly`,
+  type: ["dragon", "water"],
+  bst: {
+    hp: 68,
+    atk: 50,
+    def: 60,
+    satk: 120,
+    sdef: 95,
+    spe: 82,
+  }
+}
+
+pkmn.tatsugiriDroopy = {
+  type: ["dragon", "water"],
+  bst: {
+    hp: 68,
+    atk: 50,
+    def: 60,
+    satk: 120,
+    sdef: 95,
+    spe: 82,
+  }
+}
+
+pkmn.tatsugiriStretchy = {
   type: ["dragon", "water"],
   bst: {
     hp: 68,
@@ -16514,6 +17080,18 @@ pkmn.farigiraf = {
 
 // 982 Dudunsparce
 pkmn.dudunsparce = {
+  type: ["normal"],
+  bst: {
+    hp: 125,
+    atk: 100,
+    def: 80,
+    satk: 85,
+    sdef: 75,
+    spe: 55,
+  }
+}
+
+pkmn.dudunsparceThree = {
   type: ["normal"],
   bst: {
     hp: 125,
