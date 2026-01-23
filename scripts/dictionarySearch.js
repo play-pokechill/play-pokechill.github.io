@@ -12,8 +12,11 @@ const dictionaryItems = []
 
 document.getElementById("dictionary-search").addEventListener("keydown", e => {
   if (e.key === "Enter") {
+
     let searchValue = document.getElementById("dictionary-search").value.trim()
     document.getElementById("dictionary-search").blur()
+
+    if (searchValue == "SHOWMEYOURSECRETS") secretFight(areas.studioA.id)
     
     if (searchValue === "") {
       searchedDictionary = []

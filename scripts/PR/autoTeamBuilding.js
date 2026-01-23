@@ -10,11 +10,24 @@
 
 
 
-//PR-EDIT------------------------------------
 function openAutoTeam(){
     document.getElementById("tooltipTop").style.display = "none"
     document.getElementById("tooltipTitle").innerHTML = "Team Auto-Build"
 
+    const currentTeam = saved.previewTeams[saved.currentPreviewTeam]
+    let itemCheckboxesHTML = ''
+    for (let i = 1; i <= 6; i++) {
+        const slotKey = `slot${i}`
+
+        //PR-EDIT
+        const itemName = currentTeam[slotKey].item || 'No item'
+        if (itemName == "No item") continue
+        itemCheckboxesHTML += `
+              <label style="display:flex; align-items:center; gap:.5rem; font-size:0.9rem;">
+                <input id="settings-auto-team-lock-item-${i}" type="checkbox" />
+                Lock ${format(itemName)} (Slot ${i})
+              </label>`
+    }
 
     document.getElementById("tooltipMid").innerHTML = `Select your preference for the team (Your current team will be replaced by it)`
     document.getElementById("tooltipBottom").innerHTML = `
@@ -33,6 +46,8 @@ function openAutoTeam(){
                 step="5"
                 value="50"
               />
+
+              ${itemCheckboxesHTML}
     </div>
 
     <div onClick = '
@@ -46,9 +61,7 @@ function openAutoTeam(){
     
     ` 
 
-    
-    document.getElementById("settings-auto-team-bias").value = 50
-  
+    setAutoTeamBiasFromPercent(50)
 
     openTooltip()
 }
@@ -68,24 +81,6 @@ function setAutoTeamBiasFromPercent(pct){
   const label = document.getElementById("settings-auto-team-label");
   if (label) label.textContent = `Offense ${Math.round(off*100)}% / Defense ${Math.round(def*100)}%`;
 }
-
-
-/* - not needed PR-EDIT
-function initAutoTeamBiasSlider(){
-  const slider = document.getElementById("settings-auto-team-bias");
-  if (!slider) return
-
-  const currentOffPct = Math.round((window.autoTeamWeights?.offense ?? 0.6) * 100);
-  slider.value = String(currentOffPct);
-  setAutoTeamBiasFromPercent(currentOffPct);
-  console.log(currentOffPct)
-
-  slider.addEventListener("input", (e) => {
-    setAutoTeamBiasFromPercent(Number(e.target.value))
-  })
-}*/
-
-
 
 let autoTeamWeights = { offense: 0.6, defense: 0.4 } // scoring weights, bias slightly toward offense
 window.autoTeamWeights = autoTeamWeights;
@@ -322,13 +317,14 @@ function autoBuildTeam() {
   for (let i = 1; i <= 6; i++) {
     const slotKey = `slot${i}`
     const newPkmn = optimizedTeam[i - 1]
+    const lockThisItem = document.getElementById(`settings-auto-team-lock-item-${i}`)?.checked === true
 
     if (newPkmn) {
-      if (currentTeam[slotKey].pkmn !== newPkmn) currentTeam[slotKey].item = undefined
       currentTeam[slotKey].pkmn = newPkmn
+      if (!lockThisItem) currentTeam[slotKey].item = undefined
     } else {
       currentTeam[slotKey].pkmn = undefined
-      currentTeam[slotKey].item = undefined
+      if (!lockThisItem) currentTeam[slotKey].item = undefined
     }
   }
 

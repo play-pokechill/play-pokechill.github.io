@@ -4578,10 +4578,11 @@ areas.frontierSpiralingTower = {
 
 
 
-//you can access this ingame through other means
 
-function fightMissing(){
-     saved.currentAreaBuffer = areas.missingArea.id;
+
+function secretFight(area){
+    closeTooltip()
+     saved.currentAreaBuffer = area;
      document.getElementById("preview-team-exit").style.display = "flex";
      document.getElementById("team-menu").style.zIndex = "50";
      document.getElementById("team-menu").style.display = "flex";
@@ -4589,6 +4590,7 @@ function fightMissing(){
      updatePreviewTeam(); afkSeconds = 0;
      document.getElementById("explore-menu").style.display = "none"
      document.getElementById("settings-menu").style.display = "none"
+     document.getElementById("dictionary-menu").style.display = "none"
 }
 
 areas.missingArea = {
@@ -4602,6 +4604,19 @@ areas.missingArea = {
         slot1Moves : [move.agility.id,move.triAttack.id, move.thunderWave.id, move.fly.id],
     },
     reward : [pkmn.missingno],
+}
+
+areas.studioA = {
+    background : `mall`,
+    trainer: true,
+    encounter: true,
+    difficulty: tier4difficulty,
+    level : 100,
+    team : {
+        slot1 : pkmn.f00,
+        slot1Moves : [move.thunderWave.id,move.nastyPlot.id, move.thunder.id, move.iceBeam.id],
+    },
+    reward : [pkmn.f00],
 }
 
 

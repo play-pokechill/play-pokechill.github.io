@@ -161,7 +161,7 @@ function updateGameVersion() {
 
 
 
-  saved.version = 2.7
+  saved.version = 2.8
   document.getElementById(`game-version`).innerHTML = `v${saved.version}`
 }
 
@@ -422,7 +422,7 @@ function learnPkmnMove(id, level, mod) {
 
 
 
-function learnPkmnMove(id, level, mod) {
+function learnPkmnMove(id, level, mod, exclude = []) {
     let attempts = 0;
     const MAX_ATTEMPTS = 100;
     while (attempts++ < MAX_ATTEMPTS) {
@@ -481,6 +481,9 @@ function learnPkmnMove(id, level, mod) {
         }
         
         const chosenMove = chosenList[Math.floor(Math.random() * chosenList.length)];
+
+        if (exclude.includes(move[chosenMove].id)) continue; // prevents dupes for trainers
+
         return move[chosenMove].id;
     }
     return undefined;

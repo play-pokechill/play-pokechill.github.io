@@ -76,25 +76,6 @@ function format(input) {
         .replace(/Mega /gi, 'M. ');
 }
 
-/*function arrayPick(array, n = 1, seed) {
-    if (!Array.isArray(array) || array.length === 0) return [];
-    const rng = dailySeed+seed
-
-    // use n to determine max pick
-    const count = Math.min(n, array.length);
-
-    const pool = [...array];
-    const picks = [];
-
-    for (let i = 0; i < count; i++) {
-        const index = Math.floor(Math.random() * pool.length);
-        picks.push(pool[index]);
-        pool.splice(index, 1); // prevents repetition
-    }
-
-    return n === 1 ? picks[0] : picks;
-}*/
-
 function arrayPick(array, n = 1, seed) {
   if (!Array.isArray(array) || array.length === 0) return [];
 
@@ -4800,6 +4781,23 @@ function switchMenu(id){
     } 
 
 
+    /*
+
+    //document.getElementById(`custom-challenges-menu`).style.zIndex = "30"
+
+
+    if (id==="custom-challenges") {
+        if (saved.currentArea!==undefined) {openMenu(); return; }
+        document.getElementById(`custom-challenges-menu`).style.display = "flex"
+        document.getElementById(`custom-challenges-menu`).style.zIndex = "40"
+        if (typeof updateCustomChallenges === "function") updateCustomChallenges()
+    }
+
+    if (id!=="custom-challenges") document.getElementById(`custom-challenges-menu`).style.display = "none"    
+
+
+    */
+
     if (id!=="items") document.getElementById(`item-menu`).style.display = "none"
     if (id!=="dex") document.getElementById(`pokedex-menu`).style.display = "none"
     if (id!=="travel") document.getElementById(`explore-menu`).style.display = "none"    
@@ -4811,7 +4809,6 @@ function switchMenu(id){
     if (id!=="genetics") document.getElementById(`genetics-menu`).style.display = "none"    
     if (id!=="shop") document.getElementById(`shop-menu`).style.display = "none"    
     if (id!=="training") document.getElementById(`training-menu`).style.display = "none"    
-    if (id!=="dictionary") document.getElementById(`dictionary-menu`).style.display = "none"    
 
 
     openMenu()
@@ -5131,6 +5128,8 @@ function resetSpiralingTower(){
    
 }
 
+/*
+
 function createFrontierTrainers(){
 
     if (saved.lastFrontierRotation == rotationWildCurrent) return
@@ -5239,6 +5238,127 @@ for (const i in areas) {
 
     
 }
+
+*/
+
+
+
+
+
+
+function createFrontierTrainers(){ //fix by enyxiel
+
+    if (saved.lastFrontierRotation == rotationWildCurrent) return
+    if (saved.lastFrontierRotation != rotationWildCurrent) { saved.lastFrontierRotation = rotationWildCurrent }
+
+
+const trainers = [];
+
+for (const i in areas) {  
+  if (areas[i].type !== "frontier") continue;
+  areas[i].tier = undefined
+  areas[i].team = undefined
+  areas[i].defeated = undefined
+  areas[i].difficulty = undefined
+  areas[i].reward = undefined
+  areas[i].level = undefined
+}
+
+for (const i in areas) {  
+  if (areas[i].type !== "frontier") continue;
+  if (areas[i].league !== rotationFrontierCurrent) continue;
+  trainers.push(areas[i]);
+}
+
+for (let i = trainers.length - 1; i > 0; i--) {
+  const j = Math.floor(Math.random() * (i + 1));
+  [trainers[i], trainers[j]] = [trainers[j], trainers[i]];
+}
+
+trainers.slice(0, 4).forEach((area, index) => {
+  area.tier = index + 1;
+});
+
+
+for (const i in areas) {
+  if (areas[i].type !== "frontier") continue;
+  if (areas[i].tier == undefined) continue;
+
+  areas[i].background = "tower"
+
+  if (areas[i].tier==1) areas[i].level = 100
+  if (areas[i].tier==2) areas[i].level = 120
+  if (areas[i].tier==3) areas[i].level = 130
+  if (areas[i].tier==4) areas[i].level = 150
+
+  if (areas[i].tier==1) areas[i].difficulty = 8
+  if (areas[i].tier==2) areas[i].difficulty = 10
+  if (areas[i].tier==3) areas[i].difficulty = 15
+  if (areas[i].tier==4) areas[i].difficulty = 20
+
+  if (areas[i].tier==1) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==2) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==3) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+  if (areas[i].tier==4) areas[i].reward = [item.goldenBottleCap, arrayPick(exclusiveFrontierPkmn)]
+
+  let divisionToUse = "C"
+  if (rotationFrontierCurrent == 2) divisionToUse = "B"
+  if (rotationFrontierCurrent == 3) divisionToUse = "A"
+  if (rotationFrontierCurrent == 4) divisionToUse = "S"
+
+  let pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
+  let pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id])]
+  let pkmn3 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id])]
+  let pkmn4 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id, pkmn3?.id])]
+  let pkmn5 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id, pkmn3?.id, pkmn4?.id])]
+  let pkmn6 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1?.id, pkmn2?.id, pkmn3?.id, pkmn4?.id, pkmn5?.id])]
+
+
+  if (rotationFrontierCurrent == 3) divisionToUse = "B"
+  if (rotationFrontierCurrent == 4) divisionToUse = "A"
+
+  if (pkmn1 == undefined) pkmn1 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing)]
+  if (pkmn2 == undefined) pkmn2 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1])]
+  if (pkmn3 == undefined) pkmn3 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2])]
+  if (pkmn4 == undefined) pkmn4 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3])]
+  if (pkmn5 == undefined) pkmn5 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4])]
+  if (pkmn6 == undefined) pkmn6 = pkmn[randomDivisionPkmn(divisionToUse, areas[i].typing, [pkmn1, pkmn2, pkmn3, pkmn4, pkmn5])]
+
+
+ areas[i].team = {}
+  areas[i].team.slot1 = pkmn1
+  areas[i].team.slot1Moves = generateMoves(pkmn1.id);
+  areas[i].team.slot2 = pkmn2;
+  areas[i].team.slot2Moves = generateMoves(pkmn2.id);
+  areas[i].team.slot3 = pkmn3;
+  areas[i].team.slot3Moves = generateMoves(pkmn3.id);
+  areas[i].team.slot4 = pkmn4;
+  areas[i].team.slot4Moves = generateMoves(pkmn4.id);
+  areas[i].team.slot5 = pkmn5;
+  areas[i].team.slot5Moves = generateMoves(pkmn5.id);
+  areas[i].team.slot6 = pkmn6;
+  areas[i].team.slot6Moves = generateMoves(pkmn6.id);
+
+
+
+}
+
+}
+
+function generateMoves(id) {
+    const moves = [];
+    for (let j = 0; j < 4; j++) {
+        moves.push(learnPkmnMove(id, 100, "wild", moves));
+    }
+    return moves;
+}    
+
+
+
+
+
+
+
 
 /*function randomDivisionPkmn(division, type, exclude) {
     const selection = []
@@ -6117,6 +6237,8 @@ function assignPokerus(){
     const pickCount = Math.max(1, Math.floor(eligiblePokemon.length / 100));
 
     const selectedPokemon= arrayPick(eligiblePokemon, pickCount)
+
+    if (selectedPokemon.length==0) return
 
     for (const i of selectedPokemon) {pkmn[i].pokerus = true; pkmn[i].tagPokerus = `pokerus`}
 

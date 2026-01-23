@@ -772,6 +772,22 @@ function updatePreviewTeam(){
                 document.getElementById(`team-menu`).style.display = "none"
             })
 
+
+
+            // Event listeners para touch (Mobile)
+            document.getElementById(`team-${i}-held-item`).addEventListener('touchstart', handleTouchStart, { passive: false });
+            document.getElementById(`team-${i}-held-item`).addEventListener('touchmove', handleTouchMove, { passive: false });
+            document.getElementById(`team-${i}-held-item`).addEventListener('touchend', handleTouchEnd);
+
+            // Event listeners para drag & drop nativo (Desktop)
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragstart', handleDragStart);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragover', handleDragOver);
+            document.getElementById(`team-${i}-held-item`).addEventListener('drop', handleDrop);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragend', handleDragEnd);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragenter', handleDragEnter);
+            document.getElementById(`team-${i}-held-item`).addEventListener('dragleave', handleDragLeave);
+
+
             //create moves in the team slots
             for (const e in pkmn[currentTeam[i].pkmn].moves) {
                 let moveId = pkmn[currentTeam[i].pkmn].moves[e]
@@ -851,14 +867,20 @@ function handleDragLeave(e) {
 
 function handleDrop(e) {
     if (e.stopPropagation) {
-        e.stopPropagation(); // Prevenir que el navegador abra el contenido
+        e.stopPropagation(); //prevent browswer from opening the content
     }
     
     const targetSlot = this.dataset.slot;
-    
-    // Solo intercambiar si es un slot diferente
+    const targetItemSlot = this.offsetParent.dataset.slot;
+
+    // only swap if different slot
     if (draggedSlot !== targetSlot) {
-        swapTeamSlots(draggedSlot, targetSlot);
+// it's an item swap if targetSlot is undef
+        if (!targetSlot && targetItemSlot) {
+            swapItemSlots(draggedSlot, targetItemSlot);
+        } else {
+            swapTeamSlots(draggedSlot, targetSlot);
+        }
     }
     
     this.classList.remove('drag-over');
@@ -866,21 +888,23 @@ function handleDrop(e) {
 }
 
 function handleDragEnd(e) {
-    // Restaurar opacidad del elemento arrastrado
     this.style.opacity = '';
     
-    // Remover clase drag-over de todos los elementos
+    // remove drag-over class
     document.querySelectorAll('.explore-team-member').forEach(el => {
         el.classList.remove('drag-over');
     });
 }
 
-// ========== FUNCIONES TOUCH (MOBILE) ==========
+// ========== TOUCH (MOBILE) ==========
 
 function handleTouchStart(e) {
     // No iniciar drag si se toca el item holder
-    if (e.target.closest('.team-held-item')) return;
-    
+    if (e.target.closest('.team-held-item')) {
+        touchDragElement = e.target.closest('.team-held-item');
+    } else {
+        touchDragElement = this;
+    }    
     touchDragElement = this;
     draggedSlot = this.dataset.slot;
     isTouchDragging = false;
@@ -890,17 +914,15 @@ function handleTouchStart(e) {
     touchStartX = touch.clientX;
     touchStartY = touch.clientY;
     
-    // Iniciar timeout de 500ms para activar el drag
     touchHoldTimeout = setTimeout(() => {
         canStartDrag = true;
-        // Feedback háptico si está disponible
+        // haptic feedback if available
         if (navigator.vibrate) {
             navigator.vibrate(50);
         }
-        // Feedback visual: escalar un poco el elemento
         touchDragElement.style.transform = 'scale(1.02)';
         touchDragElement.style.transition = 'transform 0.1s';
-    }, 500);
+    }, 250);
 }
 
 function handleTouchMove(e) {
@@ -940,8 +962,9 @@ function handleTouchMove(e) {
     
     // Mover el ghost
     if (ghostElement) {
-        ghostElement.style.left = touch.clientX - (ghostElement.offsetWidth / 2) + 'px';
-        ghostElement.style.top = touch.clientY - (ghostElement.offsetHeight / 2) + 'px';
+       // if dragging item, don't apply style offset
+        ghostElement.style.left = touch.clientX - (ghostElement.className === 'team-held-item' ? 0 : ghostElement.offsetWidth / 2) + 'px';
+        ghostElement.style.top = touch.clientY - (ghostElement.className === 'team-held-item' ? 0 : ghostElement.offsetHeight / 2) + 'px';
     }
     
     // Detectar sobre qué elemento estamos
@@ -983,7 +1006,13 @@ function handleTouchEnd(e) {
     
     if (targetElement && targetElement !== touchDragElement) {
         const targetSlot = targetElement.dataset.slot;
-        swapTeamSlots(draggedSlot, targetSlot);
+        const isDraggedItem = this.className === 'team-held-item';
+
+        if (isDraggedItem) {
+            swapItemSlots(draggedSlot, targetSlot);
+        } else {
+            swapTeamSlots(draggedSlot, targetSlot);
+        }
     }
     
     // Limpiar
@@ -1026,12 +1055,19 @@ function createGhostElement(element, x, y) {
 function swapTeamSlots(slot1, slot2) {
     const currentTeam = saved.previewTeams[saved.currentPreviewTeam];
     
-    // Intercambiar los pokémon
     const temp = currentTeam[slot1];
     currentTeam[slot1] = currentTeam[slot2];
     currentTeam[slot2] = temp;
-    
-    // Actualizar la vista
+    updatePreviewTeam();
+}
+
+
+function swapItemSlots(slot1, slot2) {
+    const currentTeam = saved.previewTeams[saved.currentPreviewTeam];
+
+    const temp = currentTeam[slot1].item;
+    currentTeam[slot1].item = currentTeam?.[slot2]?.item;
+    currentTeam[slot2].item = temp;
     updatePreviewTeam();
 }
 

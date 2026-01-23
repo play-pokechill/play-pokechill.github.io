@@ -473,7 +473,7 @@
             <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
         document.getElementById("tooltipMid").style.display = `none`
-        document.getElementById("tooltipBottom").innerHTML = `Made by <span onclick="fightMissing()">Duck</span><br><br>Pokemon and trainer sprites by Pokemon Showdown (Including artists: Beliot419, kyledove, Gnomowladny, Brumirage and ZacWeavile. Go check their work. Now.)<br><br>Gen 9 sprites by KingOfThe-X-Roads<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
+        document.getElementById("tooltipBottom").innerHTML = `Made by <span onclick="secretFight(areas.missingArea.id)">Duck</span><br><br>Pokemon and trainer sprites by Pokemon Showdown (Including artists: Beliot419, kyledove, Gnomowladny, Brumirage and ZacWeavile. Go check their work. Now.)<br><br>Gen 9 sprites by KingOfThe-X-Roads<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
         openTooltip()' >Credits</div>
             <div onclick="window.open('https://discord.gg/VnukKfSs3S', '_blank')">Discord</div>
 
@@ -869,6 +869,79 @@ Game Guide
        </div>
 
 
+
+
+
+
+
+
+
+
+
+
+       <!--
+
+    <div id="custom-challenges-menu" style="display: none;">
+
+        <div id="custom-challenges-header">
+            <div style="display:flex; gap:0.2rem">
+                <span id="custom-challenges-title">Challenges</span>
+                <span id="custom-challenges-help" class="header-help" data-help="Main Challenges"><svg style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+            </div>
+
+        </div>
+
+        <div class="explore-menu-selector" id="custom-challenges-selector">
+            <div id="custom-challenges-tab-main-button" onclick="setChallengesTab('main')">Challenges</div>
+            <div id="custom-challenges-tab-custom-button" onclick="setChallengesTab('custom')">Custom Challenges</div>
+        </div>
+
+        <div id="custom-challenges-tab-main" class="custom-challenges-tab">
+            <div id="main-challenges-list" class="challenges-list"></div>
+        </div>
+
+        <div id="custom-challenges-tab-custom" class="custom-challenges-tab">
+            <div id="custom-challenges-controls">
+                <div id="custom-challenge-new" class="custom-challenge-button custom-challenge-primary">New Challenge</div>
+                <div id="custom-challenge-import" class="custom-challenge-button custom-challenge-secondary">Import</div>
+            </div>
+
+            <div id="custom-challenges-list" class="challenges-list"></div>
+
+            <div id="custom-challenge-editor" style="display: none;">
+                <div class="custom-challenge-field">
+                    <label for="custom-challenge-title">Title</label>
+                    <input id="custom-challenge-title" type="text" maxlength="30" placeholder="Custom Challenge">
+                </div>
+                <div class="custom-challenge-field">
+                    <label for="custom-challenge-notes">Notes</label>
+                    <input id="custom-challenge-notes" type="text" maxlength="60" placeholder="Optional description">
+                </div>
+                <div class="custom-challenge-field">
+                    <label for="custom-challenge-text">Challenge Text</label>
+                    <textarea id="custom-challenge-text"></textarea>
+                </div>
+                <div id="custom-challenge-preview"></div>
+                <div id="custom-challenge-error"></div>
+                <div class="custom-challenge-actions">
+                    <div id="custom-challenge-save" class="custom-challenge-button custom-challenge-primary">Save Challenge</div>
+                    <div id="custom-challenge-cancel" class="custom-challenge-button custom-challenge-secondary">Cancel</div>
+                </div>
+            </div>
+        </div>
+
+       </div>
+
+       -->
+
+
+
+
+
+
+
+
+
     <div id="explore-menu" style="display: none;">
 
         
@@ -1164,6 +1237,7 @@ Game Guide
             </div>
 
 
+
         </div>
     </div>
 
@@ -1214,12 +1288,19 @@ Game Guide
             <span>Training</span>
         </div>
 
+        <!--
+
+        <div class="menu-item" id="menu-item-custom-challenges" onClick="switchMenu('custom-challenges')">
+            <img src="img/items/endorsement.png">
+            <span>Challenges</span>
+        </div>
+
+        -->
+
         <div class="menu-item" id="menu-item-genetics" onClick="switchMenu('genetics')">
             <img src="img/items/dnaSplicer.png">
             <span>Genetics</span>
         </div>
-
-
 
         <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
             <img src="img/items/gift.png">
@@ -1381,13 +1462,16 @@ Game Guide
     <script src="scripts/pkmnDictionary.js"></script>
     <script src="scripts/areasDictionary.js"></script>
 
-
-
-    
     <script src="scripts/PR/autoTeamBuilding.js"></script>
     <script src="scripts/PR/movesetGenerator.js"></script>
+    <script src="scripts/PR/teamDuplicate.js"></script>
+    <script src="scripts/PR/updateCheck.js"></script>
+    
 
-
+    <!--
+    <script src="scripts/PR/challengesDictionary.js"></script>
+    <script src="scripts/PR/challenges.js"></script>
+    -->
 
 
 

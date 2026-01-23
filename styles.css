@@ -4881,7 +4881,396 @@ transform: translateY(-1rem);
 
 
 
+.auto-build-confirm,
+.duplicate-build-confirm{
+    border-radius: 0.2rem;
+    background: var(--light1);
+    color: white;
+    margin-top: 0rem;
+    transition: 0.1s;
+}
+.auto-build-confirm{
+    margin-top: 1rem;
+}
 
+#pokedex-filters-remove, #pokedex-filters-cancel{
+    cursor: pointer;
+}
+
+.auto-build-confirm:hover{
+.auto-build-confirm:hover,
+.duplicate-build-confirm:hover{
+    filter: brightness(1.1);
+}
+}
+
+#team-duplicate-target{
+    text-align: center;
+    background: var(--dark2);
+    color: white;
+    font-size: 1rem;
+}
+
+
+
+#tooltipActions{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+
+
+
+#custom-challenges-menu{
+    position: fixed;
+    height: 100%;
+    width: 50%;
+    background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='white' fill-opacity='0.03'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E")
+    ,
+    var(--dark1);
+    overflow: scroll;
+    overflow-x: hidden;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 3rem;
+}
+
+
+@media (max-width: 1000px) {
+    #custom-challenges-menu {
+        width: 100%;
+    }
+}
+
+
+
+#custom-challenges-header{
+    height: 6.5rem;
+    width: 100%;
+    background-image: url(img/bg/tower.png);
+    background-size: cover;
+    background-position: bottom;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+    margin-bottom: 1rem;
+    padding: 0.4rem 2%;
+    border-radius: 0 0 0.5rem 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 4px 4px 0;
+}
+
+#custom-challenges-header > div{
+    justify-content: flex-end;
+}
+
+#custom-challenges-header span{
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: rgba(255, 255, 255, 0.7) 1px solid;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
+    padding: 1.3rem 1rem;
+}
+
+#custom-challenges-header span svg{
+    height: 2rem;
+    width: 2rem;
+}
+
+#custom-challenges-controls{
+    width: 95%;
+    gap: 1rem;
+    display: flex;
+}
+
+.challenges-list{
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.custom-challenge-card{
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    color: white;
+    position: relative;
+}
+
+.custom-challenge-card-icons{
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.4rem;
+}
+
+.custom-challenge-card-icon{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark2);
+    color: var(--light2);
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.custom-challenge-card-icon.danger{
+    background: rgba(189, 78, 63, 0.65);
+    color: white;
+}
+
+.custom-challenges-tab{
+    display: none;
+    flex-direction: column;
+    margin-top: 1rem;
+    gap: 0.8rem;
+    width: 100%;
+    align-items: center;
+}
+
+
+.custom-challenge-card-title{
+    font-size: 1.3rem;
+    font-weight: 200;
+}
+
+.custom-challenge-card-teams{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+.custom-challenge-card-reward{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.custom-challenge-reward-items{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.custom-challenge-reward-item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 0.4rem;
+    cursor: help;
+}
+
+.custom-challenge-reward-item img{
+    width: 1.8rem;
+    height: 1.8rem;
+    image-rendering: pixelated;
+}
+
+.custom-challenge-card-actions{
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.custom-challenge-button{
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.3rem;
+    flex: 1;
+    cursor: pointer;
+    transition: 0.1s;
+    color: white;
+    pointer-events: auto;
+    background: var(--light1);
+}
+.custom-challenge-button:active{
+    scale: 0.9;
+}
+
+.custom-challenge-danger{
+    background: rgb(189, 78, 63);
+    color: white;
+}
+
+#custom-challenge-editor{
+    width: 95%;
+    margin-top: 1rem;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    color: white;
+}
+
+#custom-challenges-list #custom-challenge-editor{
+  width: 100%;
+}
+
+.custom-challenge-field{
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.custom-challenge-field label{
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+#custom-challenge-title,
+#custom-challenge-notes,
+#custom-challenge-text{
+    border-radius: 0.4rem;
+    border: none;
+    padding: 0.5rem;
+}
+
+#custom-challenge-text{
+    resize: vertical;
+}
+
+#custom-challenge-text{
+    min-height: 20rem;
+    font-family: inherit;
+}
+
+.custom-challenge-actions{
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+#custom-challenge-preview{
+    font-size: 0.95rem;
+    opacity: 0.85;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+#custom-challenge-error{
+    color: #ff9e9e;
+    font-size: 0.95rem;
+}
+
+#custom-challenge-selection-count{
+    font-size: 1rem;
+    font-weight: 200;
+}
+
+.custom-challenge-select-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+}
+
+.custom-challenge-select-card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.6rem 0.4rem;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.6rem;
+    color: white;
+    cursor: pointer;
+    transition: 0.15s;
+    text-align: center;
+    min-height: 12rem;
+}
+
+.custom-challenge-select-card:hover{
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+.custom-challenge-select-card.selected{
+    background: rgba(86, 126, 116, 0.75);
+    border-color: rgba(151, 255, 221, 0.8);
+    box-shadow: 0 0 0 2px rgba(151, 255, 221, 0.4);
+}
+
+.custom-challenge-item-icon{
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.8));
+}
+
+.custom-challenge-select-sprite{
+    width: 64px;
+    height: 64px;
+    image-rendering: pixelated;
+}
+
+.custom-challenge-select-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    width: 100%;
+    font-size: 0.8rem;
+}
+
+.custom-challenge-select-name{
+    font-size: 0.95rem;
+    font-weight: 200;
+    margin-bottom: 0.1rem;
+}
+
+.custom-challenge-select-level{
+    color: #ffd700;
+    font-size: 0.85rem;
+}
+
+.custom-challenge-select-ability{
+    color: #c8a2ff;
+    font-size: 0.75rem;
+}
+
+.custom-challenge-select-ivs{
+    color: #87ceeb;
+    font-size: 0.7rem;
+    line-height: 1.2;
+}
+
+.custom-challenge-select-moves{
+    color: #98fb98;
+    font-size: 0.75rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
 
 
 
