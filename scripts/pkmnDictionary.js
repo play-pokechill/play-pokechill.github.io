@@ -2829,7 +2829,7 @@ pkmn.omastar = {
     hiddenAbility: ability.swiftSwim,
 }
 
-// 141 Kabuto → Kabutops
+// 140 Kabuto → Kabutops
 pkmn.kabuto = {
     type: ["rock","water"],
     bst: {
@@ -3449,6 +3449,32 @@ pkmn.togetic = {
   evolve: function() { return { 1: { pkmn: pkmn.togekiss, item: item.shinyStone /*o equivalente*/ } } },
     hiddenAbility: ability.sereneGrace,
     signature : move.metronome
+}
+
+// 177 Natu → Xatu
+pkmn.natu = {
+    type: ["psychic", "flying"],
+    bst: {
+        hp: 40,
+        atk: 50,
+        def: 45,
+        satk: 70,
+        sdef: 45,
+        spe: 70,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.xatu, level: evolutionLevel2 } } }
+}
+
+pkmn.xatu = {
+    type: ["psychic","flying"],
+    bst: {
+        hp: 65,
+        atk: 75,
+        def: 70,
+        satk: 95,
+        sdef: 70,
+        spe: 95,
+    }
 }
 
 // 179 Mareep → Flaafy → Ampharos
@@ -4936,6 +4962,32 @@ pkmn.megaTyranitar = {
     hiddenAbility: ability.sandStream,
 }
 
+// 249 Lugia
+pkmn.lugia = {
+    type: ["psychic","flying"],
+    bst: {
+        hp: 106,
+        atk: 90,
+        def: 130,
+        satk: 90,
+        sdef: 154,
+        spe: 110,
+    }
+}
+
+// 250 Ho-oh
+pkmn.hooh = {
+    type: ["fire","flying"],
+    bst: {
+        hp: 106,
+        atk: 130,
+        def: 90,
+        satk: 110,
+        sdef: 154,
+        spe: 90,
+    }
+}
+
 // 251 Celebi
 pkmn.celebi = {
     type: ["psychic","grass"],
@@ -5721,6 +5773,20 @@ pkmn.azurill = {
     hiddenAbility: ability.hugePower,
 }
 
+// 299 Nosepass
+pkmn.nosepass = {
+    type: ["rock"],
+    bst: {
+        hp: 30,
+        atk: 45,
+        def: 135,
+        satk: 45,
+        sdef: 90,
+        spe: 300,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.probopass, item: item.thunderStone } } }
+}
+
 // 300 Skitty → Delcatty
 pkmn.skitty = {
     type: ["normal"],
@@ -6155,6 +6221,32 @@ pkmn.torkoal = {
     hiddenAbility: ability.drought,
 }
 
+// 325 Spoink → Grumpig
+pkmn.spoink = {
+    type: ["psychic"],
+    bst: {
+        hp: 60,
+        atk: 25,
+        def: 35,
+        satk: 70,
+        sdef: 80,
+        spe: 60,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.grumpig, level: evolutionLevel2 } } },
+}
+
+pkmn.grumpig = {
+    type: ["psychic"],
+    bst: {
+        hp: 80,
+        atk: 45,
+        def: 65,
+        satk: 90,
+        sdef: 110,
+        spe: 80,
+    }
+}
+
 // 327 Spinda
 pkmn.spinda = {
     type: ["normal"],
@@ -6443,6 +6535,32 @@ pkmn.cradily = {
     }
 }
 
+// 347 Anorith → Armaldo
+pkmn.anorith = {
+    type: ["rock","bug"],
+    bst: {
+        hp: 45,
+        atk: 95,
+        def: 50,
+        satk: 40,
+        sdef: 50,
+        spe: 75,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.armaldo, level: evolutionLevel3 } } },
+}
+
+pkmn.armaldo = {
+    type: ["rock","bug"],
+    bst: {
+        hp: 75,
+        atk: 125,
+        def: 100,
+        satk: 70,
+        sdef: 80,
+        spe: 45,
+    }
+}
+
 // 349 Feebas → Milotic
 pkmn.feebas = {
     type: ["water"],
@@ -6474,6 +6592,45 @@ pkmn.milotic = {
 // 351 Castform
 pkmn.castform = {
     type: ["normal"],
+    bst: {
+        hp: 70,
+        atk: 70,
+        def: 70,
+        satk: 70,
+        sdef: 70,
+        spe: 70,
+    },
+    signature : move.weatherBall
+}
+
+pkmn.castformSunny = {
+    type: ["fire"],
+    bst: {
+        hp: 70,
+        atk: 70,
+        def: 70,
+        satk: 70,
+        sdef: 70,
+        spe: 70,
+    },
+    signature : move.weatherBall
+}
+
+pkmn.castformRainy = {
+    type: ["water"],
+    bst: {
+        hp: 70,
+        atk: 70,
+        def: 70,
+        satk: 70,
+        sdef: 70,
+        spe: 70,
+    },
+    signature : move.weatherBall
+}
+
+pkmn.castformSnowy = {
+    type: ["ice"],
     bst: {
         hp: 70,
         atk: 70,
@@ -6730,7 +6887,25 @@ pkmn.walrein = {
     hiddenAbility: ability.thickFat,
 }
 
-// 367 Huntail
+// 366 Clamperl → Huntail / Gorebyss
+pkmn.clamperl = {
+    type: ["water"],
+    bst: {
+        hp: 35,
+        atk: 64,
+        def: 85,
+        satk: 74,
+        sdef: 55,
+        spe: 32,
+    },
+    evolve: function() {
+        return {
+            1: { pkmn: pkmn.huntail, item: item.waterStone },
+            2: { pkmn: pkmn.gorebyss, item: item.oddRock }
+        } 
+    },
+}
+
 pkmn.huntail = {
     type: ["water"],
     bst: {
@@ -6744,7 +6919,6 @@ pkmn.huntail = {
     hiddenAbility: ability.swiftSwim,
 }
 
-// 368 Gorebyss
 pkmn.gorebyss = {
     type: ["water"],
     bst: {
@@ -7989,6 +8163,20 @@ pkmn.bronzong = {
     hiddenAbility: ability.levitate,
 }
 
+// 438 Bonsly
+pkmn.bonsly = {
+    type: ["rock"],
+    bst: {
+        hp: 50,
+        atk: 80,
+        def: 95,
+        satk: 10,
+        sdef: 45,
+        spe: 10,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.sudowoodo, level: evolutionLevel1 } } }
+}
+
 // 439 Mime Jr.
 pkmn.mimejr = {
     rename: `mimeJr`,
@@ -8244,6 +8432,19 @@ pkmn.toxicroak = {
         spe: 85,
     },
     signature : move.venoshock
+}
+
+// 455 Carnivine
+pkmn.carnivine = {
+    type: ["grass"],
+    bst: {
+        hp: 74,
+        atk: 100,
+        def: 72,
+        satk: 90,
+        sdef: 72,
+        spe: 46,
+    }
 }
 
 // 456 Finneon → Lumineon
@@ -8601,7 +8802,7 @@ pkmn.froslass = {
 }
 
 
-// 479 Rotom (todas las formas)
+// 479 Rotom
 pkmn.rotom = {
     type: ["electric","ghost"],
     bst: {
@@ -8615,8 +8816,6 @@ pkmn.rotom = {
     hiddenAbility: ability.levitate,
 }
 
-// Todos los electrodomésticos de Rotom tienen las mismas stats
-// Rotom Heat
 pkmn.rotomHeat = {
     type: ["electric","fire"],
     bst: {
@@ -8630,7 +8829,6 @@ pkmn.rotomHeat = {
     hiddenAbility: ability.pyrolate,
 }
 
-// Rotom Wash
 pkmn.rotomWash = {
     type: ["electric","water"],
     bst: {
@@ -8644,7 +8842,6 @@ pkmn.rotomWash = {
     hiddenAbility: ability.hydrolate,
 }
 
-// Rotom Frost
 pkmn.rotomFrost = {
     type: ["electric","ice"],
     bst: {
@@ -8658,7 +8855,6 @@ pkmn.rotomFrost = {
     hiddenAbility: ability.glaciate,
 }
 
-// Rotom Fan
 pkmn.rotomFan = {
     type: ["electric","flying"],
     bst: {
@@ -8672,7 +8868,6 @@ pkmn.rotomFan = {
     hiddenAbility: ability.aerilate,
 }
 
-// Rotom Mow
 pkmn.rotomMow = {
     type: ["electric","grass"],
     bst: {
@@ -10036,7 +10231,12 @@ pkmn.basculinWhite = {
     sdef: 55,
     spe: 98,
   },
-  evolve: function() { return { 1: { pkmn: pkmn.basculegion, level: evolutionLevel2 } } },
+  evolve: function() {
+    return {
+      1: { pkmn: pkmn.basculegionMale, item: item.waterStone },
+      2: { pkmn: pkmn.basculegionFemale, item: item.duskStone },
+    }
+  },
   hiddenAbility: ability.adaptability,
 }
 
@@ -10232,7 +10432,7 @@ pkmn.yamask = {
     hiddenAbility: ability.somberField,
 }
 
-pkmn.yamask = {
+pkmn.galarianYamask = {
   type: ["ground", "ghost"],
   bst: {
     hp: 38,
@@ -13531,6 +13731,45 @@ pkmn.gumshoos = {
     hiddenAbility: ability.adaptability,
 }
 
+// 736 Grubbin → Charjabug → Vikavolt
+pkmn.grubbin = {
+  type: ["bug"],
+  bst: {
+    hp: 47,
+    atk: 62,
+    def: 45,
+    satk: 55,
+    sdef: 45,
+    spe: 46,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.charjabug, level: evolutionLevel2 } } }
+}
+
+pkmn.charjabug = {
+  type: ["bug","electric"],
+  bst: {
+    hp: 57,
+    atk: 82,
+    def: 95,
+    satk: 55,
+    sdef: 75,
+    spe: 36,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.vikavolt, item: item.thunderStone } } }
+}
+
+pkmn.vikavolt = {
+  type: ["bug","electric"],
+  bst: {
+    hp: 77,
+    atk: 70,
+    def: 90,
+    satk: 145,
+    sdef: 75,
+    spe: 43,
+  }
+}
+
 // 739 Crabrawler → Crabominable
 pkmn.crabrawler = {
   type: ["fighting"],
@@ -13709,8 +13948,19 @@ pkmn.wishiwashi = {
     satk: 25,
     sdef: 25,
     spe: 40,
-  },
-  // Forma escuela se puede manejar aparte si se desea
+  }
+}
+
+pkmn.wishiwashiSchool = {
+  type: ["water"],
+  bst: {
+    hp: 45,
+    atk: 140,
+    def: 130,
+    satk: 140,
+    sdef: 135,
+    spe: 30,
+  }
 }
 
 // 747 Mareanie → Toxapex
@@ -16026,6 +16276,82 @@ pkmn.calyrexShadow = {
   },
 }
 
+// 899 Wyrdeer
+pkmn.wyrdeer = {
+    type: ["normal", "psychic"],
+    bst: {
+        hp: 103,
+        atk: 105,
+        def: 72,
+        satk: 105,
+        sdef: 75,
+        spe: 65,
+    },
+}
+
+// 900 Kleavor
+pkmn.kleavor = {
+    type: ["bug", "rock"],
+    bst: {
+        hp: 70,
+        atk: 135,
+        def: 95,
+        satk: 45,
+        sdef: 70,
+        spe: 85,
+    },
+}
+
+// 901 Ursaluna
+pkmn.ursaluna = {
+    type: ["ground", "normal"],
+    bst: {
+        hp: 130,
+        atk: 140,
+        def: 105,
+        satk: 45,
+        sdef: 80,
+        spe: 50,
+    },
+}
+
+pkmn.ursalunaBloodmoon = {
+    type: ["ground", "normal"],
+    bst: {
+        hp: 113,
+        atk: 70,
+        def: 120,
+        satk: 135,
+        sdef: 65,
+        spe: 52,
+    },
+}
+
+// 902 Basculegion
+pkmn.basculegionMale = {
+    type: ["water", "ghost"],
+    bst: {
+        hp: 120,
+        atk: 112,
+        def: 65,
+        satk: 80,
+        sdef: 75,
+        spe: 78,
+    },
+}
+
+pkmn.basculegionFemale = {
+    type: ["water", "ghost"],
+    bst: {
+        hp: 120,
+        atk: 92,
+        def: 65,
+        satk: 100,
+        sdef: 75,
+        spe: 78,
+    },
+}
+
 // 903 Sneasler
 pkmn.hisuianSneasler = {
     rename: `sneasler`,
@@ -16039,6 +16365,19 @@ pkmn.hisuianSneasler = {
         spe: 125,
     },
     hiddenAbility: ability.unburden,
+}
+
+// 904 Overqwil
+pkmn.overqwil = {
+    type: ["dark", "poison"],
+    bst: {
+        hp: 85,
+        atk: 115,
+        def: 95,
+        satk: 65,
+        sdef: 65,
+        spe: 85,
+    }
 }
 
 // 905 Enamorus
@@ -16399,6 +16738,19 @@ pkmn.arboliva = {
     satk: 125,
     sdef: 109,
     spe: 39,
+  }
+}
+
+// 931 Squawkabilly
+pkmn.squawkabilly = {
+  type: ["normal", "flying"],
+  bst: {
+    hp: 82,
+    atk: 96,
+    def: 51,
+    satk: 45,
+    sdef: 51,
+    spe: 92,
   }
 }
 
@@ -16843,6 +17195,18 @@ pkmn.palafin = {
   }
 }
 
+pkmn.palafinHero = {
+  type: ["water"],
+  bst: {
+    hp: 100,
+    atk: 160,
+    def: 97,
+    satk: 106,
+    sdef: 87,
+    spe: 100,
+  }
+}
+
 // 965 Varoom → Revavroom
 pkmn.varoom = {
   type: ["steel", "poison"],
@@ -16944,6 +17308,19 @@ pkmn.houndstone = {
     satk: 50,
     sdef: 97,
     spe: 68,
+  }
+}
+
+// 973 Flamigo
+pkmn.flamigo = {
+  type: ["flying", "fighting"],
+  bst: {
+    hp: 82,
+    atk: 115,
+    def: 74,
+    satk: 75,
+    sdef: 64,
+    spe: 90,
   }
 }
 
@@ -17325,7 +17702,33 @@ pkmn.baxcalibur = {
   }
 }
 
-// 1000 Gholdengo
+// 999 Gimmighoul → Gholdengo
+pkmn.Gimmighoul = {
+  type: ["ghost"],
+  bst: {
+    hp: 45,
+    atk: 30,
+    def: 70,
+    satk: 75,
+    sdef: 70,
+    spe: 10,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.gholdengo, item: item.duskStone } } }
+}
+
+pkmn.GimmighoulRoaming = {
+  type: ["ghost"],
+  bst: {
+    hp: 45,
+    atk: 30,
+    def: 25,
+    satk: 75,
+    sdef: 45,
+    spe: 80,
+  },
+  evolve: function() { return { 1: { pkmn: pkmn.gholdengo, item: item.duskStone } } }
+}
+
 pkmn.gholdengo = {
   type: ["steel", "ghost"],
   bst: {
@@ -17454,11 +17857,11 @@ pkmn.walkingWake = {
     satk: 190,
     sdef: 80,
     spe: 100,
-  }
+  },
+    hiddenAbility: ability.protosynthesis,
 }
 
-/*
-
+// 1010 Iron Leaves
 pkmn.ironLeaves = {
     type: ["grass","psychic"],
     bst: {
@@ -17472,6 +17875,188 @@ pkmn.ironLeaves = {
     hiddenAbility: ability.quarkDrive,
 }
 
+// 1011 Dipplin
+pkmn.dipplin = {
+    type: ["grass","dragon"],
+    bst: {
+        hp: 80,
+        atk: 80,
+        def: 110,
+        satk: 95,
+        sdef: 80,
+        spe: 40,
+    }
+}
+
+// 1012 Poltchageist → Sinistcha
+pkmn.poltchageist = {
+    type: ["grass","ghost"],
+    bst: {
+        hp: 40,
+        atk: 45,
+        def: 45,
+        satk: 74,
+        sdef: 54,
+        spe: 50,
+    },
+    evolve: function() { return { 1: { pkmn: pkmn.sinistcha, item: item.leafStone } } },
+}
+
+pkmn.sinistcha = {
+    type: ["grass","ghost"],
+    bst: {
+        hp: 71,
+        atk: 60,
+        def: 106,
+        satk: 121,
+        sdef: 80,
+        spe: 70,
+    }
+}
+
+// 1014 Okidogi
+pkmn.okidogi = {
+    type: ["poison","fighting"],
+    bst: {
+        hp: 88,
+        atk: 128,
+        def: 115,
+        satk: 58,
+        sdef: 86,
+        spe: 80,
+    }
+}
+
+// 1015 Munkidori
+pkmn.munkidori = {
+    type: ["poison","psychic"],
+    bst: {
+        hp: 88,
+        atk: 75,
+        def: 66,
+        satk: 130,
+        sdef: 90,
+        spe: 106,
+    }
+}
+
+// 1016 Fezandipiti
+pkmn.fezandipiti = {
+    type: ["poison","fairy"],
+    bst: {
+        hp: 88,
+        atk: 91,
+        def: 82,
+        satk: 70,
+        sdef: 125,
+        spe: 99,
+    }
+}
+
+// 1017 Ogerpon
+pkmn.ogerponTeal = {
+    type: ["grass"],
+    bst: {
+        hp: 80,
+        atk: 120,
+        def: 84,
+        satk: 60,
+        sdef: 96,
+        spe: 110,
+    }
+}
+
+pkmn.ogerponWellspring = {
+    type: ["grass", "water"],
+    bst: {
+        hp: 80,
+        atk: 120,
+        def: 84,
+        satk: 60,
+        sdef: 96,
+        spe: 110,
+    }
+}
+
+pkmn.ogerponHearthflame = {
+    type: ["grass", "fire"],
+    bst: {
+        hp: 80,
+        atk: 120,
+        def: 84,
+        satk: 60,
+        sdef: 96,
+        spe: 110,
+    }
+}
+
+pkmn.ogerponCornerstone = {
+    type: ["grass", "rock"],
+    bst: {
+        hp: 80,
+        atk: 120,
+        def: 84,
+        satk: 60,
+        sdef: 96,
+        spe: 110,
+    }
+}
+
+// 1018 Archaludon
+pkmn.archaludon = {
+    type: ["steel", "dragon"],
+    bst: {
+        hp: 90,
+        atk: 105,
+        def: 130,
+        satk: 125,
+        sdef: 65,
+        spe: 85,
+    }
+}
+
+// 1019 Hydrapple
+pkmn.hydrapple = {
+    type: ["grass", "dragon"],
+    bst: {
+        hp: 106,
+        atk: 80,
+        def: 110,
+        satk: 120,
+        sdef: 80,
+        spe: 44,
+    }
+}
+
+// 1020 Gouging Fire
+pkmn.gougingFire = {
+    type: ["fire","dragon"],
+    bst: {
+        hp: 105,
+        atk: 115,
+        def: 121,
+        satk: 65,
+        sdef: 93,
+        spe: 91,
+    },
+    hiddenAbility: ability.protosynthesis,
+}
+
+// 1021 Raging Bolt
+pkmn.ragingBolt = {
+    type: ["electric","dragon"],
+    bst: {
+        hp: 125,
+        atk: 73,
+        def: 91,
+        satk: 137,
+        sdef: 89,
+        spe: 75,
+    },
+    hiddenAbility: ability.protosynthesis,
+}
+
+// 1022 Iron Boulder
 pkmn.ironBoulder = {
     type: ["rock","psychic"],
     bst: {
@@ -17485,6 +18070,7 @@ pkmn.ironBoulder = {
     hiddenAbility: ability.quarkDrive,
 }
 
+// 1023 Iron Crown
 pkmn.ironCrown = {
     type: ["steel","psychic"],
     bst: {
@@ -17498,6 +18084,44 @@ pkmn.ironCrown = {
     hiddenAbility: ability.quarkDrive,
 }
 
+// 1024 Terapagos
+pkmn.terapagos = {
+    type: ["normal"],
+    bst: {
+        hp: 90,
+        atk: 65,
+        def: 85,
+        satk: 65,
+        sdef: 85,
+        spe: 60,
+    }
+}
+
+pkmn.terapagosTerastal = {
+    type: ["normal"],
+    bst: {
+        hp: 95,
+        atk: 95,
+        def: 110,
+        satk: 105,
+        sdef: 110,
+        spe: 85,
+    }
+}
+
+pkmn.terapagosStellar = {
+    type: ["normal"],
+    bst: {
+        hp: 160,
+        atk: 105,
+        def: 110,
+        satk: 130,
+        sdef: 110,
+        spe: 85,
+    }
+}
+
+// 1025 Pecharunt
 pkmn.pecharunt = {
   type: ["poison", "ghost"],
   bst: {
@@ -17509,22 +18133,6 @@ pkmn.pecharunt = {
     spe: 88,
   }
 }
-*/
-
-//Hisuian Forms
-
-// Hisuian Growlithe → Hisuian Arcanine
-
-
-// Hisuian Voltorb → Hisuian Electrode
-
-
-// Hisuian Qwilfish
-
-
-// Hisuian Sneasel
-
-
 
 /*
 const gmaxFactor = 1.2
@@ -17540,7 +18148,6 @@ pkmn.singleStrikeUrshifuGmax = {
     spe: 97*gmaxFactor,
     }
 }*/
-
 
 
 pkmn.missingno = {
