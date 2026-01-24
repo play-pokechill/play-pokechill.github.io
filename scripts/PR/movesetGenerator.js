@@ -1,4 +1,3 @@
-
 /**
  * Pokechill Moveset Popup Module
  *
@@ -8,307 +7,335 @@
  */
 
 (function () {
-    "use strict";
+  "use strict";
 
-    // --- 0. Safety Checks & Global Dependencies ---
+  // --- 0. Safety Checks & Global Dependencies ---
 
-    if (typeof move === "undefined") {
-        console.warn("[MovesetGenerator] 'move' database not found. This module may not function correctly.");
+  if (typeof move === "undefined") {
+    console.warn(
+      "[MovesetGenerator] 'move' database not found. This module may not function correctly.",
+    );
+  }
+
+  // --- 1. Module State & Constants ---
+
+  const ICON_CACHE = {};
+  let activeSplitFilter = null;
+
+  const ICONS_TO_PRELOAD = [
+    "special",
+    "physical",
+    "restricted",
+    "normal",
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "ice",
+    "fighting",
+    "poison",
+    "ground",
+    "flying",
+    "psychic",
+    "bug",
+    "rock",
+    "ghost",
+    "dragon",
+    "dark",
+    "steel",
+    "fairy",
+  ];
+
+  // --- 2. Utilities ---
+
+  /**
+   * Converts a hex color string to an RGBA string.
+   * @param {string} hex - The hex color string.
+   * @param {number} alpha - The alpha channel (0-1).
+   * @returns {string} The RGBA string.
+   */
+  function hexToRGBA(hex, alpha) {
+    if (!hex) {
+      return `rgba(255, 255, 255, ${alpha})`;
     }
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
 
-    // --- 1. Module State & Constants ---
-
-    const ICON_CACHE = {};
-    let activeSplitFilter = null;
-
-    const ICONS_TO_PRELOAD = [
-        "special", "physical", "restricted", "normal", "fire", "water", "grass", "electric",
-        "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost",
-        "dragon", "dark", "steel", "fairy"
-    ];
-
-    // --- 2. Utilities ---
-
-    /**
-     * Converts a hex color string to an RGBA string.
-     * @param {string} hex - The hex color string.
-     * @param {number} alpha - The alpha channel (0-1).
-     * @returns {string} The RGBA string.
-     */
-    function hexToRGBA(hex, alpha) {
-        if (!hex) {
-            return `rgba(255, 255, 255, ${alpha})`;
-        }
-        const r = parseInt(hex.slice(1, 3), 16);
-        const g = parseInt(hex.slice(3, 5), 16);
-        const b = parseInt(hex.slice(5, 7), 16);
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  /**
+   * Safely strips HTML tags from a string.
+   * @param {string} html - The input HTML string.
+   * @returns {string} The text content.
+   */
+  function safeStrip(html) {
+    if (typeof stripHTML === "function") {
+      return stripHTML(html);
     }
-
-    /**
-     * Safely strips HTML tags from a string.
-     * @param {string} html - The input HTML string.
-     * @returns {string} The text content.
-     */
-    function safeStrip(html) {
-        if (typeof stripHTML === "function") {
-            return stripHTML(html);
-        }
-        if (typeof DOMParser !== "undefined") {
-            const doc = new DOMParser().parseFromString(html, "text/html");
-            return (doc && doc.body && doc.body.textContent) || "";
-        }
-        // Fallback of last resort
-        return html.replace(/<[^>]*>/g, "").trim();
+    if (typeof DOMParser !== "undefined") {
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      return (doc && doc.body && doc.body.textContent) || "";
     }
+    // Fallback of last resort
+    return html.replace(/<[^>]*>/g, "").trim();
+  }
 
-    /**
-     * Escapes special characters to prevent HTML injection (XSS).
-     * Turns <script> into &lt;script&gt; so it displays as text.
-     * @param {string|number} str - The input to escape.
-     * @returns {string} The escaped string.
-     */
-    function escapeHTML(str) {
-        if (str === null || str === undefined) return "";
-        return String(str)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+  /**
+   * Escapes special characters to prevent HTML injection (XSS).
+   * Turns <script> into &lt;script&gt; so it displays as text.
+   * @param {string|number} str - The input to escape.
+   * @returns {string} The escaped string.
+   */
+  function escapeHTML(str) {
+    if (str === null || str === undefined) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /**
+   * Retrieves the color for a specific type key.
+   * @param {string} key - The type key.
+   * @returns {string} The hex color code.
+   */
+  function getTypeColor(key) {
+    return typeof returnTypeColor === "function"
+      ? returnTypeColor(key)
+      : "#ffffff";
+  }
+
+  // --- 3. Icon Handling ---
+
+  /**
+   * Parses the SVG string and safely forces the specific size attributes.
+   * Uses DOMParser to handle existing attributes or whitespace correctly.
+   * @param {string} svgString - The raw SVG content.
+   * @param {string} color - The CSS color.
+   * @param {number} size - The size in pixels.
+   * @returns {string} The HTML string.
+   */
+  function wrapSVG(svgString, color, size) {
+    if (!svgString) return "";
+
+    try {
+      // Parse the string into a real DOM structure
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(svgString, "image/svg+xml");
+      const svgEl = doc.documentElement;
+
+      // Check for parsing errors
+      if (
+        svgEl.querySelector("parsererror") ||
+        svgEl.tagName.toLowerCase() !== "svg"
+      ) {
+        console.warn("[MovesetGenerator] Invalid SVG data encountered.");
+        return "";
+      }
+
+      // Force the size attributes - safely overwrites existing width/height if they exist
+      svgEl.setAttribute("width", size);
+      svgEl.setAttribute("height", size);
+
+      return `<span class="icon-wrapper" style="color:${color};">${svgEl.outerHTML}</span>`;
+    } catch (e) {
+      console.error("[MovesetGenerator] Error processing SVG:", e);
+      return "";
     }
+  }
 
-    /**
-     * Retrieves the color for a specific type key.
-     * @param {string} key - The type key.
-     * @returns {string} The hex color code.
-     */
-    function getTypeColor(key) {
-        return typeof returnTypeColor === "function" ? returnTypeColor(key) : "#ffffff";
+  /**
+   * Loads and caches an SVG icon.
+   * Includes error handling for 404s/network issues.
+   * @param {string} name - The icon name.
+   * @param {string} color - The icon color.
+   * @param {number} size - The icon size.
+   * @returns {Promise<string>} The HTML string.
+   */
+  async function loadSVGIcon(name, color = "#fff", size = 18) {
+    const path = `/img/icons/${name}.svg`;
+    if (ICON_CACHE[path]) {
+      return wrapSVG(ICON_CACHE[path], color, size);
     }
+    try {
+      const response = await fetch(path);
 
-    // --- 3. Icon Handling ---
+      // Prevents caching of 404 responses.
+      if (!response.ok) {
+        throw new Error(
+          `Failed to load ${name}: "${response.status} ${response.statusText}`,
+        );
+      }
 
-    /**
-     * Parses the SVG string and safely forces the specific size attributes.
-     * Uses DOMParser to handle existing attributes or whitespace correctly.
-     * @param {string} svgString - The raw SVG content.
-     * @param {string} color - The CSS color.
-     * @param {number} size - The size in pixels.
-     * @returns {string} The HTML string.
-     */
-    function wrapSVG(svgString, color, size) {
-        if (!svgString) return "";
-
-        try {
-            // Parse the string into a real DOM structure
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(svgString, "image/svg+xml");
-            const svgEl = doc.documentElement;
-
-            // Check for parsing errors
-            if (svgEl.querySelector("parsererror") || svgEl.tagName.toLowerCase() !== "svg") {
-                console.warn("[MovesetGenerator] Invalid SVG data encountered.");
-                return "";
-            }
-
-            // Force the size attributes - safely overwrites existing width/height if they exist
-            svgEl.setAttribute("width", size);
-            svgEl.setAttribute("height", size);
-
-            return `<span class="icon-wrapper" style="color:${color};">${svgEl.outerHTML}</span>`;
-
-        } catch (e) {
-            console.error("[MovesetGenerator] Error processing SVG:", e);
-            return "";
-        }
+      const svg = await response.text();
+      ICON_CACHE[path] = svg;
+      return wrapSVG(svg, color, size);
+    } catch (error) {
+      console.error(`[MovesetGenerator] Failed to load icon: ${name}`, error);
+      return "";
     }
+  }
 
-    /**
-     * Loads and caches an SVG icon.
-     * Includes error handling for 404s/network issues.
-     * @param {string} name - The icon name.
-     * @param {string} color - The icon color.
-     * @param {number} size - The icon size.
-     * @returns {Promise<string>} The HTML string.
-     */
-    async function loadSVGIcon(name, color = "#fff", size = 18) {
-        const path = `/img/icons/${name}.svg`;
-        if (ICON_CACHE[path]) {
-            return wrapSVG(ICON_CACHE[path], color, size);
-        }
-        try {
-            const response = await fetch(path);
+  ICONS_TO_PRELOAD.forEach((name) => {
+    loadSVGIcon(name).catch(() => {});
+  });
 
-            // Prevents caching of 404 responses.
-            if (!response.ok) {
-                throw new Error(`Failed to load ${name}: "${response.status} ${response.statusText}`);
-            }
+  // --- 4. Data Logic ---
 
-            const svg = await response.text();
-            ICON_CACHE[path] = svg;
-            return wrapSVG(svg, color, size);
-        } catch (error) {
-            console.error(`[MovesetGenerator] Failed to load icon: ${name}`, error);
-            return "";
-        }
-    }
+  // Ignore rng to show possible moves.
+  function getMaxRarityTier(level) {
+    let tier = 1;
+    if (level >= 10) tier++;
+    if (level >= 20) tier++;
+    if (level >= 30) tier++;
+    if (level >= 50) tier++;
+    if (level >= 60) tier++;
+    return Math.min(tier, 3);
+  }
 
-    ICONS_TO_PRELOAD.forEach((name) => {
-        loadSVGIcon(name).catch(() => {});
+  // Use max rarity to show possible moves.
+  function getAllPossibleMovesByTier(level) {
+    const tier = getMaxRarityTier(level);
+    return Object.keys(move).filter((m) => move[m].rarity <= tier);
+  }
+
+  function categorizeMovesForPokemon(pkmnObj, level) {
+    const types = pkmnObj.type;
+    const allPossible = getAllPossibleMovesByTier(level);
+
+    const sameType = {};
+    types.forEach((t) => (sameType[t] = []));
+
+    const movesetMatch = [];
+    const allTag = [];
+
+    allPossible.forEach((m) => {
+      const data = move[m];
+
+      const canlearn =
+        Array.isArray(data.moveset) &&
+        (data.moveset.includes("all") ||
+          types.some((t) => data.moveset.includes(t)));
+
+      if (!canlearn) {
+        return;
+      }
+
+      const rawInfo = typeof data.info === "function" ? data.info() : "";
+      const cleanInfo = safeStrip(rawInfo);
+
+      const entry = {
+        ID: m,
+        Type: data.type ?? null,
+        Split: data.split ?? null,
+        Power: data.power ?? null,
+        Info: cleanInfo,
+      };
+
+      if (types.includes(data.type)) {
+        sameType[data.type].push(entry);
+      } else if (types.some((t) => data.moveset.includes(t))) {
+        movesetMatch.push(entry);
+      } else if (data.moveset.includes("all")) {
+        allTag.push(entry);
+      }
     });
 
-    // --- 4. Data Logic ---
+    const sortByPower = (arr) =>
+      arr.sort((a, b) => (b.Power ?? 0) - (a.Power ?? 0));
+    Object.keys(sameType).forEach((t) => sortByPower(sameType[t]));
 
-    // Ignore rng to show possible moves.
-    function getMaxRarityTier(level) {
-        let tier = 1;
-        if (level >= 10) tier++;
-        if (level >= 20) tier++;
-        if (level >= 30) tier++;
-        if (level >= 50) tier++;
-        if (level >= 60) tier++;
-        return Math.min(tier, 3);
+    return {
+      sameType,
+      movesetMatch: sortByPower(movesetMatch),
+      allTag: sortByPower(allTag),
+    };
+  }
+
+  function getMoveCalculatorReport(pkmnObj, level = 100) {
+    const buckets = categorizeMovesForPokemon(pkmnObj, level);
+    return {
+      pokemon: pkmnObj.id,
+      level,
+      possibleMoves: buckets,
+    };
+  }
+
+  // --- 5. UI Rendering Logic ---
+
+  function toggleSplitFilter(splitType) {
+    const popup = document.getElementById("movePopup");
+    if (!popup) {
+      return;
     }
 
-    // Use max rarity to show possible moves.
-    function getAllPossibleMovesByTier(level) {
-        const tier = getMaxRarityTier(level);
-        return Object.keys(move).filter((m) => move[m].rarity <= tier);
+    if (activeSplitFilter === splitType) {
+      activeSplitFilter = null;
+      popup.querySelectorAll("tr[data-split]").forEach((row) => {
+        row.classList.remove("row-dimmed");
+      });
+      return;
     }
 
-    function categorizeMovesForPokemon(pkmnObj, level) {
-        const types = pkmnObj.type;
-        const allPossible = getAllPossibleMovesByTier(level);
+    activeSplitFilter = splitType;
+    popup.querySelectorAll("tr[data-split]").forEach((row) => {
+      const rowSplit = row.getAttribute("data-split");
+      if (rowSplit === splitType) {
+        row.classList.remove("row-dimmed");
+      } else {
+        row.classList.add("row-dimmed");
+      }
+    });
+  }
 
-        const sameType = {};
-        types.forEach((t) => (sameType[t] = []));
-
-        const movesetMatch = [];
-        const allTag = [];
-
-        allPossible.forEach((m) => {
-            const data = move[m];
-
-            const canlearn = 
-                Array.isArray(data.moveset) &&
-                (
-                data.moveset.includes("all") ||
-                types.some((t) => data.moveset.includes(t))
-                );
-
-            if (!canlearn) {
-                return;
-            }
-
-            const rawInfo = typeof data.info === "function" ? data.info() : "";
-            const cleanInfo = safeStrip(rawInfo);
-
-            const entry = {
-                ID: m,
-                Type: data.type ?? null,
-                Split: data.split ?? null,
-                Power: data.power ?? null,
-                Info: cleanInfo,
-            };
-
-            if (types.includes(data.type)) {
-                sameType[data.type].push(entry);
-            } else if (types.some((t) => data.moveset.includes(t))) {
-                movesetMatch.push(entry);
-            } else if (data.moveset.includes("all")) {
-                allTag.push(entry);
-            }
-        });
-
-        const sortByPower = (arr) => arr.sort((a, b) => (b.Power ?? 0) - (a.Power ?? 0));
-        Object.keys(sameType).forEach((t) => sortByPower(sameType[t]));
-
-        return {
-            sameType,
-            movesetMatch: sortByPower(movesetMatch),
-            allTag: sortByPower(allTag),
-        };
+  async function buildTableHTML(label, arr) {
+    if (!arr.length) {
+      return "";
     }
 
-    function getMoveCalculatorReport(pkmnObj, level = 100) {
-        const buckets = categorizeMovesForPokemon(pkmnObj, level);
-        return {
-            pokemon: pkmnObj.id,
-            level,
-            possibleMoves: buckets,
-        };
-    }
+    const rows = await Promise.all(
+      arr.map(async (e) => {
+        // Escape all user-facing content to prevent XSS
+        const moveName = escapeHTML(format(e.ID));
+        const power = escapeHTML(e.Power ?? "-");
+        const info = escapeHTML(e.Info);
 
-    // --- 5. UI Rendering Logic ---
+        // Type Icon
+        const themedColor = "var(--light2, #fff)";
+        const typeIcon = e.Type
+          ? await loadSVGIcon(e.Type.toLowerCase(), themedColor)
+          : "";
 
-    function toggleSplitFilter(splitType) {
-        const popup = document.getElementById("movePopup");
-        if (!popup) {
-            return;
+        // Muted Background
+        const key = (e.Type || "").toLowerCase();
+        const muted = hexToRGBA(getTypeColor(key), 0.95);
+        const rowBgStyle = muted ? `style="background:${muted}"` : "";
+
+        // Restricted Icon
+        let restrictedIcon = "";
+        if (move[e.ID] && move[e.ID].restricted === true) {
+          const iconSvg = await loadSVGIcon("restricted", muted);
+          restrictedIcon = `<span class="restricted-icon">${iconSvg}</span>`;
         }
 
-        if (activeSplitFilter === splitType) {
-            activeSplitFilter = null;
-            popup.querySelectorAll("tr[data-split]").forEach((row) => {
-                row.classList.remove("row-dimmed");
-            });
-            return;
+        // Split Info
+        const rawSplit = e.Split || "";
+        let splitName = "";
+        let capitalizedSplit = "-";
+        let splitIcon = "";
+
+        if (rawSplit) {
+          splitName = escapeHTML(rawSplit.toLowerCase());
+          capitalizedSplit =
+            splitName.charAt(0).toUpperCase() + splitName.slice(1);
+          splitIcon = await loadSVGIcon(splitName, themedColor);
         }
 
-        activeSplitFilter = splitType;
-        popup.querySelectorAll("tr[data-split]").forEach((row) => {
-            const rowSplit = row.getAttribute("data-split");
-            if (rowSplit === splitType) {
-                row.classList.remove("row-dimmed");
-            } else {
-                row.classList.add("row-dimmed");
-            }
-        });
-    }
-
-    async function buildTableHTML(label, arr) {
-        if (!arr.length) {
-            return "";
-        }
-
-        const rows = await Promise.all(
-            arr.map(async (e) => {
-                // Escape all user-facing content to prevent XSS
-                const moveName = escapeHTML(format(e.ID));
-                const power = escapeHTML(e.Power ?? "-");
-                const info = escapeHTML(e.Info);
-
-                // Type Icon
-                const themedColor = "var(--light2, #fff)";
-                const typeIcon = e.Type ? await loadSVGIcon(e.Type.toLowerCase(), themedColor) : "";
-
-                // Muted Background
-                const key = (e.Type || "").toLowerCase();
-                const muted = hexToRGBA(getTypeColor(key), 0.95);
-                const rowBgStyle = muted ? `style="background:${muted}"` : "";
-
-                // Restricted Icon
-                let restrictedIcon = "";
-                if (move[e.ID] && move[e.ID].restricted === true) {
-                    const iconSvg = await loadSVGIcon("restricted", muted);
-                    restrictedIcon = `<span class="restricted-icon">${iconSvg}</span>`;
-                }
-
-                // Split Info
-                const rawSplit = e.Split || "";
-                let splitName = "";
-                let capitalizedSplit = "-";
-                let splitIcon = "";
-
-                if (rawSplit) {
-                    splitName = escapeHTML(rawSplit.toLowerCase());
-                    capitalizedSplit = splitName.charAt(0).toUpperCase() + splitName.slice(1);
-                    splitIcon = await loadSVGIcon(splitName, themedColor);
-                }
-
-                // Rendering
-                return `
+        // Rendering
+        return `
                 <tr ${rowBgStyle} data-split="${splitName}">
                     <td class="col-type">${typeIcon}</td>
                     <td class="col-move">
@@ -330,16 +357,16 @@
                     <td class="col-bp">${power}</td>
                     <td class="col-info">${info}</td>
                 </tr>`;
-            })
-        );
+      }),
+    );
 
-        // Type Icons for Header
-        const themedColor = "var(--light2, #fff)";
-        const physIcon = await loadSVGIcon("physical", themedColor);
-        const specIcon = await loadSVGIcon("special", themedColor);
-        const safeLabel = escapeHTML(label);
+    // Type Icons for Header
+    const themedColor = "var(--light2, #fff)";
+    const physIcon = await loadSVGIcon("physical", themedColor);
+    const specIcon = await loadSVGIcon("special", themedColor);
+    const safeLabel = escapeHTML(label);
 
-        return `
+    return `
             <h3 class="move-popup-header">${safeLabel}</h3>
             <table class="move-table">
                 <thead>
@@ -364,146 +391,150 @@
                     ${rows.join("")}
                 </tbody>
             </table>`;
+  }
+
+  async function showMovePopup(pkmnObj, initialLevel) {
+    // Reset the filter state to ensure a clean view for the new popup instance
+    activeSplitFilter = null;
+
+    const old = document.getElementById("movePopup");
+    if (old) {
+      old.remove();
     }
 
-    async function showMovePopup(pkmnObj, initialLevel) {
-        // Reset the filter state to ensure a clean view for the new popup instance
-        activeSplitFilter = null;
+    const wrapper = document.createElement("div");
+    wrapper.id = "movePopup";
+    wrapper.className = "move-popup-wrapper";
 
-        const old = document.getElementById("movePopup");
-        if (old) {
-            old.remove();
+    // Close on outside click, context menu or escape key
+    const closePopup = () => {
+      wrapper.remove();
+      document.removeEventListener("keydown", handleEsc);
+    };
+    const handleEsc = (e) => {
+      if (e.key === "Escape") closePopup();
+    };
+    wrapper.oncontextmenu = (e) => {
+      e.preventDefault();
+      closePopup();
+      return false;
+    };
+    wrapper.onclick = closePopup;
+    document.addEventListener("keydown", handleEsc);
+    const box = document.createElement("div");
+    box.className = "move-popup-box";
+    box.onclick = (e) => e.stopPropagation();
+
+    // Header
+    const topBar = document.createElement("div");
+    topBar.className = "move-popup-top-bar";
+
+    const title = document.createElement("h2");
+    title.className = "move-popup-title";
+    topBar.appendChild(title);
+
+    // Level Control
+    const levelControl = document.createElement("div");
+    levelControl.className = "level-control-container";
+
+    const levelLabel = document.createElement("span");
+    levelLabel.className = "level-label";
+    levelLabel.appendChild(document.createTextNode("Lv. "));
+
+    const levelValueSpan = document.createElement("span");
+    levelValueSpan.id = "levelValueDisplay";
+    levelValueSpan.textContent = initialLevel;
+    levelLabel.appendChild(levelValueSpan);
+
+    levelControl.appendChild(levelLabel);
+
+    const levelInput = document.createElement("input");
+    levelInput.type = "range";
+    levelInput.className = "level-slider";
+    levelInput.setAttribute("aria-label", "Pokemon Level");
+    levelInput.min = 1;
+    levelInput.max = 100;
+    levelInput.value = initialLevel;
+    levelControl.appendChild(levelInput);
+
+    topBar.appendChild(levelControl);
+    box.appendChild(topBar);
+
+    // Content
+    const contentContainer = document.createElement("div");
+    box.appendChild(contentContainer);
+
+    contentContainer.addEventListener("click", (e) => {
+      const trigger = e.target.closest(".split-trigger");
+      if (trigger) {
+        const splitType = trigger.getAttribute("data-split-trigger");
+        if (splitType) {
+          toggleSplitFilter(splitType);
         }
+      }
+    });
 
-        const wrapper = document.createElement("div");
-        wrapper.id = "movePopup";
-        wrapper.className = "move-popup-wrapper";
+    async function updateContent(newLevel) {
+      const report = getMoveCalculatorReport(pkmnObj, newLevel);
+      title.textContent = `Moves for ${format(report.pokemon)}`;
+      const buckets = report.possibleMoves;
+      let contentHTML = "";
 
-        // Close on outside click, context menu or escape key
-        const closePopup = () => {
-            wrapper.remove();
-            document.removeEventListener("keydown", handleEsc);
-        };
-        const handleEsc = (e) => {
-            if (e.key === "Escape") closePopup();
-        };
-        wrapper.oncontextmenu = (e) => {
-            e.preventDefault();
-            closePopup();
-            return false;
-        };
-        wrapper.onclick = closePopup;
-        document.addEventListener("keydown", handleEsc);
-        const box = document.createElement("div");
-        box.className = "move-popup-box";
-        box.onclick = (e) => e.stopPropagation();
+      for (const typeName of Object.keys(buckets.sameType)) {
+        const capitalizedType =
+          typeName.charAt(0).toUpperCase() + typeName.slice(1);
+        contentHTML += await buildTableHTML(
+          `Same-Type: ${capitalizedType}`,
+          buckets.sameType[typeName],
+        );
+      }
+      contentHTML += await buildTableHTML(
+        "Moveset Tag Matches",
+        buckets.movesetMatch,
+      );
+      contentHTML += await buildTableHTML("All-Type Moves", buckets.allTag);
 
-        // Header
-        const topBar = document.createElement("div");
-        topBar.className = "move-popup-top-bar";
+      contentContainer.innerHTML = contentHTML;
 
-        const title = document.createElement("h2");
-        title.className = "move-popup-title";
-        topBar.appendChild(title);
-
-        // Level Control
-        const levelControl = document.createElement("div");
-        levelControl.className = "level-control-container";
-
-        const levelLabel = document.createElement("span");
-        levelLabel.className = "level-label";
-        levelLabel.appendChild(document.createTextNode("Lv. "));
-
-        const levelValueSpan = document.createElement("span");
-        levelValueSpan.id = "levelValueDisplay";
-        levelValueSpan.textContent = initialLevel;
-        levelLabel.appendChild(levelValueSpan);
-        
-        levelControl.appendChild(levelLabel);
-
-        const levelInput = document.createElement("input");
-        levelInput.type = "range";
-        levelInput.className = "level-slider";
-        levelInput.setAttribute("aria-label", "Pokemon Level");
-        levelInput.min = 1;
-        levelInput.max = 100;
-        levelInput.value = initialLevel;
-        levelControl.appendChild(levelInput);
-
-        topBar.appendChild(levelControl);
-        box.appendChild(topBar);
-
-        // Content
-        const contentContainer = document.createElement("div");
-        box.appendChild(contentContainer);
-
-        contentContainer.addEventListener("click", (e) => {
-            const trigger = e.target.closest(".split-trigger");
-            if (trigger) {
-                const splitType = trigger.getAttribute("data-split-trigger");
-                if (splitType) {
-                    toggleSplitFilter(splitType);
-                }
+      if (activeSplitFilter) {
+        const popup = document.getElementById("movePopup");
+        if (popup) {
+          popup.querySelectorAll("tr[data-split]").forEach((row) => {
+            const rowSplit = row.getAttribute("data-split");
+            if (rowSplit !== activeSplitFilter) {
+              row.classList.add("row-dimmed");
             }
-        });
-
-        async function updateContent(newLevel) {
-            const report = getMoveCalculatorReport(pkmnObj, newLevel);
-            title.textContent = `Moves for ${format(report.pokemon)}`;
-            const buckets = report.possibleMoves;
-            let contentHTML = "";
-
-            for (const typeName of Object.keys(buckets.sameType)) {
-                const capitalizedType = typeName.charAt(0).toUpperCase() + typeName.slice(1);
-                contentHTML += await buildTableHTML(
-                    `Same-Type: ${capitalizedType}`,
-                    buckets.sameType[typeName]
-                );
-            }
-            contentHTML += await buildTableHTML("Moveset Tag Matches", buckets.movesetMatch);
-            contentHTML += await buildTableHTML("All-Type Moves", buckets.allTag);
-
-            contentContainer.innerHTML = contentHTML;
-
-            if (activeSplitFilter) {
-                const popup = document.getElementById("movePopup");
-                if (popup) {
-                    popup.querySelectorAll("tr[data-split]").forEach((row) => {
-                        const rowSplit = row.getAttribute("data-split");
-                        if (rowSplit !== activeSplitFilter) {
-                            row.classList.add("row-dimmed");
-                        }
-                    });
-                }
-            }
+          });
         }
-
-        levelInput.oninput = (e) => {
-            const val = parseInt(e.target.value);
-            document.getElementById("levelValueDisplay").textContent = val;
-            updateContent(val);
-        };
-
-        await updateContent(initialLevel);
-
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "Close";
-        closeBtn.className = "move-popup-close-btn";
-        closeBtn.onclick = () => wrapper.remove();
-        box.appendChild(closeBtn);
-
-        wrapper.appendChild(box);
-        document.body.appendChild(wrapper);
+      }
     }
 
-    // --- 6. Styles Injection ---
+    levelInput.oninput = (e) => {
+      const val = parseInt(e.target.value);
+      document.getElementById("levelValueDisplay").textContent = val;
+      updateContent(val);
+    };
 
-    (function injectMovePopupStyles() {
-        if (document.getElementById("moveset-generator-styles")) {
-            return;
-        }
+    await updateContent(initialLevel);
 
-        const css = `
+    const closeBtn = document.createElement("button");
+    closeBtn.textContent = "Close";
+    closeBtn.className = "move-popup-close-btn";
+    closeBtn.onclick = () => wrapper.remove();
+    box.appendChild(closeBtn);
+
+    wrapper.appendChild(box);
+    document.body.appendChild(wrapper);
+  }
+
+  // --- 6. Styles Injection ---
+
+  (function injectMovePopupStyles() {
+    if (document.getElementById("moveset-generator-styles")) {
+      return;
+    }
+
+    const css = `
         .move-popup-wrapper {
             position: fixed; inset: 0; width: 100vw;
             height: 100%;
@@ -643,21 +674,20 @@
         }
         `;
 
-        const style = document.createElement("style");
-        style.id = "moveset-generator-styles";
-        style.textContent = css;
-        document.head.appendChild(style);
-    })();
+    const style = document.createElement("style");
+    style.id = "moveset-generator-styles";
+    style.textContent = css;
+    document.head.appendChild(style);
+  })();
 
-    // --- 7. Public API ---
+  // --- 7. Public API ---
 
-    /**
-     * The only function exposed to the global scope.
-     * @param {object} poke - The Pokemon object.
-     * @param {number} level - The starting level (default 100).
-     */
-    window.getMoveset = function (poke, level = 100) {
-        showMovePopup(poke, level);
-    };
-
+  /**
+   * The only function exposed to the global scope.
+   * @param {object} poke - The Pokemon object.
+   * @param {number} level - The starting level (default 100).
+   */
+  window.getMoveset = function (poke, level = 100) {
+    showMovePopup(poke, level);
+  };
 })();

@@ -1,12 +1,10 @@
 // Main Challenges dictionary for Challenges tab
 window.mainChallenges = [
-
-
-
   {
     id: "main-001",
     title: "Introduction: Switching",
-    notes: "Switching Pokemon by clicking on them to have the upperhand will make hard battles much more manageable. Consider type immunities and resistances when doing so",
+    notes:
+      "Switching Pokemon by clicking on them to have the upperhand will make hard battles much more manageable. Consider type immunities and resistances when doing so",
     reward: [item.bottleCap],
     rawText: `
 [Player] Pidgeot
@@ -40,13 +38,14 @@ IVs: 4 HP / 4 Atk / 4 Def / 4 SpA / 4 SpD / 4 Spe
 - Earthquake
 - Dig
 - Draco Meteor
-- Dragon Claw`
+- Dragon Claw`,
   },
 
   {
     id: "main-002",
     title: "Introduction: Weathers",
-    notes: "Weather moves can greatly impact the outcome of the fight. Weathers are best used in combination with switching, since the damage bonus from them will apply to everyone",
+    notes:
+      "Weather moves can greatly impact the outcome of the fight. Weathers are best used in combination with switching, since the damage bonus from them will apply to everyone",
     reward: [item.bottleCap],
     rawText: `
 [Player] Vaporeon
@@ -67,9 +66,6 @@ Ability: Limber
 Level: 80
 IVs: 4 HP / 4 Atk / 4 Def / 4 SpA / 4 SpD / 4 Spe
 - Quick Attack
-`
+`,
   },
-
-
-
 ];

@@ -1,29 +1,23 @@
-
-
-
 //auto team building, lets you build teams based on weights
 // by gwenillia
 //changes made by duck are marked with PR-EDIT
-
-
-
-
-
 
 (function () {
   function getTeamOptions() {
     const selector = document.getElementById("team-slot-selector");
     if (!selector) return [];
-    return Array.from(selector.options).map(option => ({
+    return Array.from(selector.options).map((option) => ({
       value: option.value,
-      label: option.text
+      label: option.text,
     }));
   }
 
   function getTeamName(teamKey) {
     const selector = document.getElementById("team-slot-selector");
     if (!selector) return teamKey;
-    const option = Array.from(selector.options).find(entry => entry.value === teamKey);
+    const option = Array.from(selector.options).find(
+      (entry) => entry.value === teamKey,
+    );
     return option ? option.text : teamKey;
   }
 
@@ -76,7 +70,8 @@
   function showDuplicateConfirm(targetKey) {
     document.getElementById("tooltipTop").style.display = "none";
     document.getElementById("tooltipTitle").innerHTML = "Overwrite Team?";
-    document.getElementById("tooltipMid").innerHTML = `This will replace ${getTeamName(targetKey)}.`;
+    document.getElementById("tooltipMid").innerHTML =
+      `This will replace ${getTeamName(targetKey)}.`;
 
     const tooltipBottom = document.getElementById("tooltipBottom");
     tooltipBottom.innerHTML = '<span id="prevent-tooltip-exit"></span>';
@@ -126,11 +121,14 @@
     const options = getTeamOptions();
     if (!options.length) return;
     const currentKey = saved.currentPreviewTeam;
-    const defaultTarget = options.find(option => option.value !== currentKey)?.value || currentKey;
+    const defaultTarget =
+      options.find((option) => option.value !== currentKey)?.value ||
+      currentKey;
 
     document.getElementById("tooltipTop").style.display = "none";
     document.getElementById("tooltipTitle").innerHTML = "Copy Team"; //PR-EDIT
-    document.getElementById("tooltipMid").innerHTML = "Select the target team slot to overwrite.";
+    document.getElementById("tooltipMid").innerHTML =
+      "Select the target team slot to overwrite.";
 
     const tooltipBottom = document.getElementById("tooltipBottom");
     tooltipBottom.innerHTML = '<span id="prevent-tooltip-exit"></span>';
@@ -147,7 +145,7 @@
     select.style.border = "none";
     select.style.padding = "0 0.5rem";
 
-    options.forEach(option => {
+    options.forEach((option) => {
       const optionElement = document.createElement("option");
       optionElement.value = option.value;
       optionElement.textContent = option.label;
@@ -165,7 +163,9 @@
     duplicateButton.style.justifyContent = "center";
     duplicateButton.style.alignItems = "center";
     duplicateButton.style.padding = "0.4rem";
-    duplicateButton.addEventListener("click", () => handleDuplicate(select.value));
+    duplicateButton.addEventListener("click", () =>
+      handleDuplicate(select.value),
+    );
 
     container.appendChild(select);
     container.appendChild(duplicateButton);
@@ -178,7 +178,10 @@
     const selector = document.querySelector(".team-menu-selector-new");
     if (!selector || document.getElementById("team-duplicate-button")) return;
 
-    const button = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const button = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "svg",
+    );
     button.setAttribute("viewBox", "0 0 24 24");
     button.setAttribute("width", "24");
     button.setAttribute("height", "24");
@@ -192,7 +195,7 @@
     path.setAttribute("fill", "currentColor");
     path.setAttribute(
       "d",
-      "M16 1H4a2 2 0 0 0-2 2v12h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z"
+      "M16 1H4a2 2 0 0 0-2 2v12h2V3h12zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 16H8V7h11z",
     );
 
     button.appendChild(path);
