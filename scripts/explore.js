@@ -3994,6 +3994,8 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
       results = items.map(item => ({ item }))
     }
     
+    results = expandSearchWithEvolutionFamily(results)
+
     searchedPkmn = results
     updatePokedex()
   }
@@ -4003,6 +4005,25 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
 
 let fusePkmn;
 let searchedPkmn = []
+
+function expandSearchWithEvolutionFamily(results) {
+    if (!Array.isArray(results) || results.length === 0) return results
+    if (!fusePkmn || !fusePkmn.getIndex) return results
+
+    const allowed = new Set(fusePkmn.getIndex().docs)
+    const expanded = new Set()
+
+    results.forEach(r => expanded.add(r.item))
+
+    results.forEach(r => {
+        const family = getEvolutionFamily(r.item)
+        family.forEach(member => {
+            if (allowed.has(member) && member?.caught > 0) expanded.add(member)
+        })
+    })
+
+    return Array.from(expanded).map(item => ({ item }))
+}
 
 
 function updatePokedex(){
