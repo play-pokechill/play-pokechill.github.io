@@ -12,18 +12,21 @@
     active: false,
     snapshot: null,
     pkmnSnapshots: {},
-    pendingStart: false
+    pendingStart: false,
   };
 
   const nameMaps = {
     pokemon: null,
     moves: null,
     abilities: null,
-    items: null
+    items: null,
   };
 
   // ============= Utilities =============
-  const normalize = (val) => String(val || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+  const normalize = (val) =>
+    String(val || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
 
   const buildNameMap = (source, formatter, renameKey) => {
     const map = {};
@@ -31,7 +34,7 @@
       const key = normalize(label);
       if (key) map[key] = id;
     };
-    
+
     for (const id in source) {
       add(id, id);
       if (formatter) add(formatter(id), id);
@@ -54,7 +57,7 @@
       areas[CONFIG.AREA_ID] = {
         id: CONFIG.AREA_ID,
         trainer: true,
-        customChallenge: true
+        customChallenge: true,
       };
     }
     return areas[CONFIG.AREA_ID];
@@ -76,7 +79,7 @@
     ability: pkmn[id].ability,
     hiddenAbilityUnlocked: pkmn[id].hiddenAbilityUnlocked,
     tag: pkmn[id].tag,
-    ribbons: [...(pkmn[id].ribbons || [])]
+    ribbons: [...(pkmn[id].ribbons || [])],
   });
 
   const restorePkmn = (id, snap) => Object.assign(pkmn[id], snap);
@@ -117,7 +120,7 @@
         slot1: mon.moves[0],
         slot2: mon.moves[1],
         slot3: mon.moves[2],
-        slot4: mon.moves[3]
+        slot4: mon.moves[3],
       };
       pkmn[mon.id].movepool = [...mon.moves];
     }
@@ -153,12 +156,15 @@
       totalLevel += mon.level;
     });
 
-    area.level = teamList.length > 0 ? Math.round(totalLevel / teamList.length) : 1;
+    area.level =
+      teamList.length > 0 ? Math.round(totalLevel / teamList.length) : 1;
   };
 
   const restoreCustomTeam = () => {
     restoreTeam(state.snapshot);
-    Object.keys(state.pkmnSnapshots).forEach(id => restorePkmn(id, state.pkmnSnapshots[id]));
+    Object.keys(state.pkmnSnapshots).forEach((id) =>
+      restorePkmn(id, state.pkmnSnapshots[id]),
+    );
     Object.assign(state, {
       snapshot: null,
       pkmnSnapshots: {},
@@ -171,24 +177,33 @@
     const key = normalize(name);
     const statMap = {
       hp: "hp",
-      atk: "atk", attack: "atk",
-      def: "def", defense: "def",
-      spa: "satk", spatk: "satk", specialattack: "satk", spattack: "satk",
-      spd: "sdef", spdef: "sdef", specialdefense: "sdef", spdefense: "sdef",
-      spe: "spe", speed: "spe"
+      atk: "atk",
+      attack: "atk",
+      def: "def",
+      defense: "def",
+      spa: "satk",
+      spatk: "satk",
+      specialattack: "satk",
+      spattack: "satk",
+      spd: "sdef",
+      spdef: "sdef",
+      specialdefense: "sdef",
+      spdefense: "sdef",
+      spe: "spe",
+      speed: "spe",
     };
     return statMap[key] || null;
   };
 
   const parseIvLine = (line, mon, errors) => {
     const ivLine = line.replace(/^ivs:/i, "").trim();
-    ivLine.split("/").forEach(part => {
+    ivLine.split("/").forEach((part) => {
       const match = part.trim().match(/(\d+)\s*([a-zA-Z.\s]+)/);
       if (!match) return;
-      
+
       const value = parseInt(match[1], 10);
       const statKey = normalizeStatName(match[2]);
-      
+
       if (!statKey) {
         errors.push(`Unknown IV stat: ${match[2].trim()}`);
       } else if (isNaN(value) || value < 0 || value > 6) {
@@ -206,12 +221,12 @@
       ability: undefined,
       ivs: { hp: 0, atk: 0, def: 0, satk: 0, sdef: 0, spe: 0 },
       moves: [],
-      item: undefined
+      item: undefined,
     };
 
     let [line, ...itemParts] = header.trim().split("@");
     const itemPart = itemParts.join("@").trim();
-    
+
     let name = line.trim();
 
     const pokemonId = nameMaps.pokemon[normalize(name)];
@@ -235,7 +250,13 @@
 
   const parseChallengeText = (raw) => {
     ensureNameMaps();
-    const result = { title: "", notes: "", playerTeam: [], enemyTeam: [], errors: [] };
+    const result = {
+      title: "",
+      notes: "",
+      playerTeam: [],
+      enemyTeam: [],
+      errors: [],
+    };
     const lines = raw.split(/\r?\n/);
     let current = null;
     let currentSide = null;
@@ -245,7 +266,7 @@
       result[`${currentSide}Team`].push(current);
     };
 
-    lines.forEach(line => {
+    lines.forEach((line) => {
       const trimmed = line.trim();
       if (!trimmed) return;
 
@@ -292,7 +313,6 @@
         return;
       }
 
-
       // IVs
       if (/^ivs:/i.test(trimmed)) {
         parseIvLine(trimmed, current, result.errors);
@@ -316,10 +336,15 @@
     pushCurrent();
 
     // Validation
-    if (result.enemyTeam.length < CONFIG.MIN_TEAM || result.enemyTeam.length > CONFIG.MAX_TEAM) {
-      result.errors.push(`Enemy team must have ${CONFIG.MIN_TEAM}-${CONFIG.MAX_TEAM} Pokémon.`);
+    if (
+      result.enemyTeam.length < CONFIG.MIN_TEAM ||
+      result.enemyTeam.length > CONFIG.MAX_TEAM
+    ) {
+      result.errors.push(
+        `Enemy team must have ${CONFIG.MIN_TEAM}-${CONFIG.MAX_TEAM} Pokémon.`,
+      );
     }
-    [...result.playerTeam, ...result.enemyTeam].forEach(mon => {
+    [...result.playerTeam, ...result.enemyTeam].forEach((mon) => {
       if (mon.moves.length === 0) {
         result.errors.push(`${format(mon.id)} needs at least one move.`);
       }
@@ -329,8 +354,10 @@
   };
 
   // ============= UI Functions =============
-  const formatTeamPreview = (team) => 
-    team.length ? team.map(mon => `${format(mon.id)} (Lv ${mon.level})`).join(", ") : "None";
+  const formatTeamPreview = (team) =>
+    team.length
+      ? team.map((mon) => `${format(mon.id)} (Lv ${mon.level})`).join(", ")
+      : "None";
 
   const renderPreview = (parseResult) => {
     const preview = document.getElementById("custom-challenge-preview");
@@ -352,12 +379,15 @@
   const openEditor = (challenge) => {
     const editor = document.getElementById("custom-challenge-editor");
     if (!editor) return;
-    
+
     editor.style.display = "flex";
-    document.getElementById("custom-challenge-title").value = challenge?.title ?? "";
-    document.getElementById("custom-challenge-notes").value = challenge?.notes ?? "";
-    document.getElementById("custom-challenge-text").value = challenge?.rawText ?? 
-    `[Player] Pikachu @ Life Orb
+    document.getElementById("custom-challenge-title").value =
+      challenge?.title ?? "";
+    document.getElementById("custom-challenge-notes").value =
+      challenge?.notes ?? "";
+    document.getElementById("custom-challenge-text").value =
+      challenge?.rawText ??
+      `[Player] Pikachu @ Life Orb
 Ability: Static
 Level: 50
 IVs: 6 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
@@ -419,7 +449,9 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     }
 
     const editId = editor.dataset.editId;
-    const existing = editId ? saved.customChallenges.find(e => e.id === editId) : null;
+    const existing = editId
+      ? saved.customChallenges.find((e) => e.id === editId)
+      : null;
     const challenge = {
       id: editId || `challenge-${Date.now()}`,
       title: title.value.trim() || parseResult.title || "Custom Challenge",
@@ -427,11 +459,11 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       rawText,
       playerTeam: parseResult.playerTeam,
       enemyTeam: parseResult.enemyTeam,
-      imported: existing?.imported || false
+      imported: existing?.imported || false,
     };
 
     if (editId) {
-      const index = saved.customChallenges.findIndex(e => e.id === editId);
+      const index = saved.customChallenges.findIndex((e) => e.id === editId);
       if (index >= 0) saved.customChallenges[index] = challenge;
     } else {
       saved.customChallenges.unshift(challenge);
@@ -449,14 +481,16 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     if (!rawText) return;
     const parseResult = parseChallengeText(rawText);
     renderPreview(parseResult);
-    parseResult.errors.length ? showError(parseResult.errors.join(" ")) : clearError();
+    parseResult.errors.length
+      ? showError(parseResult.errors.join(" "))
+      : clearError();
   };
 
   const encodeChallenge = (challenge) => {
     const payload = {
       title: challenge.title,
       notes: challenge.notes,
-      rawText: challenge.rawText
+      rawText: challenge.rawText,
     };
     return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
   };
@@ -479,7 +513,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     tooltipMid.innerHTML = body || "";
 
     const bottom = tooltipBottom;
-    bottom.innerHTML = "<span id=\"prevent-tooltip-exit\"></span>";
+    bottom.innerHTML = '<span id="prevent-tooltip-exit"></span>';
 
     actions.forEach(({ label, onClick }) => {
       const button = document.createElement("div");
@@ -509,8 +543,12 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
         {
           label: "Import",
           onClick: () => {
-            const input = document.getElementById("custom-challenge-import-input");
-            const errorEl = document.getElementById("custom-challenge-import-error");
+            const input = document.getElementById(
+              "custom-challenge-import-input",
+            );
+            const errorEl = document.getElementById(
+              "custom-challenge-import-error",
+            );
             if (errorEl) errorEl.textContent = "";
             if (!input) return;
             const encoded = String(input.value || "").trim();
@@ -539,20 +577,22 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
             ensureSavedChallenges();
             saved.customChallenges.unshift({
               id: `challenge-${Date.now()}`,
-              title: String(data?.title ?? parseResult.title ?? "Custom Challenge").trim(),
+              title: String(
+                data?.title ?? parseResult.title ?? "Custom Challenge",
+              ).trim(),
               notes: String(data?.notes ?? parseResult.notes ?? "").trim(),
               rawText,
               playerTeam: parseResult.playerTeam,
               enemyTeam: parseResult.enemyTeam,
-              imported: true
+              imported: true,
             });
 
             saveGame();
             updateCustomChallenges();
             closeTooltip();
-          }
+          },
         },
-      ]
+      ],
     });
   };
 
@@ -570,21 +610,23 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
         {
           label: "Copy",
           onClick: () => {
-            const output = document.getElementById("custom-challenge-export-code");
+            const output = document.getElementById(
+              "custom-challenge-export-code",
+            );
             if (!output) return;
             output.select();
             output.setSelectionRange(0, output.value.length);
             if (navigator.clipboard?.writeText) {
               navigator.clipboard.writeText(output.value).catch(() => {});
             }
-          }
+          },
         },
-      ]
+      ],
     });
   };
 
   const confirmDelete = (challengeId) => {
-    const index = saved.customChallenges.findIndex(e => e.id === challengeId);
+    const index = saved.customChallenges.findIndex((e) => e.id === challengeId);
     if (index === -1) return;
     saved.customChallenges.splice(index, 1);
     saveGame();
@@ -603,10 +645,10 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     }
 
     const uniqueIds = new Set([
-      ...selectedTeam.map(m => m.id),
-      ...parseResult.enemyTeam.map(m => m.id)
+      ...selectedTeam.map((m) => m.id),
+      ...parseResult.enemyTeam.map((m) => m.id),
     ]);
-    uniqueIds.forEach(id => state.pkmnSnapshots[id] = snapshotPkmn(id));
+    uniqueIds.forEach((id) => (state.pkmnSnapshots[id] = snapshotPkmn(id)));
 
     applyPlayerTeam(selectedTeam);
     applyEnemyTeam(parseResult.enemyTeam);
@@ -619,21 +661,23 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       currentArea: area.id,
       lastAreaJoined: area.id,
       currentAreaBuffer: undefined,
-      autoRefight: false
+      autoRefight: false,
     });
 
     currentTrainerSlot = 1;
     if (typeof barProgressPlayer !== "undefined") barProgressPlayer = 0;
     if (typeof barProgressWild !== "undefined") barProgressWild = 0;
-    if (typeof exploreCombatPlayerTurn !== "undefined") exploreCombatPlayerTurn = 1;
+    if (typeof exploreCombatPlayerTurn !== "undefined")
+      exploreCombatPlayerTurn = 1;
     if (typeof exploreCombatWildTurn !== "undefined") exploreCombatWildTurn = 0;
-    if (typeof cancelCurrentPlayerAttack !== "undefined") cancelCurrentPlayerAttack = true;
+    if (typeof cancelCurrentPlayerAttack !== "undefined")
+      cancelCurrentPlayerAttack = true;
     if (typeof afkSeconds !== "undefined") afkSeconds = 0;
     setPkmnTeamHp();
 
     Object.assign(state, {
       active: true,
-      pendingStart: true
+      pendingStart: true,
     });
 
     document.getElementById("area-end").style.display = "none";
@@ -641,7 +685,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     document.getElementById("explore-transition").style.display = "flex";
 
     setTimeout(() => {
-      ["custom-challenges-menu", "explore-menu", "vs-menu"].forEach(id => {
+      ["custom-challenges-menu", "explore-menu", "vs-menu"].forEach((id) => {
         document.getElementById(id).style.display = "none";
       });
       document.getElementById("content-explore").style.display = "flex";
@@ -654,9 +698,9 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
   const openPlayerSelection = (challenge, parseResult) => {
     const selection = new Set();
 
-
     document.getElementById("tooltipTop").style.display = "none";
-    document.getElementById("tooltipBottom").innerHTML = "<span id=\"prevent-tooltip-exit\"></span>";
+    document.getElementById("tooltipBottom").innerHTML =
+      '<span id="prevent-tooltip-exit"></span>';
     document.getElementById("tooltipTitle").innerHTML = "Choose Your Team";
     document.getElementById("tooltipMid").innerHTML = `
       <div id="custom-challenge-selection-count">Selected 0/${CONFIG.MAX_TEAM}</div>
@@ -672,36 +716,36 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       entry.className = "custom-challenge-select-card";
       entry.dataset.index = String(idx);
       const sprite = `img/pkmn/sprite/${mon.id}.png`;
-      
+
       // Build IV display
       const ivDisplay = Object.entries(mon.ivs)
         .map(([stat, val]) => `${stat.toUpperCase()}: ${val}`)
         .join(" / ");
-      
+
       // Build moves display
-      const movesDisplay = mon.moves
-        .map(moveId => format(moveId))
-        .join(", ");
-      
+      const movesDisplay = mon.moves.map((moveId) => format(moveId)).join(", ");
+
       // Item icon if exists
-      const itemIcon = mon.item 
-        ? `<img src="img/items/${mon.item}.png" class="custom-challenge-item-icon" title="${format(mon.item)}" alt="${format(mon.item)}">` 
-        : '';
-      
+      const itemIcon = mon.item
+        ? `<img src="img/items/${mon.item}.png" class="custom-challenge-item-icon" title="${format(mon.item)}" alt="${format(mon.item)}">`
+        : "";
+
       entry.innerHTML = `
         ${itemIcon}
         <img class="custom-challenge-select-sprite" src="${sprite}">
         <div class="custom-challenge-select-info">
           <span class="custom-challenge-select-name">${format(mon.id)}</span>
           <span class="custom-challenge-select-level">Level ${mon.level}</span>
-          ${mon.ability ? `<span class="custom-challenge-select-ability">Ability: ${format(mon.ability)}</span>` : ''}
+          ${mon.ability ? `<span class="custom-challenge-select-ability">Ability: ${format(mon.ability)}</span>` : ""}
           <span class="custom-challenge-select-ivs">${ivDisplay}</span>
           <span class="custom-challenge-select-moves">${movesDisplay}</span>
         </div>
       `;
-      
+
       entry.addEventListener("click", () => {
-        const errorEl = document.getElementById("custom-challenge-selection-error");
+        const errorEl = document.getElementById(
+          "custom-challenge-selection-error",
+        );
         if (errorEl) errorEl.textContent = "";
 
         if (selection.has(idx)) {
@@ -709,17 +753,21 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
           entry.classList.remove("selected");
         } else {
           if (selection.size >= CONFIG.MAX_TEAM) {
-            if (errorEl) errorEl.textContent = `You can only select ${CONFIG.MAX_TEAM} Pokémon.`;
+            if (errorEl)
+              errorEl.textContent = `You can only select ${CONFIG.MAX_TEAM} Pokémon.`;
             return;
           }
           selection.add(idx);
           entry.classList.add("selected");
         }
-        
-        const counter = document.getElementById("custom-challenge-selection-count");
-        if (counter) counter.textContent = `Selected ${selection.size}/${CONFIG.MAX_TEAM}`;
+
+        const counter = document.getElementById(
+          "custom-challenge-selection-count",
+        );
+        if (counter)
+          counter.textContent = `Selected ${selection.size}/${CONFIG.MAX_TEAM}`;
       });
-      
+
       list.appendChild(entry);
     });
 
@@ -729,13 +777,18 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     startButton.style.cssText = "cursor:pointer; margin-top:0.6rem;";
     startButton.addEventListener("click", (e) => {
       e.stopPropagation();
-      const errorEl = document.getElementById("custom-challenge-selection-error");
+      const errorEl = document.getElementById(
+        "custom-challenge-selection-error",
+      );
       if (selection.size < CONFIG.MIN_TEAM) {
-        if (errorEl) errorEl.textContent = `Select at least ${CONFIG.MIN_TEAM} Pokémon.`;
+        if (errorEl)
+          errorEl.textContent = `Select at least ${CONFIG.MIN_TEAM} Pokémon.`;
         return;
       }
       if (errorEl) errorEl.textContent = "";
-      const selectedTeam = Array.from(selection).map(i => parseResult.playerTeam[i]);
+      const selectedTeam = Array.from(selection).map(
+        (i) => parseResult.playerTeam[i],
+      );
       closeTooltip();
       beginChallenge(challenge, parseResult, selectedTeam);
     });
@@ -743,7 +796,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     const tooltipBottom = document.getElementById("tooltipBottom");
     tooltipBottom.appendChild(list);
     tooltipBottom.appendChild(startButton);
-    
+
     openTooltip();
   };
 
@@ -765,7 +818,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     const {
       allowEdit = false,
       allowExport = false,
-      allowDelete = false
+      allowDelete = false,
     } = options;
 
     const title = document.createElement("div");
@@ -786,7 +839,11 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     `;
 
     let rewardBlock;
-    if (challenge.isMainChallenge && Array.isArray(challenge.reward) && challenge.reward.length) {
+    if (
+      challenge.isMainChallenge &&
+      Array.isArray(challenge.reward) &&
+      challenge.reward.length
+    ) {
       rewardBlock = document.createElement("div");
       rewardBlock.className = "custom-challenge-card-reward";
       rewardBlock.innerHTML = "<strong>Reward:</strong>";
@@ -797,7 +854,8 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       challenge.reward.forEach((reward) => {
         const rewardId = reward?.id;
         if (!rewardId) return;
-        if (item[rewardId] === undefined && pkmn[rewardId] === undefined) return;
+        if (item[rewardId] === undefined && pkmn[rewardId] === undefined)
+          return;
 
         const rewardItem = document.createElement("div");
         rewardItem.className = "custom-challenge-reward-item";
@@ -861,13 +919,21 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     `;
 
     if (allowEdit) {
-      icons.appendChild(createIconButton(editIcon, "", () => openEditor(challenge)));
+      icons.appendChild(
+        createIconButton(editIcon, "", () => openEditor(challenge)),
+      );
     }
     if (allowExport) {
-      icons.appendChild(createIconButton(exportIcon, "", () => handleExport(challenge)));
+      icons.appendChild(
+        createIconButton(exportIcon, "", () => handleExport(challenge)),
+      );
     }
     if (allowDelete) {
-      icons.appendChild(createIconButton(deleteIcon, "danger", () => confirmDelete(challenge.id)));
+      icons.appendChild(
+        createIconButton(deleteIcon, "danger", () =>
+          confirmDelete(challenge.id),
+        ),
+      );
     }
 
     const actions = document.createElement("div");
@@ -915,12 +981,14 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       return;
     }
 
-    saved.customChallenges.forEach(challenge => {
-      list.appendChild(renderChallengeCard(challenge, {
-        allowEdit: !challenge.imported,
-        allowExport: !challenge.imported,
-        allowDelete: true
-      }));
+    saved.customChallenges.forEach((challenge) => {
+      list.appendChild(
+        renderChallengeCard(challenge, {
+          allowEdit: !challenge.imported,
+          allowExport: !challenge.imported,
+          allowDelete: true,
+        }),
+      );
     });
   };
 
@@ -929,7 +997,10 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     if (!list) return;
     list.innerHTML = "";
 
-    if (!Array.isArray(window.mainChallenges) || !window.mainChallenges.length) {
+    if (
+      !Array.isArray(window.mainChallenges) ||
+      !window.mainChallenges.length
+    ) {
       const empty = document.createElement("div");
       empty.className = "custom-challenge-card";
       empty.textContent = "Main Challenges are coming soon.";
@@ -937,31 +1008,39 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       return;
     }
 
-    window.mainChallenges.forEach(challenge => {
+    window.mainChallenges.forEach((challenge) => {
       const parseResult = parseChallengeText(challenge.rawText || "");
       const challengeData = {
         ...challenge,
         isMainChallenge: true,
         playerTeam: parseResult.playerTeam,
-        enemyTeam: parseResult.enemyTeam
+        enemyTeam: parseResult.enemyTeam,
       };
-      list.appendChild(renderChallengeCard(challengeData, {
-        allowEdit: false,
-        allowExport: false,
-        allowDelete: false
-      }));
+      list.appendChild(
+        renderChallengeCard(challengeData, {
+          allowEdit: false,
+          allowExport: false,
+          allowDelete: false,
+        }),
+      );
     });
   };
 
   const setChallengesTab = (tab) => {
     const mainTab = document.getElementById("custom-challenges-tab-main");
     const customTab = document.getElementById("custom-challenges-tab-custom");
-    const mainBtn = document.getElementById("custom-challenges-tab-main-button");
-    const customBtn = document.getElementById("custom-challenges-tab-custom-button");
+    const mainBtn = document.getElementById(
+      "custom-challenges-tab-main-button",
+    );
+    const customBtn = document.getElementById(
+      "custom-challenges-tab-custom-button",
+    );
     if (!mainTab || !customTab || !mainBtn || !customBtn) return;
 
-    const activeMainStyle = "background: #465f96; outline: solid 1px #3d61ff; color: white; z-index: 2;";
-    const activeCustomStyle = "background: #964646ff; outline: solid 1px #ff3d3dff; color: white; z-index: 2;";
+    const activeMainStyle =
+      "background: #465f96; outline: solid 1px #3d61ff; color: white; z-index: 2;";
+    const activeCustomStyle =
+      "background: #964646ff; outline: solid 1px #ff3d3dff; color: white; z-index: 2;";
     const inactiveStyle = "";
 
     const headerTitle = document.getElementById("custom-challenges-title");
@@ -992,15 +1071,16 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
     leaveCombat = function () {
       const result = original();
       if (state.active) restoreCustomTeam();
-      
+
       if (areas[saved.lastAreaJoined]?.customChallenge) {
-        ["vs-menu", "explore-menu"].forEach(id => {
+        ["vs-menu", "explore-menu"].forEach((id) => {
           document.getElementById(id).style.display = "none";
         });
-        document.getElementById("custom-challenges-menu").style.display = "flex";
+        document.getElementById("custom-challenges-menu").style.display =
+          "flex";
         updateCustomChallenges();
       }
-      
+
       return result;
     };
   };
@@ -1025,7 +1105,7 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
       ["custom-challenge-import", "click", handleImport],
       ["custom-challenge-save", "click", handleSave],
       ["custom-challenge-cancel", "click", closeEditor],
-      ["custom-challenge-text", "input", handlePreview]
+      ["custom-challenge-text", "input", handlePreview],
     ];
 
     listeners.forEach(([id, event, handler]) => {
@@ -1035,7 +1115,10 @@ IVs: 0 HP / 0 Atk / 0 Def / 6 SpA / 6 SpD / 6 Spe
   };
 
   const init = () => {
-    if (!document.getElementById("custom-challenges-menu") || typeof saved === "undefined") {
+    if (
+      !document.getElementById("custom-challenges-menu") ||
+      typeof saved === "undefined"
+    ) {
       setTimeout(init, 500);
       return;
     }

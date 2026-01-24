@@ -1,60 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokechill</title>
     <link rel="icon" type="image/x-icon" href="/img/icons/icon.png">
     <link rel="stylesheet" href="styles.css">
-
-
-
 </head>
+
 <body>
 
     <div id="bg-pattern"></div>
 
-
     <div id="debug-panel" style="display: none;">
-
-    <div onclick="changeTheme('dark')">Dark Theme</div>
-    <div onclick="changeTheme('light')">Light Theme</div>
-    <div onclick="changeTheme('verdant')">Verdant Theme</div>
-    <div onclick="changeTheme('lilac')">Lilac Theme</div>
-    <div onclick="changeTheme('cherry')">Cherry Theme</div>
-    <div onclick="changeTheme('coral')">Coral Theme</div>
-    <div onclick="changeTheme('onyx')">Onyx Theme</div>
-    <div onclick="changeTheme('oled')">Oled Theme</div>
-
-
+        <div onclick="changeTheme('dark')">Dark Theme</div>
+        <div onclick="changeTheme('light')">Light Theme</div>
+        <div onclick="changeTheme('verdant')">Verdant Theme</div>
+        <div onclick="changeTheme('lilac')">Lilac Theme</div>
+        <div onclick="changeTheme('cherry')">Cherry Theme</div>
+        <div onclick="changeTheme('coral')">Coral Theme</div>
+        <div onclick="changeTheme('onyx')">Onyx Theme</div>
+        <div onclick="changeTheme('oled')">Oled Theme</div>
     </div>
 
     <div id="game-version">v0.1</div>
 
-
-
-
-
-
-
-
-
-
-
     <div id="main-content">
-
-
-
-    <div id="item-menu" style="display: none;">
-
-
-        <div class="item-menu-tags"> <!-- da hells this lol -->
-            <span>
-            <div id="item-menu-cancel" onClick='
-
-            
-
-
+        <div id="item-menu" style="display: none;">
+            <div class="item-menu-tags"> <!-- da hells this lol -->
+                <span>
+                    <div id="item-menu-cancel" onClick='
             if (geneticItemSelect==true){
 
                 document.getElementById("item-menu").style.display = "none"
@@ -64,1232 +40,1165 @@
                 return
             }
 
-
-
             document.getElementById(`team-menu`).style.display = "flex" ;
             document.getElementById(`item-menu`).style.display = "none";
             document.getElementById(`item-menu`).style.zIndex = "30" 
             document.getElementById("item-menu-cancel").style.display = "none";
                 dexTeamSelect = undefined; updateItemBag(); 
                 updatePreviewTeam()'
-                 style="display: none; background: rgb(255, 81, 81); color: white; border: none; text-align: center; display: flex; justify-content: center; align-items: center; ">Cancel</div>
+                        style="display: none; background: rgb(255, 81, 81); color: white; border: none; text-align: center; display: flex; justify-content: center; align-items: center; ">
+                        Cancel</div>
 
-            <div id="item-menu-remove" onClick='
+                    <div id="item-menu-remove" onClick='
             document.getElementById(`team-menu`).style.display = "flex" ;
             document.getElementById(`item-menu`).style.display = "none";
             document.getElementById(`item-menu`).style.zIndex = "30"
             document.getElementById("item-menu-remove").style.display = "none";
             saved.previewTeams[saved.currentPreviewTeam][dexTeamSelect].item = undefined
             dexTeamSelect = undefined; updateItemBag(); 
-                updatePreviewTeam()'
-                 style="display: none; background: rgb(255, 81, 81); color: white; border: none; ">Remove</div>
-
-                 </span>
-
-                 <span>
-
-            <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
-            <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
-            <div onClick="bagCategory = 'key'; updateItemBag()">Key</div>
-
-            </span>
-        </div>
-
-
-        <div id="item-menu-list">
-
-
-        </div>
-
-
-
-
-    </div>
-
-    <div id="team-menu" style="display: none;">
-
-
-
-
-    <div class="team-menu-header">
-
-        <span style="display: flex; justify-content: center; align-items: center; gap: auto; width: 100%;">
-
-        <div style="margin-right:0.5rem; justify-content: start; width:10rem;  padding-right:0rem" class="team-header-button" id="pkmn-team-return" onclick="exitPkmnTeam()">
-        <svg style="margin-right: 1rem;  background:#E46B6F;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M10.928 21a2.98 2.98 0 0 1-2.121-.879L1.686 13l7.121-7.121c1.133-1.134 3.109-1.134 4.242 0c.566.564.879 1.317.879 2.119c0 .746-.27 1.451-.764 2.002H18c1.654 0 3 1.346 3 3s-1.346 3-3 3h-4.836c.493.549.764 1.252.764 1.998a2.98 2.98 0 0 1-.879 2.124a2.98 2.98 0 0 1-2.121.878m-6.414-8l5.707 5.707a1.023 1.023 0 0 0 1.414 0c.189-.189.293-.441.293-.708s-.104-.517-.291-.705L8.342 14H18a1.001 1.001 0 0 0 0-2H8.342l3.293-3.293a.996.996 0 0 0 .001-1.413a1.023 1.023 0 0 0-1.415-.001z"/></svg>
-        Go back
-        </div>
-
-        <div id="preview-team-exit"  onclick="afkSeconds = 0 ;injectPreviewTeam(); saveGame()" style="margin-left:auto; justify-content: end; padding-left: 0rem;" class="team-header-button" onclick="exitPkmnTeam()">
-        Save and Go!
-        <svg  style="margin-left: 1rem;     border: 1px solid rgb(151, 252, 255);" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 21c-.801 0-1.555-.312-2.121-.879S8.999 18.8 9 17.998c0-.746.271-.998.764-1.998H4.928c-1.654 0-3-1.347-3-3s1.346-3 3-3h4.836C9.27 9 9 8.745 9 7.999a2.98 2.98 0 0 1 .88-2.121c1.132-1.132 3.108-1.133 4.241.001L21.242 13l-7.121 7.121A2.98 2.98 0 0 1 12 21m-7.072-9a1.001 1.001 0 0 0 0 2h9.658l-3.293 3.293a1 1 0 0 0-.293.706c0 .269.104.519.293.708a1.023 1.023 0 0 0 1.414 0L18.414 13l-5.707-5.707a1.023 1.023 0 0 0-1.414 0a1 1 0 0 0-.293.706c0 .268.104.519.293.708L14.586 12z"/></svg>
-        </div>
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-        </span>
-
-
-
-
-        <div class="team-menu-selector-new">
-
-
-
-
-
-            <select id="team-slot-selector">
-                <option value="preview1">Team 1</option>
-                <option value="preview2">Team 2</option>
-                <option value="preview3">Team 3</option>
-                <option value="preview4">Team 4</option>
-                <option value="preview5">Team 5</option>
-                <option value="preview6">Team 6</option>
-                <option value="preview7">Team 7</option>
-                <option value="preview8">Team 8</option>
-                <option value="preview9">Team 9</option>
-                <option value="preview10">Team 10</option>
-                <option value="preview11">Team 11</option>
-                <option value="preview12">Team 12</option>
-                <option value="preview13">Team 13</option>
-                <option value="preview14">Team 14</option>
-                <option value="preview15">Team 15</option>
-                <option value="preview16">Team 16</option>
-                <option value="preview17">Team 17</option>
-                <option value="preview18">Team 18</option>
-                <option value="preview19">Team 19</option>
-                <option value="preview20">Team 20</option>
-                <option value="preview21">Team 21</option>
-                <option value="preview22">Team 22</option>
-                <option value="preview23">Team 23</option>
-                <option value="preview24">Team 24</option>
-                <option value="preview25">Team 25</option>
-                <option value="preview26">Team 26</option>
-                <option value="preview27">Team 27</option>
-                <option value="preview28">Team 28</option>
-                <option value="preview29">Team 29</option>
-                <option value="preview30">Team 30</option>
-            </select>
-
-            <svg style="margin-right: 2.5rem; flex-shrink:0" id="auto-build-button" onclick="openAutoTeam()" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M13.5 1a.5.5 0 0 1 .5.5V2h.5a.5.5 0 0 1 0 1H14v.5a.5.5 0 0 1-1 0V3h-.5a.5.5 0 0 1 0-1h.5v-.5a.5.5 0 0 1 .5-.5m-10 2a.5.5 0 0 1 .5.5V4h.5a.5.5 0 1 1 0 1H4v.5a.5.5 0 1 1-1 0V5h-.5a.5.5 0 0 1 0-1H3v-.5a.5.5 0 0 1 .5-.5m9 9a.5.5 0 0 0 0-1H12v-.5a.5.5 0 0 0-1 0v.5h-.5a.5.5 0 0 0 0 1h.5v.5a.5.5 0 0 0 1 0V12zM8.73 4.563a1.914 1.914 0 0 1 2.707 2.708l-7.17 7.17a1.914 1.914 0 0 1-2.707-2.708zm-.48 1.894L2.267 12.44a.914.914 0 0 0 1.293 1.293L9.543 7.75zm2 .586l.48-.48a.914.914 0 1 0-1.293-1.292l-.48.48z"/></svg>
-
-
-            <svg onclick="editTeamName()" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m2.777 19.783l.607-4.162c.037-.272.161-.525.355-.72L15.5 3.124a1.26 1.26 0 0 1 1.19-.341a6.2 6.2 0 0 1 2.832 1.694a6.2 6.2 0 0 1 1.682 2.846a1.26 1.26 0 0 1-.341 1.19L9.089 20.275a1.26 1.26 0 0 1-.721.354l-4.161.607a1.264 1.264 0 0 1-1.43-1.454M13.275 5.364l5.363 5.363"/></svg>
-
-
-
-        </div>
-
-
-        <div class="team-menu-selector" style="display: none;">
-            <strong onClick="cyclePreviewTeams(-1)">◀</strong>
-            <div id="team-preview-slot-1"></div>
-            <div id="team-preview-slot-2"></div>
-            <div id="team-preview-slot-3"></div>
-            <div id="team-preview-slot-4"></div>
-            <div id="team-preview-slot-5"></div>
-            <div id="team-preview-slot-6"></div>
-            <strong onClick="cyclePreviewTeams(+1)">▶</strong>
-        </div>
-    </div>
-
-
-    <div id="team-preview">
-
-    </div>
-
-
-    </div>
-
-
-
-
-
-    <div id="dictionary-menu">
-
-        <div id="dictionary-header">
-
-        <div id="dictionary-filters">
-            <div onclick='dictionaryFilter="pokemon"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Pokemon</div>
-            <div onclick='dictionaryFilter="ability"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Abilities</div>
-            <div onclick='dictionaryFilter="move"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Moves</div>
-            <div onclick='dictionaryFilter="item"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>Items</div>
-        </div>
-
-        <div style="width: 100%;" data-help="searchDictionary"><input style="cursor: help;" id="dictionary-search" type="text" placeholder="Right Click/Long Press to see keywords"></div>
-
-        </div>
-
-        
-
-        <div id="dictionary-list">
-
-        </div>
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-    <div id="pokedex-menu" style="display: none;">
-
-        <img class="pokedex-menu-flair" src="img/icons/pokeball.svg">
-        <div id="pokedex-filters">
-
-
-            <div class="pokedex-search" id="pokedex-filters-title" style="display: none; cursor: default; text-align: center; justify-content: center;">Select a pokemon to teach Hydro Pump</div>
-            
-            <div class="pokedex-cancel-menu">
-            <div id="pokedex-filters-cancel" onClick="exitTmTeaching('cancel')" style="display: none; background: rgb(255, 81, 81); color: white;">Cancel</div>
-            <div id="pokedex-filters-remove" onClick="exitTmTeaching('remove')" style="display: none; background: rgb(255, 81, 81); color: white;">Remove</div>
+                updatePreviewTeam()' style="display: none; background: rgb(255, 81, 81); color: white; border: none; ">
+                        Remove</div>
+                </span>
+
+                <span>
+                    <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
+                    <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
+                    <div onClick="bagCategory = 'key'; updateItemBag()">Key</div>
+                </span>
             </div>
 
-            <div class="pokedex-filters-menu">
-            <div style="color: white; font-size: 1.2rem;">Filters</div>
-            <div class="separator-solid" style="width: 90%; height: 2px; opacity: 0.5; margin: 0;"></div>
-            
-            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
-            <select id="pokedex-filter-type">
-                <option value="all">type</option>
-                <option value="normal">normal</option>
-                <option value="fire">fire</option>
-                <option value="water">water</option>
-                <option value="electric">electric</option>
-                <option value="grass">grass</option>
-                <option value="ice">ice</option>
-                <option value="fighting">fighting</option>
-                <option value="poison">poison</option>
-                <option value="ground">ground</option>
-                <option value="flying">flying</option>
-                <option value="psychic">psychic</option>
-                <option value="bug">bug</option>
-                <option value="rock">rock</option>
-                <option value="ghost">ghost</option>
-                <option value="dragon">dragon</option>
-                <option value="dark">dark</option>
-                <option value="steel">steel</option>
-                <option value="fairy">fairy</option>
-            </select>
-
-            <select id="pokedex-filter-type-2">
-                <option value="all">type</option>
-                <option value="normal">normal</option>
-                <option value="fire">fire</option>
-                <option value="water">water</option>
-                <option value="electric">electric</option>
-                <option value="grass">grass</option>
-                <option value="ice">ice</option>
-                <option value="fighting">fighting</option>
-                <option value="poison">poison</option>
-                <option value="ground">ground</option>
-                <option value="flying">flying</option>
-                <option value="psychic">psychic</option>
-                <option value="bug">bug</option>
-                <option value="rock">rock</option>
-                <option value="ghost">ghost</option>
-                <option value="dragon">dragon</option>
-                <option value="dark">dark</option>
-                <option value="steel">steel</option>
-                <option value="fairy">fairy</option>
-            </select>
-
-            <select id="pokedex-filter-level">
-                <option value="all">level</option>
-                <option value="20">1-20</option>
-                <option value="40">20-40</option>
-                <option value="60">40-60</option>
-                <option value="80">60-80</option>
-                <option value="100">80-100</option>
-            </select>
-
-            <select id="pokedex-filter-division">
-                <option value="all">division</option>
-                <option value="D">D</option>
-                <option value="C">C</option>
-                <option value="B">B</option>
-                <option value="A">A</option>
-                <option value="S">S</option>
-                <option value="SS">SS</option>
-                <option value="SSS">SSS</option>
-            </select>
-
-            <select id="pokedex-filter-evolution">
-                <option value="all">evolution</option>
-                <option value="true">not evolved (all)</option>
-                <option value="level-only">not evolved (level)</option>
-            </select>
-
-            <select id="pokedex-filter-ability">
-                <option value="all">ability</option>
-                <option value=1>common</option>
-                <option value=2>uncommon</option>
-                <option value=3>rare</option>
-                <option value=4>locked HA</option>
-            </select>
-
-            <select id="pokedex-filter-shiny">
-                <option value="all">shiny</option>
-                <option value=true>is shiny</option>
-                <option value=undefined>not shiny</option>
-            </select>
-
-            <select id="pokedex-filter-signature">
-                <option value="all">signature       </option>
-                <option value=false>has signature   </option>
-            </select>
-
-            <select id="pokedex-filter-ribbon">
-                <option value="all">ribbon</option>
-                <option value=true>has ribbon</option>
-            </select>
-
-              <select id="pokedex-filter-tag">
-                <option value="all">tag</option>
-                <option value="none">none</option>
-                <option value="red">red</option>
-                <option value="orange">orange</option>
-                <option value="yellow">yellow</option>
-                <option value="green">green</option>
-                <option value="lime">lime</option>
-                <option value="blue">blue</option>
-                <option value="teal">teal</option>
-                <option value="pink">pink</option>
-                <option value="magenta">magenta</option>
-                <option value="hidden">hidden</option>
-            </select>
-
-              <select id="pokedex-sort-filter">
-                <option value="default">sort</option>
-                <option value="level">level</option>
-                <option value="hpTotal">hp Total</option>
-                <option value="atkTotal">atk Total</option>
-                <option value="defTotal">def Total</option>
-                <option value="satkTotal">satk Total</option>
-                <option value="sdefTotal">sdef Total</option>
-                <option value="speTotal">spe Total</option>
-                <option value="hpBst">hp BST</option>
-                <option value="atkBst">atk BST</option>
-                <option value="defBst">def BST</option>
-                <option value="satkBst">satk BST</option>
-                <option value="sdefBst">sdef BST</option>
-                <option value="speBst">spe BST</option>
-                <option value="hpIv">hp IV's</option>
-                <option value="atkIv">atk IV's</option>
-                <option value="defIv">def IV's</option>
-                <option value="satkIv">satk IV's</option>
-                <option value="sdefIv">sdef IV's</option>
-                <option value="speIv">spe IV's</option>
-            </select>
-           
-            <div class="clear-filters" onClick="resetPokedexFilters(); updatePokedex()" style="background: rgb(155, 102, 77); cursor: pointer;">Clear Filters</div>
-
-            </div>
-            </div>
-
-            <div class="pokedex-search" data-help="searchPokedex">
-            <input style="cursor: help;" id="pokedex-search" type="text" placeholder="Right Click to see keywords">
-            <div style="background: rgb(90, 133, 113); color: white; cursor: default;" id="pokedex-total">caught</div>
-            </div>
-            
-
-
-
+            <div id="item-menu-list"></div>
         </div>
 
-        <div id="pokedex-list">
+        <div id="team-menu" style="display: none;">
+            <div class="team-menu-header">
+                <span style="display: flex; justify-content: center; align-items: center; gap: auto; width: 100%;">
+                    <div style="margin-right:0.5rem; justify-content: start; width:10rem;  padding-right:0rem"
+                        class="team-header-button" id="pkmn-team-return" onclick="exitPkmnTeam()">
+                        <svg style="margin-right: 1rem;  background:#E46B6F;" xmlns="http://www.w3.org/2000/svg"
+                            width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M10.928 21a2.98 2.98 0 0 1-2.121-.879L1.686 13l7.121-7.121c1.133-1.134 3.109-1.134 4.242 0c.566.564.879 1.317.879 2.119c0 .746-.27 1.451-.764 2.002H18c1.654 0 3 1.346 3 3s-1.346 3-3 3h-4.836c.493.549.764 1.252.764 1.998a2.98 2.98 0 0 1-.879 2.124a2.98 2.98 0 0 1-2.121.878m-6.414-8l5.707 5.707a1.023 1.023 0 0 0 1.414 0c.189-.189.293-.441.293-.708s-.104-.517-.291-.705L8.342 14H18a1.001 1.001 0 0 0 0-2H8.342l3.293-3.293a.996.996 0 0 0 .001-1.413a1.023 1.023 0 0 0-1.415-.001z" />
+                        </svg>
+                        Go back
+                    </div>
 
+                    <div id="preview-team-exit" onclick="afkSeconds = 0 ;injectPreviewTeam(); saveGame()"
+                        style="margin-left:auto; justify-content: end; padding-left: 0rem;" class="team-header-button"
+                        onclick="exitPkmnTeam()">
+                        Save and Go!
+                        <svg style="margin-left: 1rem;     border: 1px solid rgb(151, 252, 255);"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M12 21c-.801 0-1.555-.312-2.121-.879S8.999 18.8 9 17.998c0-.746.271-.998.764-1.998H4.928c-1.654 0-3-1.347-3-3s1.346-3 3-3h4.836C9.27 9 9 8.745 9 7.999a2.98 2.98 0 0 1 .88-2.121c1.132-1.132 3.108-1.133 4.241.001L21.242 13l-7.121 7.121A2.98 2.98 0 0 1 12 21m-7.072-9a1.001 1.001 0 0 0 0 2h9.658l-3.293 3.293a1 1 0 0 0-.293.706c0 .269.104.519.293.708a1.023 1.023 0 0 0 1.414 0L18.414 13l-5.707-5.707a1.023 1.023 0 0 0-1.414 0a1 1 0 0 0-.293.706c0 .268.104.519.293.708L14.586 12z" />
+                        </svg>
+                    </div>
+                </span>
 
+                <div class="team-menu-selector-new">
+                    <select id="team-slot-selector">
+                        <option value="preview1">Team 1</option>
+                        <option value="preview2">Team 2</option>
+                        <option value="preview3">Team 3</option>
+                        <option value="preview4">Team 4</option>
+                        <option value="preview5">Team 5</option>
+                        <option value="preview6">Team 6</option>
+                        <option value="preview7">Team 7</option>
+                        <option value="preview8">Team 8</option>
+                        <option value="preview9">Team 9</option>
+                        <option value="preview10">Team 10</option>
+                        <option value="preview11">Team 11</option>
+                        <option value="preview12">Team 12</option>
+                        <option value="preview13">Team 13</option>
+                        <option value="preview14">Team 14</option>
+                        <option value="preview15">Team 15</option>
+                        <option value="preview16">Team 16</option>
+                        <option value="preview17">Team 17</option>
+                        <option value="preview18">Team 18</option>
+                        <option value="preview19">Team 19</option>
+                        <option value="preview20">Team 20</option>
+                        <option value="preview21">Team 21</option>
+                        <option value="preview22">Team 22</option>
+                        <option value="preview23">Team 23</option>
+                        <option value="preview24">Team 24</option>
+                        <option value="preview25">Team 25</option>
+                        <option value="preview26">Team 26</option>
+                        <option value="preview27">Team 27</option>
+                        <option value="preview28">Team 28</option>
+                        <option value="preview29">Team 29</option>
+                        <option value="preview30">Team 30</option>
+                    </select>
+
+                    <svg style="margin-right: 2.5rem; flex-shrink:0" id="auto-build-button" onclick="openAutoTeam()"
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                        <path fill="currentColor"
+                            d="M13.5 1a.5.5 0 0 1 .5.5V2h.5a.5.5 0 0 1 0 1H14v.5a.5.5 0 0 1-1 0V3h-.5a.5.5 0 0 1 0-1h.5v-.5a.5.5 0 0 1 .5-.5m-10 2a.5.5 0 0 1 .5.5V4h.5a.5.5 0 1 1 0 1H4v.5a.5.5 0 1 1-1 0V5h-.5a.5.5 0 0 1 0-1H3v-.5a.5.5 0 0 1 .5-.5m9 9a.5.5 0 0 0 0-1H12v-.5a.5.5 0 0 0-1 0v.5h-.5a.5.5 0 0 0 0 1h.5v.5a.5.5 0 0 0 1 0V12zM8.73 4.563a1.914 1.914 0 0 1 2.707 2.708l-7.17 7.17a1.914 1.914 0 0 1-2.707-2.708zm-.48 1.894L2.267 12.44a.914.914 0 0 0 1.293 1.293L9.543 7.75zm2 .586l.48-.48a.914.914 0 1 0-1.293-1.292l-.48.48z" />
+                    </svg>
+
+                    <svg onclick="editTeamName()" style="flex-shrink:0" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="m2.777 19.783l.607-4.162c.037-.272.161-.525.355-.72L15.5 3.124a1.26 1.26 0 0 1 1.19-.341a6.2 6.2 0 0 1 2.832 1.694a6.2 6.2 0 0 1 1.682 2.846a1.26 1.26 0 0 1-.341 1.19L9.089 20.275a1.26 1.26 0 0 1-.721.354l-4.161.607a1.264 1.264 0 0 1-1.43-1.454M13.275 5.364l5.363 5.363" />
+                    </svg>
+                </div>
+
+                <div class="team-menu-selector" style="display: none;">
+                    <strong onClick="cyclePreviewTeams(-1)">◀</strong>
+                    <div id="team-preview-slot-1"></div>
+                    <div id="team-preview-slot-2"></div>
+                    <div id="team-preview-slot-3"></div>
+                    <div id="team-preview-slot-4"></div>
+                    <div id="team-preview-slot-5"></div>
+                    <div id="team-preview-slot-6"></div>
+                    <strong onClick="cyclePreviewTeams(+1)">▶</strong>
+                </div>
+            </div>
+
+            <div id="team-preview"></div>
         </div>
 
+        <div id="dictionary-menu">
+            <div id="dictionary-header">
+                <div id="dictionary-filters">
+                    <div
+                        onclick='dictionaryFilter="pokemon"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>
+                        Pokemon</div>
+                    <div
+                        onclick='dictionaryFilter="ability"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>
+                        Abilities</div>
+                    <div
+                        onclick='dictionaryFilter="move"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>
+                        Moves</div>
+                    <div
+                        onclick='dictionaryFilter="item"; document.getElementById("dictionary-search").value=""; searchedDictionary = [] ;  updateDictionary() '>
+                        Items</div>
+                </div>
 
+                <div style="width: 100%;" data-help="searchDictionary"><input style="cursor: help;"
+                        id="dictionary-search" type="text" placeholder="Right Click/Long Press to see keywords"></div>
 
-    </div>
+            </div>
 
+            <div id="dictionary-list"></div>
+        </div>
+
+        <div id="pokedex-menu" style="display: none;">
+            <img class="pokedex-menu-flair" src="img/icons/pokeball.svg">
+            <div id="pokedex-filters">
+                <div class="pokedex-search" id="pokedex-filters-title"
+                    style="display: none; cursor: default; text-align: center; justify-content: center;">Select a
+                    pokemon to teach Hydro Pump</div>
+
+                <div class="pokedex-cancel-menu">
+                    <div id="pokedex-filters-cancel" onClick="exitTmTeaching('cancel')"
+                        style="display: none; background: rgb(255, 81, 81); color: white;">Cancel</div>
+                    <div id="pokedex-filters-remove" onClick="exitTmTeaching('remove')"
+                        style="display: none; background: rgb(255, 81, 81); color: white;">Remove</div>
+                </div>
+
+                <div class="pokedex-filters-menu">
+                    <div style="color: white; font-size: 1.2rem;">Filters</div>
+                    <div class="separator-solid" style="width: 90%; height: 2px; opacity: 0.5; margin: 0;"></div>
+
+                    <div
+                        style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                        <select id="pokedex-filter-type">
+                            <option value="all">type</option>
+                            <option value="normal">normal</option>
+                            <option value="fire">fire</option>
+                            <option value="water">water</option>
+                            <option value="electric">electric</option>
+                            <option value="grass">grass</option>
+                            <option value="ice">ice</option>
+                            <option value="fighting">fighting</option>
+                            <option value="poison">poison</option>
+                            <option value="ground">ground</option>
+                            <option value="flying">flying</option>
+                            <option value="psychic">psychic</option>
+                            <option value="bug">bug</option>
+                            <option value="rock">rock</option>
+                            <option value="ghost">ghost</option>
+                            <option value="dragon">dragon</option>
+                            <option value="dark">dark</option>
+                            <option value="steel">steel</option>
+                            <option value="fairy">fairy</option>
+                        </select>
+
+                        <select id="pokedex-filter-type-2">
+                            <option value="all">type</option>
+                            <option value="normal">normal</option>
+                            <option value="fire">fire</option>
+                            <option value="water">water</option>
+                            <option value="electric">electric</option>
+                            <option value="grass">grass</option>
+                            <option value="ice">ice</option>
+                            <option value="fighting">fighting</option>
+                            <option value="poison">poison</option>
+                            <option value="ground">ground</option>
+                            <option value="flying">flying</option>
+                            <option value="psychic">psychic</option>
+                            <option value="bug">bug</option>
+                            <option value="rock">rock</option>
+                            <option value="ghost">ghost</option>
+                            <option value="dragon">dragon</option>
+                            <option value="dark">dark</option>
+                            <option value="steel">steel</option>
+                            <option value="fairy">fairy</option>
+                        </select>
+
+                        <select id="pokedex-filter-level">
+                            <option value="all">level</option>
+                            <option value="20">1-20</option>
+                            <option value="40">20-40</option>
+                            <option value="60">40-60</option>
+                            <option value="80">60-80</option>
+                            <option value="100">80-100</option>
+                        </select>
+
+                        <select id="pokedex-level-sort">
+                            <option value="default">level sort</option>
+                            <option value="desc">level desc</option>
+                            <option value="asc">level asc</option>
+                        </select>
+
+                        <select id="pokedex-filter-division">
+                            <option value="all">division</option>
+                            <option value="D">D</option>
+                            <option value="C">C</option>
+                            <option value="B">B</option>
+                            <option value="A">A</option>
+                            <option value="S">S</option>
+                            <option value="SS">SS</option>
+                            <option value="SSS">SSS</option>
+                        </select>
+
+                        <select id="pokedex-filter-evolution">
+                            <option value="all">evolution</option>
+                            <option value="true">not evolved (all)</option>
+                            <option value="level-only">not evolved (level)</option>
+                        </select>
+
+                        <select id="pokedex-filter-ability">
+                            <option value="all">ability</option>
+                            <option value=1>common</option>
+                            <option value=2>uncommon</option>
+                            <option value=3>rare</option>
+                            <option value=4>locked HA</option>
+                        </select>
+
+                        <select id="pokedex-filter-shiny">
+                            <option value="all">shiny</option>
+                            <option value=true>is shiny</option>
+                            <option value=undefined>not shiny</option>
+                        </select>
+
+                        <select id="pokedex-filter-signature">
+                            <option value="all">signature </option>
+                            <option value=false>has signature </option>
+                        </select>
+
+                        <select id="pokedex-filter-ribbon">
+                            <option value="all">ribbon</option>
+                            <option value=true>has ribbon</option>
+                        </select>
+
+                        <select id="pokedex-filter-tag">
+                            <option value="all">tag</option>
+                            <option value="none">none</option>
+                            <option value="red">red</option>
+                            <option value="orange">orange</option>
+                            <option value="yellow">yellow</option>
+                            <option value="green">green</option>
+                            <option value="lime">lime</option>
+                            <option value="blue">blue</option>
+                            <option value="teal">teal</option>
+                            <option value="pink">pink</option>
+                            <option value="magenta">magenta</option>
+                            <option value="hidden">hidden</option>
+                        </select>
+
+                        <select id="pokedex-sort-filter">
+                            <option value="default">sort</option>
+                            <option value="level">level</option>
+                            <option value="hpTotal">hp Total</option>
+                            <option value="atkTotal">atk Total</option>
+                            <option value="defTotal">def Total</option>
+                            <option value="satkTotal">satk Total</option>
+                            <option value="sdefTotal">sdef Total</option>
+                            <option value="speTotal">spe Total</option>
+                            <option value="hpBst">hp BST</option>
+                            <option value="atkBst">atk BST</option>
+                            <option value="defBst">def BST</option>
+                            <option value="satkBst">satk BST</option>
+                            <option value="sdefBst">sdef BST</option>
+                            <option value="speBst">spe BST</option>
+                            <option value="hpIv">hp IV's</option>
+                            <option value="atkIv">atk IV's</option>
+                            <option value="defIv">def IV's</option>
+                            <option value="satkIv">satk IV's</option>
+                            <option value="sdefIv">sdef IV's</option>
+                            <option value="speIv">spe IV's</option>
+                        </select>
+
+                        <div class="clear-filters" onClick="resetPokedexFilters(); updatePokedex()"
+                            style="background: rgb(155, 102, 77); cursor: pointer;">Clear Filters</div>
+
+                    </div>
+                </div>
+
+                <div class="pokedex-search" data-help="searchPokedex">
+                    <input style="cursor: help;" id="pokedex-search" type="text"
+                        placeholder="Right Click to see keywords">
+                    <div style="background: rgb(90, 133, 113); color: white; cursor: default;" id="pokedex-total">caught
+                    </div>
+                </div>
+            </div>
+
+            <div id="pokedex-list"></div>
+        </div>
 
         <div id="settings-menu" style="display: none;">
+            <div id="settings-menu-header">
+                <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+                    </svg>
+                    Settings 
+                </span>
+            </div>
 
-        <div id="settings-menu-header">
+            <div class="settings-list">
+                <div onclick="exportData()">Export Data</div>
+                <div onclick="importData()">Import Data</div>
+                <div onclick="textData()">Data to Text</div>
 
-            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"/></svg>
-                Settings </span>
-            
-            
-        </div>
+                <div>Theme: <select id="settings-theme">
+                        <option value="dark">dark</option>
+                        <option value="verdant">verdant</option>
+                        <option value="lilac">lilac</option>
+                        <option value="cherry">cherry</option>
+                        <option value="onyx">onyx</option>
+                        <option value="coral">coral</option>
+                        <option value="oled">oled</option>
+                    </select></div>
 
-        <div class="settings-list">
-            <div onclick="exportData()">Export Data</div>
-            <div onclick="importData()">Import Data</div>
-            <div onclick="textData()">Data to Text</div>
+                <div data-help="settingsNewPkmn" style="cursor: help;">Hide non-new Pokemon got in summary: <select
+                        id="settings-hide-got">
+                        <option value="false">disabled</option>
+                        <option value="true">enabled</option>
+                    </select></div>
 
-            <div>Theme: <select id="settings-theme">
-                <option value="dark">dark</option>
-                <option value="verdant">verdant</option>
-                <option value="lilac">lilac</option>
-                <option value="cherry">cherry</option>
-                <option value="onyx">onyx</option>
-                <option value="coral">coral</option>
-                <option value="oled">oled</option>
-            </select></div>
+                <div data-help="settingsAlternateWild" style="cursor: help;">Substract 1 to current Wild Area rotation:
+                    <select id="settings-alternate-rotation">
+                        <option value="false">disabled</option>
+                        <option value="true">enabled</option>
+                    </select></div>
 
-            <div data-help="settingsNewPkmn" style="cursor: help;">Hide non-new Pokemon got in summary: <select id="settings-hide-got">
-                <option value="false">disabled</option>
-                <option value="true">enabled</option>
-            </select></div>
-
-            <div data-help="settingsAlternateWild" style="cursor: help;">Substract 1 to current Wild Area rotation: <select id="settings-alternate-rotation">
-                <option value="false">disabled</option>
-                <option value="true">enabled</option>
-            </select></div>
-
-            <!--<div>Tutorials: <select id="settings-tutorial">
+                <!--<div>Tutorials: <select id="settings-tutorial">
                 <option value="enabled">enabled</option>
                 <option value="disabled">disabled</option>
             </select></div>-->
 
-            <div onclick='document.getElementById("tooltipTop").style.display = `none`
+                <div onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Credits`
         document.getElementById("tooltipMid").style.display = `none`
         document.getElementById("tooltipBottom").innerHTML = `Made by <span onclick="secretFight(areas.missingArea.id)">Duck</span><br><br>Pokemon and trainer sprites by Pokemon Showdown (Including artists: Beliot419, kyledove, Gnomowladny, Brumirage and ZacWeavile. Go check their work. Now.)<br><br>Gen 9 sprites by KingOfThe-X-Roads<br><br>All characters and related assets featured in this game are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company, and are used here strictly for non-commercial purposes.`
-        openTooltip()' >Credits</div>
-            <div onclick="window.open('https://discord.gg/VnukKfSs3S', '_blank')">Discord</div>
+        openTooltip()'>Credits</div>
+                <div onclick="window.open('https://discord.gg/VnukKfSs3S', '_blank')">Discord</div>
 
-            <div style="margin-top: 3rem;background: rgb(206, 83, 83); color: white; " onclick='document.getElementById("tooltipTop").style.display = `none`
+                <div style="margin-top: 3rem;background: rgb(206, 83, 83); color: white; " onclick='document.getElementById("tooltipTop").style.display = `none`
         document.getElementById("tooltipTitle").innerHTML = `Are you sure you want to delete all data forever?`
         document.getElementById("tooltipMid").style.display = `none`
         document.getElementById("tooltipBottom").innerHTML = `<div onClick = "clearData()" style="cursor:pointer; font-size:2rem" id="prevent-tooltip-exit">Yeah!</div>`
-        openTooltip()'
-            
-            >Wipe Data</div>
-
-
+        openTooltip()'>Wipe Data</div>
+            </div>
         </div>
 
+        <div id="disclaimer-menu" style="display: none;">
+            This project is entirely unofficial!
+            <br><br>
+            All characters and related intellectual property featured are the exclusive property of Nintendo, Creatures
+            Inc., and The Pokémon Company.
+            <br><br>
+            Any use of assets is solely for non-commercial and entertainment purposes. No ownership is claimed, and all
+            rights remain with their respective owners
+            <br><br>
+            Go play the official games!
         </div>
 
+        <div id="starter-menu" style="display: none;">
+            <span>Select a starter!</span>
+            <div class="starter-list">
+                <div data-pkmn="litten"
+                    onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.charcoal.got++; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
+                    <img src="img/pkmn/sprite/litten.png">Litten<br>Fire Type
+                </div>
 
+                <div data-pkmn="turtwig"
+                    onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.miracleSeed.got++; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
+                    <img src="img/pkmn/sprite/turtwig.png">Turtwig<br>Grass Type
+                </div>
 
-       <div id="disclaimer-menu" style="display: none;">
-        This project is entirely unofficial!
-        <br><br>
-        All characters and related intellectual property featured are the exclusive property of Nintendo, Creatures Inc., and The Pokémon Company.
-        <br><br>
-        Any use of assets is solely for non-commercial and entertainment purposes. No ownership is claimed, and all rights remain with their respective owners
-        <br><br>
-        Go play the official games!
-       </div>
+                <div data-pkmn="froakie"
+                    onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.mysticWater.got++; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
+                    <img src="img/pkmn/sprite/froakie.png">Froakie<br>Water Type
+                </div>
 
-       <div id="starter-menu" style="display: none;">
-
-        <span>Select a starter!</span>
-
-        <div class="starter-list">
-
-            <div data-pkmn="litten" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.charcoal.got++; givePkmn(pkmn.litten,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
-                <img src="img/pkmn/sprite/litten.png">Litten<br>Fire Type
+                <span style="color: white; background: transparent; padding: 0 2rem;">Tip: Right click (or long-press on
+                    mobile) on most elements for additional information</span>
             </div>
-
-            <div data-pkmn="turtwig" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.miracleSeed.got++; givePkmn(pkmn.turtwig,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
-                <img src="img/pkmn/sprite/turtwig.png">Turtwig<br>Grass Type
-            </div>
-
-            <div data-pkmn="froakie" onClick="document.getElementById('starter-menu').style.pointerEvents = 'none'; item.mysticWater.got++; givePkmn(pkmn.froakie,10); voidAnimation('starter-menu','tooltipBoxAppear 0.2s 1 reverse'); setTimeout(() => { document.getElementById('starter-menu').style.display = 'none' }, 150); ">
-                <img src="img/pkmn/sprite/froakie.png">Froakie<br>Water Type
-            </div>
-
-        <span style="color: white; background: transparent; padding: 0 2rem;">Tip: Right click (or long-press on mobile) on most elements for additional information</span>
-
         </div>
 
-       </div>
-
-
-       <div id="tutorial" style="display: none;">
-
-
-
-        <img class="sprite-trim" src="img/pkmn/sprite/pikachuPhd.png">
-        <span id="tutorial-text">While in combat, Pokemon get tired and lose a very small fraction of their hp yada yada.</span>
-       </div>
+        <div id="tutorial" style="display: none;">
+            <img class="sprite-trim" src="img/pkmn/sprite/pikachuPhd.png">
+            <span id="tutorial-text">While in combat, Pokemon get tired and lose a very small fraction of their hp yada
+                yada.</span>
+        </div>
 
         <div id="guide-menu" style="display: none;">
-
             <div id="guide-menu-header">
-            <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.5 16.039q1.31 0 2.547.3t2.453.98V7.508q-1.083-.773-2.386-1.16q-1.305-.386-2.614-.386q-.9 0-1.576.107t-1.501.4q-.23.077-.327.222Q3 6.835 3 7.008v9.015q0 .27.192.394t.423.03q.548-.185 1.267-.297t1.618-.111m6 1.28q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-.5 1.137q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.881-.388 1.833-.563T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.925.175t1.833.563q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362"/></svg>
-Game Guide
-
-            </span>
-            
-        </div>
-
-                <div id="guide-list"></div>
-
-        </div>
-
-
-
-
-
-
-    <div id="training-menu" style="display: none;">
-
-        
-
-    <div id="training-menu-header">
-    <div style="display:flex; gap:0.2rem" >
-    <span >
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><path d="M9.102 13.727c.032-1.321.78-2.503 2.092-2.656c.378-.043.812-.071 1.306-.071s.928.028 1.306.072c1.313.152 2.06 1.334 2.092 2.655c.047 1.944.102 5.29.102 10.273s-.055 8.329-.102 10.273c-.032 1.321-.78 2.503-2.092 2.656c-.378.043-.812.071-1.306.071s-.928-.028-1.306-.071c-1.313-.153-2.06-1.335-2.092-2.656C9.055 32.329 9 28.983 9 24s.055-8.329.102-10.273m29.796 0c-.032-1.321-.78-2.503-2.092-2.656c-.378-.043-.812-.071-1.306-.071s-.928.028-1.306.072c-1.313.152-2.06 1.334-2.092 2.655C32.055 15.671 32 19.017 32 24s.055 8.329.102 10.273c.032 1.321.78 2.503 2.092 2.656c.378.043.812.071 1.306.071s.928-.028 1.306-.071c1.313-.153 2.06-1.335 2.092-2.656c.047-1.944.102-5.29.102-10.273s-.055-8.329-.102-10.273"/><path d="M15.993 26.982a1293 1293 0 0 0 16.014-.013m-.001-5.939c-2.414-.017-5.4-.03-9.007-.03c-2.668 0-4.998.007-7.007.018M3.055 18.803c.036-1.49.984-2.748 2.474-2.796a15 15 0 0 1 .942 0c1.49.048 2.438 1.305 2.474 2.796C8.975 20.026 9 21.739 9 24s-.026 3.974-.055 5.197c-.036 1.49-.984 2.748-2.474 2.796a15 15 0 0 1-.942 0c-1.49-.048-2.438-1.305-2.474-2.796C3.025 27.974 3 26.261 3 24s.026-3.974.055-5.197m41.89 0c-.036-1.49-.984-2.748-2.474-2.796a15 15 0 0 0-.942 0c-1.49.048-2.438 1.305-2.474 2.796C39.025 20.026 39 21.739 39 24s.026 3.974.055 5.197c.036 1.49.984 2.748 2.474 2.796a15 15 0 0 0 .942 0c1.49-.048 2.438-1.305 2.474-2.796c.03-1.223.055-2.936.055-5.197s-.026-3.974-.055-5.197"/></g></svg>
-    Training
-    </span>
-    <span class="header-help" data-help="Training"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
-    </div>
-
-
-    <div id="training-header-flex">
-
-        <div class="training-flex">
-
-            <div class="training-flex-1">
-            <div id="training-sprite-div" style="z-index: 10;"><img class="sprite-trim"  style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: 0rem;" src="img/pkmn/sprite/wobbuffet.png"></div>
-            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 3; transform: translateY(0.5rem); image-rendering: initial;" src="img/resources/pkmn-shadow.png">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M6.5 16.039q1.31 0 2.547.3t2.453.98V7.508q-1.083-.773-2.386-1.16q-1.305-.386-2.614-.386q-.9 0-1.576.107t-1.501.4q-.23.077-.327.222Q3 6.835 3 7.008v9.015q0 .27.192.394t.423.03q.548-.185 1.267-.297t1.618-.111m6 1.28q1.216-.678 2.453-.98t2.547-.3q.9 0 1.618.111t1.267.296q.23.096.423-.029t.192-.394V7.008q0-.173-.096-.308q-.096-.134-.327-.23q-.825-.293-1.501-.4T17.5 5.961q-1.31 0-2.613.386q-1.304.387-2.387 1.16zm-.5 1.137q-.235 0-.432-.059t-.376-.15q-1.09-.595-2.27-.902T6.5 17.04q-.78 0-1.534.13q-.753.131-1.466.42q-.544.217-1.022-.131T2 16.496V6.831q0-.371.195-.689t.547-.442q.881-.388 1.833-.563T6.5 4.962q1.47 0 2.866.423q1.398.423 2.634 1.23q1.237-.807 2.634-1.23t2.866-.423q.973 0 1.925.175t1.833.563q.352.125.547.442t.195.689v9.665q0 .614-.516.943q-.517.328-1.1.111q-.693-.27-1.418-.39q-.724-.121-1.466-.121q-1.24 0-2.421.306t-2.271.901q-.18.093-.376.151q-.197.059-.432.059m1.885-9.508q0-.11.076-.222t.18-.168q.763-.346 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.154-1.46.43q-.257.099-.42-.005t-.162-.362m0 5.423q0-.11.076-.231q.076-.123.18-.178q.725-.346 1.613-.52q.888-.173 1.746-.173q.48 0 .91.053t.886.153q.129.03.224.135q.096.104.096.257q0 .252-.15.366t-.402.052q-.37-.075-.757-.103q-.388-.028-.807-.028q-.784 0-1.544.16q-.76.161-1.45.457q-.258.118-.44-.003t-.181-.397m0-2.692q0-.11.076-.222t.18-.168q.763-.347 1.613-.53q.85-.182 1.746-.182q.48 0 .91.053t.886.153q.129.03.224.134q.096.104.096.258q0 .252-.15.366t-.402.051q-.37-.075-.757-.102q-.388-.028-.807-.028q-.804 0-1.573.154q-.77.153-1.46.43q-.257.098-.42-.005q-.162-.105-.162-.362" />
+                    </svg>
+                    Game Guide
+                </span>
             </div>
 
-            <div class="training-flex-2">
-            <img src="img/resources/training-sack.png" id="training-sack">
-            </div>
-
-
-        </div>
-        
-    </div>
-    </div>
-
-
-    
-    <div id="training-list">
-
-        <div class="training-module">
-            <span>IV Training</span>
-            <strong>Difficulty: ★</strong>
+            <div id="guide-list"></div>
         </div>
 
-        <div class="training-module">
-            <span>EXP Training</span>
-            <strong>Difficulty: ★★★</strong>
+        <div id="training-menu" style="display: none;">
+            <div id="training-menu-header">
+                <div style="display:flex; gap:0.2rem">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                            <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="3">
+                                <path
+                                    d="M9.102 13.727c.032-1.321.78-2.503 2.092-2.656c.378-.043.812-.071 1.306-.071s.928.028 1.306.072c1.313.152 2.06 1.334 2.092 2.655c.047 1.944.102 5.29.102 10.273s-.055 8.329-.102 10.273c-.032 1.321-.78 2.503-2.092 2.656c-.378.043-.812.071-1.306.071s-.928-.028-1.306-.071c-1.313-.153-2.06-1.335-2.092-2.656C9.055 32.329 9 28.983 9 24s.055-8.329.102-10.273m29.796 0c-.032-1.321-.78-2.503-2.092-2.656c-.378-.043-.812-.071-1.306-.071s-.928.028-1.306.072c-1.313.152-2.06 1.334-2.092 2.655C32.055 15.671 32 19.017 32 24s.055 8.329.102 10.273c.032 1.321.78 2.503 2.092 2.656c.378.043.812.071 1.306.071s.928-.028 1.306-.071c1.313-.153 2.06-1.335 2.092-2.656c.047-1.944.102-5.29.102-10.273s-.055-8.329-.102-10.273" />
+                                <path
+                                    d="M15.993 26.982a1293 1293 0 0 0 16.014-.013m-.001-5.939c-2.414-.017-5.4-.03-9.007-.03c-2.668 0-4.998.007-7.007.018M3.055 18.803c.036-1.49.984-2.748 2.474-2.796a15 15 0 0 1 .942 0c1.49.048 2.438 1.305 2.474 2.796C8.975 20.026 9 21.739 9 24s-.026 3.974-.055 5.197c-.036 1.49-.984 2.748-2.474 2.796a15 15 0 0 1-.942 0c-1.49-.048-2.438-1.305-2.474-2.796C3.025 27.974 3 26.261 3 24s.026-3.974.055-5.197m41.89 0c-.036-1.49-.984-2.748-2.474-2.796a15 15 0 0 0-.942 0c-1.49.048-2.438 1.305-2.474 2.796C39.025 20.026 39 21.739 39 24s.026 3.974.055 5.197c.036 1.49.984 2.748 2.474 2.796a15 15 0 0 0 .942 0c1.49-.048 2.438-1.305 2.474-2.796c.03-1.223.055-2.936.055-5.197s-.026-3.974-.055-5.197" />
+                            </g>
+                        </svg>
+                        Training
+                    </span>
+                    <span class="header-help" data-help="Training"><svg style="opacity:0.8; pointer-events:none"
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                            <g fill="currentColor">
+                                <g opacity="0.2">
+                                    <path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0" />
+                                    <path fill-rule="evenodd"
+                                        d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5"
+                                        clip-rule="evenodd" />
+                                </g>
+                                <path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0" />
+                                <path fill-rule="evenodd"
+                                    d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258"
+                                    clip-rule="evenodd" />
+                            </g>
+                        </svg>
+                    </span>
+                </div>
+
+
+                <div id="training-header-flex">
+                    <div class="training-flex">
+                        <div class="training-flex-1">
+                            <div id="training-sprite-div" style="z-index: 10;"><img class="sprite-trim"
+                                    style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: 0rem;"
+                                    src="img/pkmn/sprite/wobbuffet.png"></div>
+                            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 3; transform: translateY(0.5rem); image-rendering: initial;"
+                                src="img/resources/pkmn-shadow.png">
+                        </div>
+
+                        <div class="training-flex-2">
+                            <img src="img/resources/training-sack.png" id="training-sack">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="training-list">
+                <div class="training-module">
+                    <span>IV Training</span>
+                    <strong>Difficulty: ★</strong>
+                </div>
+
+                <div class="training-module">
+                    <span>EXP Training</span>
+                    <strong>Difficulty: ★★★</strong>
+                </div>
+
+                <div class="training-module">
+                    <span>Signature Move Training</span>
+                    <strong>Difficulty: ★★★★</strong>
+                </div>
+
+                <div class="training-module">
+                    <span>Ability Training</span>
+                    <strong>Difficulty: ★★</strong>
+                </div>
+
+                <div class="training-module">
+                    <span>Hidden Ability Training</span>
+                    <strong>Difficulty: ★★★★</strong>
+                </div>
+            </div>
         </div>
 
+        <div id="genetics-menu" style="display: none;">
+            <div id="genetics-menu-header">
+                <div style="display:flex; gap:0.2rem">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M6 21.616q0-3.495 1.412-5.436T11.239 12Q8.804 9.762 7.392 7.82T5.981 2.384v-.25q0-.213.143-.356q.143-.144.357-.144t.357.144t.143.356v.25q0 .506.032.965q.031.459.114.882h9.727q.083-.423.114-.882q.032-.458.032-.965v-.25q0-.213.143-.356q.143-.144.357-.144t.357.144t.143.357v.25q0 3.494-1.412 5.435T12.762 12q2.416 2.22 3.828 4.17T18 21.615v.25q0 .214-.143.357q-.143.144-.357.144t-.357-.144t-.143-.357v-.25q0-.505-.032-.964q-.031-.459-.114-.882H7.146q-.082.423-.114.882T7 21.616v.25q0 .213-.143.356q-.143.144-.357.144t-.357-.144T6 21.865zM8.739 8h6.503q.46-.61.822-1.287t.582-1.482H7.335q.238.8.581 1.47T8.738 8M12 11.335q.673-.618 1.273-1.197q.6-.578 1.121-1.138H9.586q.522.56 1.131 1.138q.61.58 1.283 1.196M9.606 15h4.788q-.521-.56-1.121-1.138q-.6-.58-1.273-1.197q-.673.618-1.273 1.197q-.6.578-1.121 1.138m-2.252 3.77h9.292q-.238-.8-.581-1.471T15.242 16H8.758q-.48.629-.832 1.296q-.353.668-.572 1.473" />
+                        </svg>
+                        Genetics
+                    </span>
 
-        <div class="training-module">
-            <span>Signature Move Training</span>
-            <strong>Difficulty: ★★★★</strong>
-        </div>
+                    <span class="header-help" data-help="Genetics"><svg style="opacity:0.8; pointer-events:none"
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                            <g fill="currentColor">
+                                <g opacity="0.2">
+                                    <path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0" />
+                                    <path fill-rule="evenodd"
+                                        d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5"
+                                        clip-rule="evenodd" />
+                                </g>
+                                <path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0" />
+                                <path fill-rule="evenodd"
+                                    d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258"
+                                    clip-rule="evenodd" />
+                            </g>
+                        </svg>
+                    </span>
+                </div>
 
-        <div class="training-module">
-            <span>Ability Training</span>
-            <strong>Difficulty: ★★</strong>
-        </div>
+                <div class="genetics-header-flex">
+                    <div style="position: relative; display: flex; justify-content: center;align-items: center; width:10rem"
+                        id="genetics-host-div">
+                        <img class="sprite-trim"
+                            style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: -4.5rem;"
+                            id="genetics-host" src="img/pkmn/sprite/magikarp.png">
+                        <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(0.5rem); image-rendering: initial;"
+                            src="img/resources/pkmn-shadow.png">
+                    </div>
 
-        <div class="training-module">
-            <span>Hidden Ability Training</span>
-            <strong>Difficulty: ★★★★</strong>
-        </div>
+                    <div id="genetics-arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 15v3.586a1 1 0 0 1-1.707.707l-6.586-6.586a1 1 0 0 1 0-1.414l6.586-6.586A1 1 0 0 1 12 5.414V9h6v6zm9 0V9" />
+                        </svg>
+                    </div>
 
-    </div>
+                    <div class="genetics-sample" id="genetics-sample-div">
+                        <img class="sprite-trim" style="animation: none; z-index: 1;" id="genetics-sample"
+                            src="img/pkmn/sprite/arceus.png">
+                    </div>
+                </div>
 
+                <div class="genetics-parameter">
+                    <strong>Compatibility</strong>
+                    <div style="width: 100%; height: 100%; position: relative;">
+                        <div class="genetics-parameter-bar" id="genetics-bar-compatibility"></div>
+                    </div>
+                </div>
 
-    
-
-    </div>
-
-
-
-
-
-
-
-
-
-    <div id="genetics-menu" style="display: none;">
-
-        
-
-    <div id="genetics-menu-header">
-
-    <div style="display:flex; gap:0.2rem" >
-    <span >
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 21.616q0-3.495 1.412-5.436T11.239 12Q8.804 9.762 7.392 7.82T5.981 2.384v-.25q0-.213.143-.356q.143-.144.357-.144t.357.144t.143.356v.25q0 .506.032.965q.031.459.114.882h9.727q.083-.423.114-.882q.032-.458.032-.965v-.25q0-.213.143-.356q.143-.144.357-.144t.357.144t.143.357v.25q0 3.494-1.412 5.435T12.762 12q2.416 2.22 3.828 4.17T18 21.615v.25q0 .214-.143.357q-.143.144-.357.144t-.357-.144t-.143-.357v-.25q0-.505-.032-.964q-.031-.459-.114-.882H7.146q-.082.423-.114.882T7 21.616v.25q0 .213-.143.356q-.143.144-.357.144t-.357-.144T6 21.865zM8.739 8h6.503q.46-.61.822-1.287t.582-1.482H7.335q.238.8.581 1.47T8.738 8M12 11.335q.673-.618 1.273-1.197q.6-.578 1.121-1.138H9.586q.522.56 1.131 1.138q.61.58 1.283 1.196M9.606 15h4.788q-.521-.56-1.121-1.138q-.6-.58-1.273-1.197q-.673.618-1.273 1.197q-.6.578-1.121 1.138m-2.252 3.77h9.292q-.238-.8-.581-1.471T15.242 16H8.758q-.48.629-.832 1.296q-.353.668-.572 1.473"/></svg>
-    Genetics
-    </span>
-    <span class="header-help" data-help="Genetics"><svg  style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
-    </div>
-
-
-            <div class="genetics-header-flex">
-
-            <div style="position: relative; display: flex; justify-content: center;align-items: center; width:10rem" id="genetics-host-div">
-            <img class="sprite-trim" style="z-index: 1; transform-origin: bottom; margin-top: auto; position: absolute; bottom: -4.5rem;" id="genetics-host" src="img/pkmn/sprite/magikarp.png">
-            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(0.5rem); image-rendering: initial;" src="img/resources/pkmn-shadow.png">
+                <div class="genetics-parameter">
+                    <strong>Power Cost</strong>
+                    <div style="width: 100%; height: 100%; position: relative;">
+                        <div class="genetics-parameter-bar" id="genetics-bar-power"></div>
+                    </div>
+                </div>
             </div>
 
-            <div id="genetics-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v3.586a1 1 0 0 1-1.707.707l-6.586-6.586a1 1 0 0 1 0-1.414l6.586-6.586A1 1 0 0 1 12 5.414V9h6v6zm9 0V9"/></svg>
-            </div>
-
-            <div class="genetics-sample" id="genetics-sample-div">
-            <img class="sprite-trim" style="animation: none; z-index: 1;" id="genetics-sample" src="img/pkmn/sprite/arceus.png">
-            </div>
-
-            </div>
-
-            <div class="genetics-parameter">
-                <strong>Compatibility</strong><div style="width: 100%; height: 100%; position: relative;"><div class="genetics-parameter-bar" id="genetics-bar-compatibility"></div></div> 
-            </div>
-
-            <div class="genetics-parameter">
-                <strong>Power Cost</strong><div style="width: 100%; height: 100%; position: relative;"><div class="genetics-parameter-bar" id="genetics-bar-power"></div></div> 
-            </div>
-            
-        </div>
-
-
-
-        <div class="genetics-overview">
-
-
-            <div class="genetics-overview-data"><span>Time to complete operation</span><div></div><span id="genetics-data-time">12:84:12</span></div>
-            <div class="genetics-overview-data"><span>% for shiny mutation</span><div></div><span id="genetics-data-shiny">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit a move from the sample</span><div></div><span id="genetics-data-moves">5%</span></div>
-            <br>
-            <!--<div class="genetics-overview-data"><span>% to swap sample's ability</span><div></div><span>12%</span></div>
+            <div class="genetics-overview">
+                <div class="genetics-overview-data"><span>Time to complete operation</span>
+                    <div></div><span id="genetics-data-time">12:84:12</span>
+                </div>
+                <div class="genetics-overview-data"><span>% for shiny mutation</span>
+                    <div></div><span id="genetics-data-shiny">5%</span>
+                </div>
+                <div class="genetics-overview-data"><span>% to inherit a move from the sample</span>
+                    <div></div><span id="genetics-data-moves">5%</span>
+                </div>
+                <br>
+                <!--<div class="genetics-overview-data"><span>% to swap sample's ability</span><div></div><span>12%</span></div>
             <div class="genetics-overview-data"><span>% to inherit sample's signature move</span><div></div><span>8%</span></div>
             <br> these require special items -->
 
-            <div class="genetics-overview-data"><span>% to inherit sample's HP Iv's</span><div></div><span id="genetics-data-hp">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's Attack Iv's</span><div></div><span id="genetics-data-atk">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's S. Attack Iv's</span><div></div><span id="genetics-data-satk">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's Defense Iv's</span><div></div><span id="genetics-data-def">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's S. Defense Iv's</span><div></div><span id="genetics-data-sdef">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's Speed Iv's</span><div></div><span id="genetics-data-spe">5%</span></div>
+                <div class="genetics-overview-data"><span>% to inherit sample's HP Iv's</span>
+                    <div></div><span id="genetics-data-hp">5%</span>
+                </div>
+                <div class="genetics-overview-data"><span>% to inherit sample's Attack Iv's</span>
+                    <div></div><span id="genetics-data-atk">5%</span>
+                </div>
+                <div class="genetics-overview-data"><span>% to inherit sample's S. Attack Iv's</span>
+                    <div></div><span id="genetics-data-satk">5%</span>
+                </div>
+                <div class="genetics-overview-data"><span>% to inherit sample's Defense Iv's</span>
+                    <div></div><span id="genetics-data-def">5%</span>
+                </div>
+                <div class="genetics-overview-data"><span>% to inherit sample's S. Defense Iv's</span>
+                    <div></div><span id="genetics-data-sdef">5%</span>
+                </div>
+                <div class="genetics-overview-data"><span>% to inherit sample's Speed Iv's</span>
+                    <div></div><span id="genetics-data-spe">5%</span>
+                </div>
 
-            <div id="genetics-warning" class="genetics-warning" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>
-                Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!
+                <div id="genetics-warning" class="genetics-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2">
+                            <path stroke-dasharray="28" d="M12 10l4 7h-8Z">
+                                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0" />
+                            </path>
+                            <path d="M12 10l4 7h-8Z" opacity="0">
+                                <animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1"
+                                    repeatCount="indefinite"
+                                    values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z" />
+                                <animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1"
+                                    repeatCount="indefinite" values="0;1;1;0" />
+                            </path>
+                        </g>
+                    </svg>
+                    Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!
+                </div>
+
+                <div id="pokerus-warning" class="genetics-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 506 512">
+                        <path fill="currentColor"
+                            d="M336.742.004c-5.732-.12-12.481 2.453-19.86 9.18c-46.533 64.308-24.742 112.637.669 195.094c27.589 89.525 3.311 151.023-96.922 122.124l13.974 45.02C356.01 389.67 380.316 301.64 363.98 225.555c-22.331-104.015-54.152-129.427-9.84-196.19c5.233-11.154-2.753-29.053-17.4-29.36M377.2 45.64c-8.08 4.781-10.91 11.338-11.192 25.867c32.625 27.345 60.36 65.991 82.18 93.208c-8.074 4.809-18.18 9.25-29.263 7.892c-10.334-14.493-37.847-47.05-58.236-66.709c1.662 17.845 6.535 31.115 8.014 46.572c31.968 35.89 33.665 54.176 33.665 54.176c41.241 2.092 76.028-15.901 99.24-36.808c12.519-10.748-4.996-39.884-27.34-19.885c-30.184-37.486-61.414-73.664-97.068-104.313m-135.397 90.39c-64.648-.737-110.817 48.596-107.626 112.728c5.05 56.142 30.399 92.912 34.463 138.263l-27.758-31.354c-10.855-1.19-20.37-2.676-32.085 3.792l58.532 61.95c-1.583 9.517-4.242 19.559-8.264 30.318c-22.906-22.013-49.869-55.033-79.44-87.009c-17.09 3.793-26.497 13.47-26.672 13.76l93.326 100.594c-24.194 26.779 17.503 44.953 36.45 23.433c65.193-75.952 14.961-165.88-6.389-252.319l47.519 51.681c16.752 9.187 39.172 8.919 47.482 3.836l-91.225-94.87c4.713-10.523 9.684-13.146 21.044-18.759l88.982 92.74c5.634-10.584 14.017-20.687 3.397-43.3l-57.92-64.106c9.893-3.314 31.811 3.576 48.981 8.943l-14.05-46.836c-9.899-2.252-19.512-3.379-28.747-3.484M98.745 300.054c-45.42-.472-70.368 18.213-91.777 37.05c-19.17 16.978 5.015 47.966 26.71 32.057c27.197-24.263 50.117-37.07 93.589-33.961l-7.754-33.715c-7.374-.905-14.28-1.363-20.768-1.43" />
+                    </svg>
+                    Pokerus detected on the host! Genetic compatibility is increased by one level!
+                </div>
             </div>
 
-            <div id="pokerus-warning" class="genetics-warning">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 506 512"><path fill="currentColor" d="M336.742.004c-5.732-.12-12.481 2.453-19.86 9.18c-46.533 64.308-24.742 112.637.669 195.094c27.589 89.525 3.311 151.023-96.922 122.124l13.974 45.02C356.01 389.67 380.316 301.64 363.98 225.555c-22.331-104.015-54.152-129.427-9.84-196.19c5.233-11.154-2.753-29.053-17.4-29.36M377.2 45.64c-8.08 4.781-10.91 11.338-11.192 25.867c32.625 27.345 60.36 65.991 82.18 93.208c-8.074 4.809-18.18 9.25-29.263 7.892c-10.334-14.493-37.847-47.05-58.236-66.709c1.662 17.845 6.535 31.115 8.014 46.572c31.968 35.89 33.665 54.176 33.665 54.176c41.241 2.092 76.028-15.901 99.24-36.808c12.519-10.748-4.996-39.884-27.34-19.885c-30.184-37.486-61.414-73.664-97.068-104.313m-135.397 90.39c-64.648-.737-110.817 48.596-107.626 112.728c5.05 56.142 30.399 92.912 34.463 138.263l-27.758-31.354c-10.855-1.19-20.37-2.676-32.085 3.792l58.532 61.95c-1.583 9.517-4.242 19.559-8.264 30.318c-22.906-22.013-49.869-55.033-79.44-87.009c-17.09 3.793-26.497 13.47-26.672 13.76l93.326 100.594c-24.194 26.779 17.503 44.953 36.45 23.433c65.193-75.952 14.961-165.88-6.389-252.319l47.519 51.681c16.752 9.187 39.172 8.919 47.482 3.836l-91.225-94.87c4.713-10.523 9.684-13.146 21.044-18.759l88.982 92.74c5.634-10.584 14.017-20.687 3.397-43.3l-57.92-64.106c9.893-3.314 31.811 3.576 48.981 8.943l-14.05-46.836c-9.899-2.252-19.512-3.379-28.747-3.484M98.745 300.054c-45.42-.472-70.368 18.213-91.777 37.05c-19.17 16.978 5.015 47.966 26.71 32.057c27.197-24.263 50.117-37.07 93.589-33.961l-7.754-33.715c-7.374-.905-14.28-1.363-20.768-1.43"/></svg>
-                Pokerus detected on the host! Genetic compatibility is increased by one level!
+            <div id="genetics-progress">
+                <strong id="genetics-progress-time">1h 31m 20s</strong>
+                <div>
+                    <span id="genetics-progress-bar">
+
+                    </span>
+                </div>
             </div>
 
+            <div id="genetics-start">
+                Start
+            </div>
         </div>
 
-        <div id="genetics-progress">
-
-            <strong id="genetics-progress-time">1h 31m 20s</strong>
-            <div>
-                <span id="genetics-progress-bar">
-
+        <div id="shop-menu" style="display: none;">
+            <div id="shop-menu-header">
+                <span data-help="Shop">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m-9-1a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M18 6H4.27l2.55 6H15c.33 0 .62-.16.8-.4l3-4c.13-.17.2-.38.2-.6a1 1 0 0 0-1-1m-3 7H6.87l-.77 1.56L6 15a1 1 0 0 0 1 1h11v1H7a2 2 0 0 1-2-2a2 2 0 0 1 .25-.97l.72-1.47L2.34 4H1V3h2l.85 2H18a2 2 0 0 1 2 2c0 .5-.17.92-.45 1.26l-2.91 3.89c-.36.51-.96.85-1.64.85" />
+                    </svg>Poke-Mart
                 </span>
-            </div>
-        </div>
 
-        <div id="genetics-start">
+                <div style="display: flex; margin-top: 0rem; gap:0.5rem">
+                    <div class="shop-currency" id="shop-currency">
+                        <img src="img/items/bottleCap.png"> x12
+                    </div>
 
-            Start
-
-        </div>
-
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-       <div id="shop-menu" style="display: none;">
-
-        
-
-        <div id="shop-menu-header">
-
-            <span data-help="Shop">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1m-9-1a2 2 0 0 1 2 2a2 2 0 0 1-2 2a2 2 0 0 1-2-2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1a1 1 0 0 0 1 1a1 1 0 0 0 1-1a1 1 0 0 0-1-1M18 6H4.27l2.55 6H15c.33 0 .62-.16.8-.4l3-4c.13-.17.2-.38.2-.6a1 1 0 0 0-1-1m-3 7H6.87l-.77 1.56L6 15a1 1 0 0 0 1 1h11v1H7a2 2 0 0 1-2-2a2 2 0 0 1 .25-.97l.72-1.47L2.34 4H1V3h2l.85 2H18a2 2 0 0 1 2 2c0 .5-.17.92-.45 1.26l-2.91 3.89c-.36.51-.96.85-1.64.85"/></svg>Poke-Mart
-
-            </span>
-
-            <div style="display: flex; margin-top: 0rem; gap:0.5rem">
-            <div class="shop-currency" id="shop-currency">
-                    <img src="img/items/bottleCap.png"> x12
-            </div>
-          
-            
-            <div class="shop-currency" id="shop-currency-gold">
-                    <img src="img/items/goldenBottleCap.png"> x123
-            </div>
+                    <div class="shop-currency" id="shop-currency-gold">
+                        <img src="img/items/goldenBottleCap.png"> x123
+                    </div>
+                </div>
             </div>
 
-        </div>
+            <div id="shop-categories">
+                <div onclick="shopCategory = 'goods'; updateItemShop() ">
+                    <img src="img/items/rareCandy.png">Goods
+                </div>
 
+                <div onclick="shopCategory = 'held'; updateItemShop() ">
+                    <img src="img/items/choiceBand.png">Held
+                </div>
 
+                <div onclick="shopCategory = 'evolution'; updateItemShop() ">
+                    <img src="img/items/waterStone.png">Evolution
+                </div>
 
+                <div onclick="shopCategory = 'tm'; updateItemShop() ">
+                    <img src="img/items/tmDummy.png">TM's
+                </div>
 
-        <div id="shop-categories">
-
-            <div onclick="shopCategory = 'goods'; updateItemShop() ">
-                <img src="img/items/rareCandy.png">Goods
+                <div onclick="shopCategory = 'genetics'; updateItemShop() ">
+                    <img src="img/items/destinyKnot.png">Genetics
+                </div>
             </div>
-
-            <div onclick="shopCategory = 'held'; updateItemShop() ">
-                <img src="img/items/choiceBand.png">Held
-            </div>
-
-            <div onclick="shopCategory = 'evolution'; updateItemShop() ">
-                <img src="img/items/waterStone.png">Evolution
-            </div>
-
-            <div onclick="shopCategory = 'tm'; updateItemShop() ">
-                <img src="img/items/tmDummy.png">TM's
-            </div>
-
-            <div onclick="shopCategory = 'genetics'; updateItemShop() ">
-                <img src="img/items/destinyKnot.png">Genetics
-            </div>
-
-        </div>
 
             <div id="shop-listing" style="display: none;">
-
-            <div>
-                <img src="img/items/calcium.png">
-                <span>Calcium Bottle</span>
-                <strong>
-                    <img src="img/items/bottleCap.png">
-                    x12
-                </strong>
+                <div>
+                    <img src="img/items/calcium.png">
+                    <span>Calcium Bottle</span>
+                    <strong>
+                        <img src="img/items/bottleCap.png">
+                        x12
+                    </strong>
+                </div>
             </div>
-
-
-
-
-
         </div>
-
-       </div>
-
-
-
-
-
-
 
         <div id="afk-overlay" style="display: none;">
             <div>
-
-
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="12" cy="3.5" r="1.5"><animate attributeName="fill-opacity" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="16.25" cy="4.64" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="0.2s" to="1"/><animate attributeName="fill-opacity" begin="0.2s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="19.36" cy="7.75" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="0.4s" to="1"/><animate attributeName="fill-opacity" begin="0.4s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="20.5" cy="12" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="0.6s" to="1"/><animate attributeName="fill-opacity" begin="0.6s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="19.36" cy="16.25" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="0.8s" to="1"/><animate attributeName="fill-opacity" begin="0.8s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="16.25" cy="19.36" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="1s" to="1"/><animate attributeName="fill-opacity" begin="1s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="12" cy="20.5" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="1.2s" to="1"/><animate attributeName="fill-opacity" begin="1.2s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="7.75" cy="19.36" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="1.4s" to="1"/><animate attributeName="fill-opacity" begin="1.4s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="4.64" cy="16.25" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="1.6s" to="1"/><animate attributeName="fill-opacity" begin="1.6s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="3.5" cy="12" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="1.8s" to="1"/><animate attributeName="fill-opacity" begin="1.8s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="4.64" cy="7.75" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="2s" to="1"/><animate attributeName="fill-opacity" begin="2s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle><circle cx="7.75" cy="4.64" r="1.5" opacity="0"><set fill="freeze" attributeName="opacity" begin="2.2s" to="1"/><animate attributeName="fill-opacity" begin="2.2s" dur="2.4s" keyTimes="0;0.125;0.25;1" repeatCount="indefinite" values="1;1;0;0"/></circle></g></svg>
-
-            
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <g fill="currentColor">
+                        <circle cx="12" cy="3.5" r="1.5">
+                            <animate attributeName="fill-opacity" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="16.25" cy="4.64" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="0.2s" to="1" />
+                            <animate attributeName="fill-opacity" begin="0.2s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="19.36" cy="7.75" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="0.4s" to="1" />
+                            <animate attributeName="fill-opacity" begin="0.4s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="20.5" cy="12" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="0.6s" to="1" />
+                            <animate attributeName="fill-opacity" begin="0.6s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="19.36" cy="16.25" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="0.8s" to="1" />
+                            <animate attributeName="fill-opacity" begin="0.8s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="16.25" cy="19.36" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="1s" to="1" />
+                            <animate attributeName="fill-opacity" begin="1s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="12" cy="20.5" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="1.2s" to="1" />
+                            <animate attributeName="fill-opacity" begin="1.2s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="7.75" cy="19.36" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="1.4s" to="1" />
+                            <animate attributeName="fill-opacity" begin="1.4s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="4.64" cy="16.25" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="1.6s" to="1" />
+                            <animate attributeName="fill-opacity" begin="1.6s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="3.5" cy="12" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="1.8s" to="1" />
+                            <animate attributeName="fill-opacity" begin="1.8s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="4.64" cy="7.75" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="2s" to="1" />
+                            <animate attributeName="fill-opacity" begin="2s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                        <circle cx="7.75" cy="4.64" r="1.5" opacity="0">
+                            <set fill="freeze" attributeName="opacity" begin="2.2s" to="1" />
+                            <animate attributeName="fill-opacity" begin="2.2s" dur="2.4s" keyTimes="0;0.125;0.25;1"
+                                repeatCount="indefinite" values="1;1;0;0" />
+                        </circle>
+                    </g>
+                </svg>
             </div>
-
-
 
             AFK time is being calculated, please wait...
 
-                                                    <img src="img/icons/porygon.gif">
-
+            <img src="img/icons/porygon.gif">
         </div>
 
+        <div id="vs-menu" style="display: none;">
+            <div id="vs-menu-header">
+                <span data-help="VS">VS Trainers
+                    <svg style="pointer-events: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z"
+                            opacity="0.3" />
+                        <path fill="currentColor"
+                            d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
+                    </svg>
+                </span>
+            </div>
 
+            <div class="explore-menu-selector" id="vs-selector">
+                <div style="background: #465f96; outline: solid 1px #3d61ff; color: white; z-index: 2;"
+                    onclick="updateVS()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-width="1.5"
+                            d="M17 22H7a2 2 0 0 1-2-2v-8.818a.6.6 0 0 0-.1-.333L3.1 8.15a.6.6 0 0 1-.1-.333V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h2.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v5.218a.6.6 0 0 1-.1.333l-1.8 2.698a.6.6 0 0 0-.1.333V20a2 2 0 0 1-2 2Z" />
+                    </svg>
 
-
-
-
-
-       <div id="vs-menu" style="display: none;">
-
-        
-
-        <div id="vs-menu-header">
-
-            <span data-help="VS">VS Trainers
-                <svg style="pointer-events: none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
-            </span>
-            
-        </div>
-
-        <div class="explore-menu-selector" id="vs-selector">
-            <div style="background: #465f96; outline: solid 1px #3d61ff; color: white; z-index: 2;"  onclick="updateVS()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" d="M17 22H7a2 2 0 0 1-2-2v-8.818a.6.6 0 0 0-.1-.333L3.1 8.15a.6.6 0 0 1-.1-.333V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h2.8a.6.6 0 0 1 .6.6v1.8a.6.6 0 0 0 .6.6h2.8a.6.6 0 0 0 .6-.6V2.6a.6.6 0 0 1 .6-.6h1.8a.6.6 0 0 1 .6.6v5.218a.6.6 0 0 1-.1.333l-1.8 2.698a.6.6 0 0 0-.1.333V20a2 2 0 0 1-2 2Z"/></svg>
-
-                Trainers</div>
-            
-            <div onclick="updateFrontier()">Battle Frontier</div>
-        </div>
+                    Trainers
+                </div>
+                <div onclick="updateFrontier()">Battle Frontier</div>
+            </div>
 
             <div id="vs-listing">
             </div>
 
             <div id="frontier-listing">
             </div>
+        </div>
 
+        <div id="explore-menu" style="display: none;">
+            <div id="explore-menu-header">
 
-       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-       <!--
-
-    <div id="custom-challenges-menu" style="display: none;">
-
-        <div id="custom-challenges-header">
-            <div style="display:flex; gap:0.2rem">
-                <span id="custom-challenges-title">Challenges</span>
-                <span id="custom-challenges-help" class="header-help" data-help="Main Challenges"><svg style="opacity:0.8; pointer-events:none" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><g fill="currentColor"><g opacity="0.2"><path d="M12.739 17.213a2 2 0 1 1-4 0a2 2 0 0 1 4 0"/><path fill-rule="evenodd" d="M10.71 5.765c-.67 0-1.245.2-1.65.486c-.39.276-.583.597-.639.874a1.45 1.45 0 0 1-2.842-.574c.227-1.126.925-2.045 1.809-2.67c.92-.65 2.086-1.016 3.322-1.016c2.557 0 5.208 1.71 5.208 4.456c0 1.59-.945 2.876-2.169 3.626a1.45 1.45 0 1 1-1.514-2.474c.57-.349.783-.794.783-1.152c0-.574-.715-1.556-2.308-1.556" clip-rule="evenodd"/><path fill-rule="evenodd" d="M10.71 9.63c.8 0 1.45.648 1.45 1.45v1.502a1.45 1.45 0 1 1-2.9 0V11.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M14.239 8.966a1.45 1.45 0 0 1-.5 1.99l-2.284 1.367a1.45 1.45 0 0 1-1.49-2.488l2.285-1.368a1.45 1.45 0 0 1 1.989.5" clip-rule="evenodd"/></g><path d="M11 16.25a1.25 1.25 0 1 1-2.5 0a1.25 1.25 0 0 1 2.5 0"/><path fill-rule="evenodd" d="M9.71 4.065c-.807 0-1.524.24-2.053.614c-.51.36-.825.826-.922 1.308a.75.75 0 1 1-1.47-.297c.186-.922.762-1.696 1.526-2.236c.796-.562 1.82-.89 2.919-.89c2.325 0 4.508 1.535 4.508 3.757c0 1.292-.768 2.376-1.834 3.029a.75.75 0 0 1-.784-1.28c.729-.446 1.118-1.093 1.118-1.749c0-1.099-1.182-2.256-3.008-2.256m0 5.265a.75.75 0 0 1 .75.75v1.502a.75.75 0 1 1-1.5 0V10.08c0-.8.649-1.45 1.45-1.45" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.638 8.326a.75.75 0 0 1-.258 1.029l-2.285 1.368a.75.75 0 1 1-.77-1.287l2.285-1.368a.75.75 0 0 1 1.028.258" clip-rule="evenodd"/></g></svg></span>
+                <span>Wild Areas
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z"
+                            opacity="0.3" />
+                        <path fill="currentColor"
+                            d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
+                    </svg>
+                </span>
             </div>
 
-        </div>
-
-        <div class="explore-menu-selector" id="custom-challenges-selector">
-            <div id="custom-challenges-tab-main-button" onclick="setChallengesTab('main')">Challenges</div>
-            <div id="custom-challenges-tab-custom-button" onclick="setChallengesTab('custom')">Custom Challenges</div>
-        </div>
-
-        <div id="custom-challenges-tab-main" class="custom-challenges-tab">
-            <div id="main-challenges-list" class="challenges-list"></div>
-        </div>
-
-        <div id="custom-challenges-tab-custom" class="custom-challenges-tab">
-            <div id="custom-challenges-controls">
-                <div id="custom-challenge-new" class="custom-challenge-button custom-challenge-primary">New Challenge</div>
-                <div id="custom-challenge-import" class="custom-challenge-button custom-challenge-secondary">Import</div>
-            </div>
-
-            <div id="custom-challenges-list" class="challenges-list"></div>
-
-            <div id="custom-challenge-editor" style="display: none;">
-                <div class="custom-challenge-field">
-                    <label for="custom-challenge-title">Title</label>
-                    <input id="custom-challenge-title" type="text" maxlength="30" placeholder="Custom Challenge">
+            <div class="explore-menu-selector" id="explore-selector">
+                <div style="background: #967546; outline: solid 1px #FF9E3D; color: white; z-index: 2;"
+                    onclick="setWildAreas()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                            d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534"
+                            clip-rule="evenodd" />
+                    </svg>
+                    Wild Areas
                 </div>
-                <div class="custom-challenge-field">
-                    <label for="custom-challenge-notes">Notes</label>
-                    <input id="custom-challenge-notes" type="text" maxlength="60" placeholder="Optional description">
+                <div onclick="setDungeonAreas()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5">
+                            <path
+                                d="M4 10a8 8 0 1 1 16 0v8.667c0 1.246 0 1.869-.268 2.333a2 2 0 0 1-.732.732c-.464.268-1.087.268-2.333.268H7.333C6.087 22 5.464 22 5 21.732A2 2 0 0 1 4.268 21C4 20.536 4 19.913 4 18.667z" />
+                            <path
+                                d="M20 18H9c-.943 0-1.414 0-1.707.293S7 19.057 7 20v2m13-8h-7c-.943 0-1.414 0-1.707.293S11 15.057 11 16v2m9-8h-3c-.943 0-1.414 0-1.707.293S15 11.057 15 12v2" />
+                        </g>
+                    </svg>
+                    Dungeons
                 </div>
-                <div class="custom-challenge-field">
-                    <label for="custom-challenge-text">Challenge Text</label>
-                    <textarea id="custom-challenge-text"></textarea>
-                </div>
-                <div id="custom-challenge-preview"></div>
-                <div id="custom-challenge-error"></div>
-                <div class="custom-challenge-actions">
-                    <div id="custom-challenge-save" class="custom-challenge-button custom-challenge-primary">Save Challenge</div>
-                    <div id="custom-challenge-cancel" class="custom-challenge-button custom-challenge-secondary">Cancel</div>
+                <div onclick="setEventAreas()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="m5.658 11.002l-1.47 3.308c-1.856 4.174-2.783 6.261-1.77 7.274s3.098.085 7.272-1.77L13 18.342c2.517-1.119 3.776-1.678 3.976-2.757s-.774-2.053-2.722-4l-1.838-1.839c-1.947-1.948-2.921-2.922-4-2.721c-1.079.2-1.638 1.459-2.757 3.976M6.5 10.5l7 7m-9-2l4 4M16 8l3-3m-4.803-3c.4.667.719 2.4-1.197 4m9 3.803c-.667-.4-2.4-.719-4 1.197m0-9v.02M22 6v.02M21 13v.02M11 3v.02" />
+                    </svg>
+                    Events
                 </div>
             </div>
-        </div>
 
-       </div>
-
-       -->
-
-
-
-
-
-
-
-
-
-    <div id="explore-menu" style="display: none;">
-
-        
-
-        <div id="explore-menu-header">
-
-            <span>Wild Areas
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4c-4.41 0-8 3.59-8 8s3.59 8 8 8s8-3.59 8-8s-3.59-8-8-8m1 13h-2v-6h2zm0-8h-2V7h2z" opacity="0.3"/><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg>
-            </span>
-
-            
-        </div>
-
-        <div class="explore-menu-selector" id="explore-selector">
-            <div style="background: #967546; outline: solid 1px #FF9E3D; color: white; z-index: 2;" onclick="setWildAreas()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m17.861 3.163l.16.054l1.202.4c.463.155.87.29 1.191.44c.348.162.667.37.911.709s.341.707.385 1.088c.04.353.04.781.04 1.27v8.212c0 .698 0 1.287-.054 1.753c-.056.484-.182.962-.535 1.348a2.25 2.25 0 0 1-.746.538c-.478.212-.971.18-1.448.081c-.46-.096-1.018-.282-1.68-.503l-.043-.014c-1.12-.374-1.505-.49-1.877-.477a2.3 2.3 0 0 0-.441.059c-.363.085-.703.299-1.686.954l-1.382.922l-.14.093c-1.062.709-1.8 1.201-2.664 1.317c-.863.116-1.705-.165-2.915-.57l-.16-.053l-1.202-.4c-.463-.155-.87-.29-1.191-.44c-.348-.162-.667-.37-.911-.71c-.244-.338-.341-.706-.385-1.088c-.04-.353-.04-.78-.04-1.269V8.665c0-.699 0-1.288.054-1.753c.056-.484.182-.962.535-1.348a2.25 2.25 0 0 1 .746-.538c.478-.213.972-.181 1.448-.081c.46.095 1.018.282 1.68.503l.043.014c1.12.373 1.505.49 1.878.477a2.3 2.3 0 0 0 .44-.059c.363-.086.703-.3 1.686-.954l1.382-.922l.14-.094c1.062-.708 1.8-1.2 2.663-1.316c.864-.116 1.706.165 2.916.57m-2.111.943V16.58c.536.058 1.1.246 1.843.494l.125.042c.717.239 1.192.396 1.555.472c.356.074.477.04.532.016a.75.75 0 0 0 .249-.179c.04-.044.11-.149.152-.51c.043-.368.044-.869.044-1.624V7.163c0-.54-.001-.88-.03-1.138c-.028-.239-.072-.328-.112-.382c-.039-.054-.109-.125-.326-.226c-.236-.11-.56-.218-1.07-.389l-1.165-.388c-.887-.296-1.413-.464-1.797-.534m-1.5 12.654V4.434c-.311.18-.71.441-1.276.818l-1.382.922l-.11.073c-.688.46-1.201.802-1.732.994v12.326c.311-.18.71-.442 1.276-.819l1.382-.921l.11-.073c.688-.46 1.201-.802 1.732-.994m-6 3.135V7.42c-.536-.058-1.1-.246-1.843-.494l-.125-.042c-.717-.239-1.192-.396-1.556-.472c-.355-.074-.476-.041-.53-.017a.75.75 0 0 0-.25.18c-.04.043-.11.148-.152.509c-.043.368-.044.87-.044 1.625v8.128c0 .54.001.88.03 1.138c.028.239.072.327.112.382c.039.054.109.125.326.226c.236.11.56.218 1.07.389l1.165.388c.887.295 1.412.463 1.797.534" clip-rule="evenodd"/></svg>
-                Wild Areas</div>
-            <div onclick="setDungeonAreas()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"><path d="M4 10a8 8 0 1 1 16 0v8.667c0 1.246 0 1.869-.268 2.333a2 2 0 0 1-.732.732c-.464.268-1.087.268-2.333.268H7.333C6.087 22 5.464 22 5 21.732A2 2 0 0 1 4.268 21C4 20.536 4 19.913 4 18.667z"/><path d="M20 18H9c-.943 0-1.414 0-1.707.293S7 19.057 7 20v2m13-8h-7c-.943 0-1.414 0-1.707.293S11 15.057 11 16v2m9-8h-3c-.943 0-1.414 0-1.707.293S15 11.057 15 12v2"/></g></svg>
-                Dungeons</div>
-            <div onclick="setEventAreas()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m5.658 11.002l-1.47 3.308c-1.856 4.174-2.783 6.261-1.77 7.274s3.098.085 7.272-1.77L13 18.342c2.517-1.119 3.776-1.678 3.976-2.757s-.774-2.053-2.722-4l-1.838-1.839c-1.947-1.948-2.921-2.922-4-2.721c-1.079.2-1.638 1.459-2.757 3.976M6.5 10.5l7 7m-9-2l4 4M16 8l3-3m-4.803-3c.4.667.719 2.4-1.197 4m9 3.803c-.667-.4-2.4-.719-4 1.197m0-9v.02M22 6v.02M21 13v.02M11 3v.02"/></svg>
-                Events</div>
+            <div id="event-banner" style="display: none;">
+                <span>- Return To Kanto -</span>
             </div>
 
+            <div class="explore-menu-selector" id="event-banner-category" style="display: none;">
+                <div onclick="eventCategory = 1; setEventAreas()" id="event-selector-1">Novice</div>
+                <div onclick="eventCategory = 2; setEventAreas()" id="event-selector-2">Elite</div>
+                <!--<div onclick="eventCategory = 3; setEventAreas()" id="event-selector-3">Master</div>-->
+            </div>
 
-        <div id="event-banner" style="display: none;">
-            <span>- Return To Kanto -</span>
+            <div id="explore-listing"></div>
         </div>
 
-        <div class="explore-menu-selector" id="event-banner-category" style="display: none;">
-            <div onclick="eventCategory = 1; setEventAreas()" id="event-selector-1">Novice</div>
-            <div onclick="eventCategory = 2; setEventAreas()" id="event-selector-2">Elite</div>
-            <!--<div onclick="eventCategory = 3; setEventAreas()" id="event-selector-3">Master</div>-->
-        </div>
-
-
-        <div id="explore-listing">
-
-
-
-
-
-        </div>
-
-
-    </div>
-
-    <div id="white-transition"></div>
+        <div id="white-transition"></div>
 
         <div id="explore-transition">
-        <svg xmlns="http://www.w3.org/2000/svg" width="576" height="512" viewBox="0 0 576 512"><path fill="currentColor" d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64H365.7L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1h-56.2c-10.6 0-18.3-10.2-15.4-20.4l49-171.6H112l-43.2 57.6c-3 4-7.8 6.4-12.8 6.4H14c-7.8 0-14-6.3-14-14c0-1.3.2-2.6.5-3.9L32 256L.5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14h42c5 0 9.8 2.4 12.8 6.4L112 192h102.9l-49-171.6c-3-10.2 4.7-20.4 15.3-20.4h56.2c11.5 0 22.1 6.2 27.8 16.1L365.7 192z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="576" height="512" viewBox="0 0 576 512">
+                <path fill="currentColor"
+                    d="M482.3 192c34.2 0 93.7 29 93.7 64c0 36-59.5 64-93.7 64H365.7L265.2 495.9c-5.7 10-16.3 16.1-27.8 16.1h-56.2c-10.6 0-18.3-10.2-15.4-20.4l49-171.6H112l-43.2 57.6c-3 4-7.8 6.4-12.8 6.4H14c-7.8 0-14-6.3-14-14c0-1.3.2-2.6.5-3.9L32 256L.5 145.9c-.4-1.3-.5-2.6-.5-3.9c0-7.8 6.3-14 14-14h42c5 0 9.8 2.4 12.8 6.4L112 192h102.9l-49-171.6c-3-10.2 4.7-20.4 15.3-20.4h56.2c11.5 0 22.1 6.2 27.8 16.1L365.7 192z" />
+            </svg>
         </div>
 
-    <div id="area-end" style="display: none;">
+        <div id="area-end" style="display: none;">
 
-    <div class="pkmn-leave-exit" onClick='exitCombat()'>
-        <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
-        Save and exit
-    </div>
-
-        <div id="area-rejoin"  onClick='afkSeconds = 0; storedAfkSeconds = 0; rejoinArea();'>
-        <svg style="margin-right:0.1rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8m0 14c-3.31 0-6-2.69-6-6c0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4z"/></svg>
-        Fight Again
-    </div>
-
-    <div id="area-refight" class="leave-button"  onClick='    afkSeconds = 0; autoRefight();'>
-    <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 14 14"><path fill="currentColor" fill-rule="evenodd" d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0" clip-rule="evenodd"/></svg>
-    Auto-Refight <span> (Requires an <img src="img/items/autoRefightTicket.png"> Auto-Refight Ticket)</span>
-    </div>
-
-
-    <div id="battle-summary" class="leave-button"  onClick='battleSummary();'>
-    <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-miterlimit="5.759" d="M3 3v16a2 2 0 0 0 2 2h16"/><path stroke-miterlimit="5.759" d="m7 14l4-4l4 4l6-6"/><path d="M18 8h3v3"/></g></svg>        Battle Summary
-    </div>
-    
-    <div class="area-end-category" id="area-end-moves-title" style="display: none;"></div>
-
-    <div class="area-end-category" id="area-end-item-title">New Items!</div>
-    <div class="area-end-container" id="area-end-item-list"> 
-
-
-    </div>
-
-    <div class="area-end-category" id="area-end-pkmn-title">New Pokemon!</div>
-    <div class="area-end-container" id="area-end-pkmn-list"> 
-
-    </div>
-
-
-
-
-    </div>
-
-
-
-
-    <div id="pkmn-editor" style="display: none;">
-
-    <div class="pkmn-editor-exit" onClick='closePkmnEditor(); saveGame()'>
-        <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10"/></svg>
-        Save and exit
-    </div>
-
-
-    <div id="pkmn-editor-header" style="flex-direction: column;">
-
-
-
-        <div style="display: flex; width: 100%; justify-content: center; align-items: center; gap: 0.3rem; position: relative;" >
-
-        <div class="pkmn-editor-side" style="display: flex; flex-direction: column;" >
-
-            <span style="font-weight: 700; padding-left: 0.5rem; margin: 0.3rem 0"><strong class="pkmn-editor-name" id="pkmn-editor-name" style="font-size: 1.5rem; color: white;">Arcanine</strong><br><strong id="pkmn-editor-level" class="pkmn-editor-name">lvl 100</strong><br>
-            <svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068"/><path fill="currentColor" d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22" opacity="0.5"/></svg>
-            </span>
-
-            <div id="pkmn-editor-side-content">
-
-
-            <div class="explore-sprite" style="cursor: default;">
-            <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;" src="img/pkmn/sprite/mew.png" id="pkmn-editor-sprite">
+            <div class="pkmn-leave-exit" onClick='exitCombat()'>
+                <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10" />
+                </svg>
+                Save and exit
             </div>
 
-            <div id="pkmn-editor-ribbons">
-
-            
+            <div id="area-rejoin" onClick='afkSeconds = 0; storedAfkSeconds = 0; rejoinArea();'>
+                <svg style="margin-right:0.1rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6c0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8m0 14c-3.31 0-6-2.69-6-6c0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4l-4-4z" />
+                </svg>
+                Fight Again
             </div>
 
-            <div id="pkmn-editor-type">
-            
+            <div id="area-refight" class="leave-button" onClick='    afkSeconds = 0; autoRefight();'>
+                <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 14 14">
+                    <path fill="currentColor" fill-rule="evenodd"
+                        d="M10.797 2.482a.61.61 0 0 1 0 .866L9.44 4.705h.924c1.393 0 2.305.572 2.845 1.343c.515.736.651 1.593.651 2.153c0 .561-.136 1.418-.651 2.154c-.54.77-1.452 1.342-2.845 1.342c-.948 0-1.695-.48-2.295-1.08c-.584-.584-1.093-1.347-1.56-2.046l-.019-.03c-.49-.734-.936-1.4-1.425-1.889c-.481-.48-.935-.721-1.429-.721c-1.01 0-1.54.39-1.84.82c-.327.466-.43 1.05-.43 1.45s.103.985.43 1.451c.3.43.83.82 1.84.82c.512 0 .982-.259 1.482-.775a.613.613 0 0 1 .88.852c-.612.632-1.379 1.148-2.362 1.148c-1.393 0-2.305-.571-2.845-1.342C.276 9.619.14 8.762.14 8.2s.137-1.418.651-2.153c.54-.77 1.452-1.343 2.845-1.343c.948 0 1.695.48 2.295 1.08c.584.585 1.093 1.348 1.56 2.047l.019.03c.49.734.936 1.4 1.425 1.889c.481.48.935.721 1.429.721c1.01 0 1.54-.39 1.84-.82c.327-.466.43-1.05.43-1.45s-.103-.986-.43-1.451c-.3-.43-.83-.82-1.84-.82H7.961a.613.613 0 0 1-.433-1.046L9.93 2.482a.61.61 0 0 1 .866 0"
+                        clip-rule="evenodd" />
+                </svg>
+                Auto-Refight <span> (Requires an <img src="img/items/autoRefightTicket.png"> Auto-Refight Ticket)</span>
             </div>
 
-            <div class="explore-pkmn-tag">Tag: <select id="explore-pkmn-tag">
-                <option value="none">none</option>
-                <option value="red">red</option>
-                <option value="orange">orange</option>
-                <option value="yellow">yellow</option>
-                <option value="green">green</option>
-                <option value="lime">lime</option>
-                <option value="blue">blue</option>
-                <option value="teal">teal</option>
-                <option value="pink">pink</option>
-                <option value="magenta">magenta</option>
-                <option value="hidden">hidden</option>
-            </select>            
+
+            <div id="battle-summary" class="leave-button" onClick='battleSummary();'>
+                <svg style="margin-right:0.3rem" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2">
+                        <path stroke-miterlimit="5.759" d="M3 3v16a2 2 0 0 0 2 2h16" />
+                        <path stroke-miterlimit="5.759" d="m7 14l4-4l4 4l6-6" />
+                        <path d="M18 8h3v3" />
+                    </g>
+                </svg> Battle Summary
+            </div>
+
+            <div class="area-end-category" id="area-end-moves-title" style="display: none;"></div>
+
+            <div class="area-end-category" id="area-end-item-title">New Items!</div>
+            <div class="area-end-container" id="area-end-item-list"></div>
+            <div class="area-end-category" id="area-end-pkmn-title">New Pokemon!</div>
+            <div class="area-end-container" id="area-end-pkmn-list"></div>
         </div>
 
-        </div>
-
-
+        <div id="pkmn-editor" style="display: none;">
+            <div class="pkmn-editor-exit" onClick='closePkmnEditor(); saveGame()'>
+                <svg style="margin-right: 0.35rem;" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11.175q.4 0 .763.15t.637.425l2.85 2.85q.275.275.425.638t.15.762V19q0 .825-.587 1.413T19 21zm7-3q1.25 0 2.125-.875T15 15t-.875-2.125T12 12t-2.125.875T9 15t.875 2.125T12 18m-5-8h7q.425 0 .713-.288T15 9V7q0-.425-.288-.712T14 6H7q-.425 0-.712.288T6 7v2q0 .425.288.713T7 10" />
+                </svg>
+                Save and exit
             </div>
 
-            <div class="pkmn-editor-side-2" >
+            <div id="pkmn-editor-header" style="flex-direction: column;">
+                <div
+                    style="display: flex; width: 100%; justify-content: center; align-items: center; gap: 0.3rem; position: relative;">
 
-                
+                    <div class="pkmn-editor-side" style="display: flex; flex-direction: column;">
 
-                <div class="pkmn-stats-panel" id="pkmn-editor-stats">
+                        <span style="font-weight: 700; padding-left: 0.5rem; margin: 0.3rem 0"><strong
+                                class="pkmn-editor-name" id="pkmn-editor-name"
+                                style="font-size: 1.5rem; color: white;">Arcanine</strong><br><strong
+                                id="pkmn-editor-level" class="pkmn-editor-name">lvl 100</strong><br>
+                            <svg id="pkmn-shiny-switch" onclick="switchShiny()" xmlns="http://www.w3.org/2000/svg"
+                                width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M13.685 5.25h.03a.75.75 0 0 1 0 1.5c-1.292 0-2.275 0-3.058.063c-.785.063-1.283.183-1.636.371a3.94 3.94 0 0 0-1.677 1.764c-.19.394-.304.88-.363 1.638c-.06.764-.06 1.738-.06 3.094v.11l1.12-1.12a.75.75 0 0 1 1.06 1.06l-2.4 2.4a.75.75 0 0 1-1.086-.027l-2.171-2.4a.75.75 0 0 1 1.112-1.006l.865.956v-.005c0-1.317 0-2.35.065-3.179c.066-.844.202-1.542.509-2.176a5.44 5.44 0 0 1 2.319-2.431c.625-.335 1.37-.476 2.224-.544c.85-.068 1.891-.068 3.147-.068" />
+                                <path fill="currentColor"
+                                    d="M17.847 7.65a.75.75 0 0 1 .538.247l2.171 2.4a.75.75 0 0 1-1.112 1.006l-.866-.956v.005c0 1.317 0 2.35-.064 3.179c-.066.844-.202 1.542-.509 2.176a5.44 5.44 0 0 1-2.319 2.431c-.625.335-1.37.476-2.224.544c-.85.068-1.891.068-3.147.068h-.03a.75.75 0 0 1 0-1.5c1.292 0 2.275 0 3.058-.063c.784-.063 1.283-.183 1.636-.372a3.94 3.94 0 0 0 1.677-1.763c.19-.394.304-.88.363-1.637c.059-.765.06-1.74.06-3.095v-.11l-1.12 1.12a.75.75 0 0 1-1.06-1.06l2.4-2.4a.75.75 0 0 1 .548-.22"
+                                    opacity="0.5" />
+                            </svg>
+                        </span>
 
-                    
+                        <div id="pkmn-editor-side-content">
+                            <div class="explore-sprite" style="cursor: default;">
+                                <img class="sprite-trim" style="animation: pkmn-active 0.5s infinite; z-index: 1;"
+                                    src="img/pkmn/sprite/mew.png" id="pkmn-editor-sprite">
+                            </div>
 
-                    <svg style="height: 3rem; width:3rem; margin-top:1rem; color:rgb(110, 105, 105)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
+                            <div id="pkmn-editor-ribbons"></div>
+                            <div id="pkmn-editor-type"></div>
 
+                            <div class="explore-pkmn-tag">Tag: <select id="explore-pkmn-tag">
+                                    <option value="none">none</option>
+                                    <option value="red">red</option>
+                                    <option value="orange">orange</option>
+                                    <option value="yellow">yellow</option>
+                                    <option value="green">green</option>
+                                    <option value="lime">lime</option>
+                                    <option value="blue">blue</option>
+                                    <option value="teal">teal</option>
+                                    <option value="pink">pink</option>
+                                    <option value="magenta">magenta</option>
+                                    <option value="hidden">hidden</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pkmn-editor-side-2">
+                        <div class="pkmn-stats-panel" id="pkmn-editor-stats">
+                            <svg style="height: 3rem; width:3rem; margin-top:1rem; color:rgb(110, 105, 105)"
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor"
+                                    d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z" />
+                            </svg>
+                        </div>
+
+                        <div class="pkmn-stats-panel" id="pkmn-editor-ivs" style="display: none;"></div>
+                        <div id="pkmn-edit-division">
+                            <span>${returnDivisionLetter(returnPkmnDivision(poke))}</span>division
+                        </div>
+                    </div>
                 </div>
 
+                <div class="pkmn-stats-stat-switch">
+                    <div
+                        onclick='document.getElementById("pkmn-editor-stats").style.display = "flex"; document.getElementById("pkmn-editor-ivs").style.display = "none"; '>
 
-                <div class="pkmn-stats-panel" id="pkmn-editor-ivs" style="display: none;">
-
-                   
-
-
-                </div>
-
-                <div id="pkmn-edit-division"><span>${returnDivisionLetter(returnPkmnDivision(poke))}</span>division</div>
-
-
-
-
-
-
-            </div>
-
-
-</div>
-
-        <div class="pkmn-stats-stat-switch">
-                    <div onclick='document.getElementById("pkmn-editor-stats").style.display = "flex"; document.getElementById("pkmn-editor-ivs").style.display = "none"; '>
-                        
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z"/></svg>
-                        Base Stats</div>
-                    <div onclick='document.getElementById("pkmn-editor-stats").style.display = "none"; document.getElementById("pkmn-editor-ivs").style.display = "flex"; '>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
-                        IV's Stats</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M21.22 6.894a3.7 3.7 0 0 0-1.4-1.37l-6-3.31a3.83 3.83 0 0 0-3.63 0l-6 3.31a3.7 3.7 0 0 0-1.4 1.37a3.74 3.74 0 0 0-.52 1.9v6.41a3.79 3.79 0 0 0 1.92 3.27l6 3.3a3.74 3.74 0 0 0 3.63 0l6-3.31a3.72 3.72 0 0 0 1.91-3.26v-6.36a3.64 3.64 0 0 0-.51-1.95m-1 8.31a2.2 2.2 0 0 1-1.14 1.95l-6 3.31q-.158.089-.33.14v-8.18l7.3-4.39c.092.242.136.5.13.76z" />
+                        </svg>
+                        Base Stats
+                    </div>
+                    <div
+                        onclick='document.getElementById("pkmn-editor-stats").style.display = "none"; document.getElementById("pkmn-editor-ivs").style.display = "flex"; '>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19" />
+                        </svg>
+                        IV's Stats
+                    </div>
                 </div>
 
                 <div class="pkmn-stats-stat-abilities">
-
                     Abilities
-                        <span style="display: flex; gap: 1rem;">
-                    <div id="pkmn-edit-ability">
-                        [Coming Soon]</div>
-                    <div id="pkmn-edit-ability-hidden" >
-                        [Coming Soon]</div>
-                </div>
-
-                <div class="pkmn-stats-stat-abilities" id="pkmn-stats-stat-signature">
-
-                    Signature Move
-                        <span style="display: flex; gap: 1rem;">
-                    <div id="pkmn-edit-signature">
-                        [Coming Soon]
-                    </div>
-                                    </span>
-
-                </div>
-
-
-
-
-
-
-        <span id="pkmn-editor-extra-info"></span>
-
-
-
-                    <div id="pkmn-stats-lore">
-
-                    <div onclick="if (document.getElementById('pkmn-stats-lore-info').style.maxHeight == '10rem') {document.getElementById('pkmn-stats-lore-info').style.maxHeight = '0rem'; document.getElementById('pkmn-stats-lore-info').style.padding = '0rem'; return} document.getElementById('pkmn-stats-lore-info').style.maxHeight = '10rem'; document.getElementById('pkmn-stats-lore-info').style.padding = '0.5rem';">Expand Lore
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none"><path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd" d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6" clip-rule="evenodd"/><path stroke="currentColor" stroke-width="1.2" d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2"/></g></svg>
-                    </div>
-                    <span id="pkmn-stats-lore-info"  >
-                    Shaped by the Original One, when the universe was yet unmeasured, It was brought forth to give form to expanse. By its existence, space became vast; by its will, distance gained meaning. Without It, the world would have no breadth, no separation between sky and land, nor any path for life to walk.
+                    <span style="display: flex; gap: 1rem;">
+                        <div id="pkmn-edit-ability">
+                            [Coming Soon]</div>
+                        <div id="pkmn-edit-ability-hidden">
+                            [Coming Soon]</div>
                     </span>
                 </div>
 
-           
+                <div class="pkmn-stats-stat-abilities" id="pkmn-stats-stat-signature">
+                    Signature Move
+                    <span style="display: flex; gap: 1rem;">
+                        <div id="pkmn-edit-signature">
+                            [Coming Soon]
+                        </div>
+                    </span>
+                </div>
 
-        </div>
+                <span id="pkmn-editor-extra-info"></span>
 
+                <div id="pkmn-stats-lore">
 
-
-        <span class="pkmn-editor-move-title">Select a move below and replace it with one of the list of learnt moves</span>
-        <div class="pkmn-editor-move-container" id="pkmn-editor-current-moves">
-
-
-            
-         
-        </div>
-
-        <div class="pkmn-editor-learnt-move-title">Learnt Moves</div>
-        <div class="pkmn-editor-learnt-move-list" id="pkmn-editor-movepool">
-           
-        </div>
-
-
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div id="tooltipBackground">
-        <div id="tooltipClose" onclick="closeTooltip()">X</div>
-        <div id="tooltipBox">
-            <div id="tooltipTop">
-            </div>
-            <div id="tooltipTitle" >
-            </div>
-            <div id="tooltipMid" >
-
-            
-
-
-            </div>
-            <div id="tooltipBottom" >
-
-            
-
-
-
+                    <div
+                        onclick="if (document.getElementById('pkmn-stats-lore-info').style.maxHeight == '10rem') {document.getElementById('pkmn-stats-lore-info').style.maxHeight = '0rem'; document.getElementById('pkmn-stats-lore-info').style.padding = '0rem'; return} document.getElementById('pkmn-stats-lore-info').style.maxHeight = '10rem'; document.getElementById('pkmn-stats-lore-info').style.padding = '0.5rem';">
+                        Expand Lore
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <g fill="none">
+                                <path fill="currentColor" fill-opacity="0.25" fill-rule="evenodd"
+                                    d="M2.455 11.116C3.531 9.234 6.555 5 12 5c5.444 0 8.469 4.234 9.544 6.116c.221.386.331.58.32.868c-.013.288-.143.476-.402.852C20.182 14.694 16.706 19 12 19s-8.182-4.306-9.462-6.164c-.26-.376-.39-.564-.401-.852c-.013-.288.098-.482.318-.868M12 15a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+                                    clip-rule="evenodd" />
+                                <path stroke="currentColor" stroke-width="1.2"
+                                    d="M12 5c-5.444 0-8.469 4.234-9.544 6.116c-.221.386-.331.58-.32.868c.013.288.143.476.402.852C3.818 14.694 7.294 19 12 19s8.182-4.306 9.462-6.164c.26-.376.39-.564.401-.852s-.098-.482-.319-.868C20.47 9.234 17.444 5 12 5Z" />
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.2" />
+                            </g>
+                        </svg>
+                    </div>
+                    <span id="pkmn-stats-lore-info">
+                        Shaped by the Original One, when the universe was yet unmeasured, It was brought forth to give
+                        form to expanse. By its existence, space became vast; by its will, distance gained meaning.
+                        Without It, the world would have no breadth, no separation between sky and land, nor any path
+                        for life to walk.
+                    </span>
+                </div>
             </div>
 
+            <span class="pkmn-editor-move-title">
+                Select a move below and replace it with one of the list of learnt moves
+            </span>
 
-
-        </div>
-    </div>
-
-    <div id="menu-button-parent" ><div id="menu-button">
-        
-<svg onclick="openMenu()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" height="24" width="24">
-  <path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0 -18 0" stroke-width="2"></path>
-  <path d="M9 12a3 3 0 1 0 6 0 3 3 0 1 0 -6 0" stroke-width="2"></path>
-  <path d="M3 12h6" stroke-width="2"></path>
-  <path d="M15 12h6" stroke-width="2"></path>
-</svg>
-
-    <div id="menu-items">
-
-
-        <div class="menu-item" id="menu-item-travel" onClick="switchMenu('travel')">
-            <img src="img/items/oldMap.png">
-            <span>Travel</span>
+            <div class="pkmn-editor-move-container" id="pkmn-editor-current-moves"></div>
+            <div class="pkmn-editor-learnt-move-title">Learnt Moves</div>
+            <div class="pkmn-editor-learnt-move-list" id="pkmn-editor-movepool"></div>
         </div>
 
-        <div class="menu-item" id="menu-item-vs" onClick="switchMenu('vs')">
-            <img src="img/items/vs.png">
-            <span>VS</span>
+        <div id="tooltipBackground">
+            <div id="tooltipClose" onclick="closeTooltip()">X</div>
+            <div id="tooltipBox">
+                <div id="tooltipTop"></div>
+                <div id="tooltipTitle"></div>
+                <div id="tooltipMid"></div>
+                <div id="tooltipBottom"></div>
+            </div>
         </div>
 
-        <div class="menu-item" id="menu-item-items" onClick="switchMenu('items')">
-            <img src="img/items/items.png">
-            <span>Items</span>
-        </div>
+        <div id="menu-button-parent">
+            <div id="menu-button">
+                <svg onclick="openMenu()" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" height="24" width="24">
+                    <path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0 -18 0" stroke-width="2"></path>
+                    <path d="M9 12a3 3 0 1 0 6 0 3 3 0 1 0 -6 0" stroke-width="2"></path>
+                    <path d="M3 12h6" stroke-width="2"></path>
+                    <path d="M15 12h6" stroke-width="2"></path>
+                </svg>
 
-        <div class="menu-item" id="menu-item-team" onClick="switchMenu('team')">
-            <img src="img/items/pokeball.png">
-            <span>Team</span>
-        </div>
+                <div id="menu-items">
+                    <div class="menu-item" id="menu-item-travel" onClick="switchMenu('travel')">
+                        <img src="img/items/oldMap.png">
+                        <span>Travel</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-dex" onClick="switchMenu('dex')">
-            <img src="img/items/dex.png">
-            <span>Dex</span>
-        </div>
+                    <div class="menu-item" id="menu-item-vs" onClick="switchMenu('vs')">
+                        <img src="img/items/vs.png">
+                        <span>VS</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-shop" onClick="switchMenu('shop')">
-            <img src="img/items/maxPotion.png">
-            <span>Poke-Mart</span>
-        </div>
+                    <div class="menu-item" id="menu-item-items" onClick="switchMenu('items')">
+                        <img src="img/items/items.png">
+                        <span>Items</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-training" onClick="switchMenu('training')">
-            <img src="img/items/blackBelt.png">
-            <span>Training</span>
-        </div>
+                    <div class="menu-item" id="menu-item-team" onClick="switchMenu('team')">
+                        <img src="img/items/pokeball.png">
+                        <span>Team</span>
+                    </div>
 
-        <!--
+                    <div class="menu-item" id="menu-item-dex" onClick="switchMenu('dex')">
+                        <img src="img/items/dex.png">
+                        <span>Dex</span>
+                    </div>
+
+                    <div class="menu-item" id="menu-item-shop" onClick="switchMenu('shop')">
+                        <img src="img/items/maxPotion.png">
+                        <span>Poke-Mart</span>
+                    </div>
+
+                    <div class="menu-item" id="menu-item-training" onClick="switchMenu('training')">
+                        <img src="img/items/blackBelt.png">
+                        <span>Training</span>
+                    </div>
+
+                    <!--
 
         <div class="menu-item" id="menu-item-custom-challenges" onClick="switchMenu('custom-challenges')">
             <img src="img/items/endorsement.png">
@@ -1298,165 +1207,124 @@ Game Guide
 
         -->
 
-        <div class="menu-item" id="menu-item-genetics" onClick="switchMenu('genetics')">
-            <img src="img/items/dnaSplicer.png">
-            <span>Genetics</span>
-        </div>
+                    <div class="menu-item" id="menu-item-genetics" onClick="switchMenu('genetics')">
+                        <img src="img/items/dnaSplicer.png">
+                        <span>Genetics</span>
+                    </div>
 
-        <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
-            <img src="img/items/gift.png">
-            <span>Mystery Gift</span>
-        </div>
+                    <div class="menu-item" id="menu-mystery-gift" onClick="claimMysteryGift()">
+                        <img src="img/items/gift.png">
+                        <span>Mystery Gift</span>
+                    </div>
 
-        <div class="menu-item" id="menu-export-reward" onClick="claimExportReward()">
-            <img src="img/items/parcel.png">
-            <span>Export Reward</span>
-        </div>
+                    <div class="menu-item" id="menu-export-reward" onClick="claimExportReward()">
+                        <img src="img/items/parcel.png">
+                        <span>Export Reward</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-dictionary" onClick="switchMenu('dictionary')">
-            <img src="img/items/journal.png">
-            <span>Dictionary</span>
-        </div>
+                    <div class="menu-item" id="menu-item-dictionary" onClick="switchMenu('dictionary')">
+                        <img src="img/items/journal.png">
+                        <span>Dictionary</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-guide" onClick="switchMenu('guide')">
-            <img src="img/items/tv.png">
-            <span>Guide</span>
-        </div>
+                    <div class="menu-item" id="menu-item-guide" onClick="switchMenu('guide')">
+                        <img src="img/items/tv.png">
+                        <span>Guide</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
-            <img src="img/items/key.png">
-            <span>Settings</span>
-        </div>
+                    <div class="menu-item" id="menu-item-settings" onClick="switchMenu('settings')">
+                        <img src="img/items/key.png">
+                        <span>Settings</span>
+                    </div>
 
-        <div class="menu-item" id="menu-item-fullscreen" onclick="document.documentElement.requestFullscreen(); openMenu()">
-            <img src="img/items/wideLens.png">
-            <span>Full Screen</span>
-        </div>
-
-
-        
-    </div>
-
-    </div></div>
-
-
-    <div id="content-explore">
-
-        <div id="explore-header">
-            <div id="team-indicator">
-
-                <img id="team-indicator-slot-1"src="img/icons/pokeball.svg">
-                <img id="team-indicator-slot-2"src="img/icons/pokeball.svg">
-                <img id="team-indicator-slot-3"src="img/icons/pokeball.svg">
-                <img id="team-indicator-slot-4"src="img/icons/pokeball.svg">
-                <img id="team-indicator-slot-5"src="img/icons/pokeball.svg">
-                <img id="team-indicator-slot-6"src="img/icons/pokeball.svg">
-
-            </div>
-
-            <div id="spiraling-indicator">
-                <div id="spiraling-current-floor">Floor: 3</div>
-                <div id="spiraling-highest-floor"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><defs><mask id="SVGIz3eBe9X"><g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path d="M8 44h8m-4 0V4"/><path fill="#555555" d="M40 6H12v16h28l-4-8z"/></g></mask></defs><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)"/></svg> Highest Floor: 3</div>
-            </div>
-
-            <div id="training-indicator">
-                <div id="training-indicator-counter">20 Remaining</div>
-            </div>
-
-            <div style="display: flex; width: 100%;">
-
-            <div class="explore-sprite" id="explore-wild-sprite-data" style="cursor: help;">
-            <img class="sprite-trim" style="animation: none; z-index: 1;" id="explore-wild-sprite" src="img/resources/none.png">
-            <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(2rem); image-rendering: initial;" src="img/resources/pkmn-shadow.png">
-            <div id="wild-buff-list">
-                
-            </div>
-        </div>
-
-            <div class="explore-header-infobox">
-
-                <div class="explore-header-hpbox">
-                <span style="color: white;" id="explore-wild-name"></span>
-                <div style="position: relative; height: 0.5rem; width: 100%;">
-                <div class="explore-hp-wild" id="exploe-wild-hp"></div>
-                <div style="background: rgb(134, 141, 238);" class="explore-hp-wild" id="exploe-wild-hp-2"></div>
-                <div style="background: rgb(221, 134, 238);" class="explore-hp-wild" id="exploe-wild-hp-3"></div>
-                <div style="background: rgb(221, 134, 238);" class="explore-hp-wild" id="exploe-wild-hp-4"></div>
+                    <div class="menu-item" id="menu-item-fullscreen"
+                        onclick="document.documentElement.requestFullscreen(); openMenu()">
+                        <img src="img/items/wideLens.png">
+                        <span>Full Screen</span>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div id="content-explore">
+            <div id="explore-header">
+                <div id="team-indicator">
+                    <img id="team-indicator-slot-1" src="img/icons/pokeball.svg">
+                    <img id="team-indicator-slot-2" src="img/icons/pokeball.svg">
+                    <img id="team-indicator-slot-3" src="img/icons/pokeball.svg">
+                    <img id="team-indicator-slot-4" src="img/icons/pokeball.svg">
+                    <img id="team-indicator-slot-5" src="img/icons/pokeball.svg">
+                    <img id="team-indicator-slot-6" src="img/icons/pokeball.svg">
                 </div>
 
-                <div class="explore-header-moves" id="explore-header-moves-wild">
-                
-
-
+                <div id="spiraling-indicator">
+                    <div id="spiraling-current-floor">Floor: 3</div>
+                    <div id="spiraling-highest-floor"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                            viewBox="0 0 48 48">
+                            <defs>
+                                <mask id="SVGIz3eBe9X">
+                                    <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="4">
+                                        <path d="M8 44h8m-4 0V4" />
+                                        <path fill="#555555" d="M40 6H12v16h28l-4-8z" />
+                                    </g>
+                                </mask>
+                            </defs>
+                            <path fill="currentColor" d="M0 0h48v48H0z" mask="url(#SVGIz3eBe9X)" />
+                        </svg> Highest Floor: 3</div>
                 </div>
 
+                <div id="training-indicator">
+                    <div id="training-indicator-counter">20 Remaining</div>
+                </div>
 
+                <div style="display: flex; width: 100%;">
+                    <div class="explore-sprite" id="explore-wild-sprite-data" style="cursor: help;">
+                        <img class="sprite-trim" style="animation: none; z-index: 1;" id="explore-wild-sprite"
+                            src="img/resources/none.png">
+                        <img style="animation: none; position: absolute; opacity: 0.4; width: 4.5rem; z-index: 0; transform: translateY(2rem); image-rendering: initial;"
+                            src="img/resources/pkmn-shadow.png">
+                        <div id="wild-buff-list"></div>
+                    </div>
 
+                    <div class="explore-header-infobox">
+                        <div class="explore-header-hpbox">
+                            <span style="color: white;" id="explore-wild-name"></span>
+                            <div style="position: relative; height: 0.5rem; width: 100%;">
+                                <div class="explore-hp-wild" id="exploe-wild-hp"></div>
+                                <div style="background: rgb(134, 141, 238);" class="explore-hp-wild"
+                                    id="exploe-wild-hp-2"></div>
+                                <div style="background: rgb(221, 134, 238);" class="explore-hp-wild"
+                                    id="exploe-wild-hp-3"></div>
+                                <div style="background: rgb(221, 134, 238);" class="explore-hp-wild"
+                                    id="exploe-wild-hp-4"></div>
+                            </div>
+                        </div>
+
+                        <div class="explore-header-moves" id="explore-header-moves-wild"></div>
+                    </div>
+                </div>
             </div>
 
-            </div>
+            <div id="explore-team"></div>
+            <div id="explore-drops"></div>
 
-
-
-        </div>
-
-
-        <div id="explore-team">
-
-
-
-
-
-
-
-
-
-
-            </div>
-
-            <div id="explore-drops">
-            </div>
-
-
-            <div id="auto-refight-info" onclick='saved.autoRefight = false; document.getElementById("auto-refight-info").style.display = "none" '>
-            
+            <div id="auto-refight-info"
+                onclick='saved.autoRefight = false; document.getElementById("auto-refight-info").style.display = "none" '>
             </div>
 
             <div id="explore-leave" onclick="saved.autoRefight = false; leaveCombat()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1m14.242-.97l-8-2A1 1 0 0 0 10 3v18a.998.998 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97M15 12.188a1.001 1.001 0 0 1-2 0v-.377a1 1 0 1 1 2 .001z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="white"
+                        d="M5 5v14a1 1 0 0 0 1 1h3v-2H7V6h2V4H6a1 1 0 0 0-1 1m14.242-.97l-8-2A1 1 0 0 0 10 3v18a.998.998 0 0 0 1.242.97l8-2A1 1 0 0 0 20 19V5a1 1 0 0 0-.758-.97M15 12.188a1.001 1.001 0 0 1-2 0v-.377a1 1 0 1 1 2 .001z" />
+                </svg>
                 Leave Combat
             </div>
-
-
-
-
         </div>
-
-
-
     </div>
-
-
-
-
-
-
-
-
-    </div>
-
-
-
-
-
-
-
-
 
     <script src="scripts/HackTimer.js"></script>
     <script src="scripts/fuse.js"></script>
-
 
     <script src="scripts/moveDictionary.js"></script>
     <script src="scripts/itemDictionary.js"></script>
@@ -1467,14 +1335,6 @@ Game Guide
     <script src="scripts/PR/movesetGenerator.js"></script>
     <script src="scripts/PR/teamDuplicate.js"></script>
     <script src="scripts/PR/updateCheck.js"></script>
-    
-
-    <!--
-    <script src="scripts/PR/challengesDictionary.js"></script>
-    <script src="scripts/PR/challenges.js"></script>
-    -->
-
-
 
     <script src="scripts/script.js"></script>
     <script src="scripts/teams.js"></script>
@@ -1485,5 +1345,5 @@ Game Guide
 
     <script src="scripts/save.js"></script>
 </body>
-</html>
 
+</html>
