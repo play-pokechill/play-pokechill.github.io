@@ -12,7 +12,7 @@ let updateInterval = null;
 async function getLatestCommit() {
   try {
     const res = await fetch(
-      "https://api.github.com/repos/play-pokechill/play-pokechill.github.io/commits/main",
+      "https://api.github.com/repos/play-pokechill/play-pokechill.github.io/releases/latest",
       { cache: "no-cache" }
     );
 
@@ -22,7 +22,7 @@ async function getLatestCommit() {
     }
     
     const data = await res.json();
-    return data.sha || null;
+    return data.tag_name || null;
 
   } catch (err) {
     console.warn(`Failed to fetch latest commit: ${err}`);
