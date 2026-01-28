@@ -471,7 +471,7 @@ function switchMember(member){
     lastCrossStab = undefined
     barProgressPlayer = 0
     if (barPlayer) barPlayer.style.width = 0
-    //exploreCombatPlayerTurn = 1
+    exploreCombatPlayerTurn = 1
     exploreActiveMember = member
 
 
