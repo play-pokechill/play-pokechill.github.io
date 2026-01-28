@@ -186,7 +186,7 @@ item.ejectButton = {
 item.quickClaw = {
     type: "held",
     info: function() {return `When held: Moves that attack faster than usual are executed x${this.power()} faster`},
-    power : function() { return (100+(10*returnItemLevel(this.id)))/100}
+    power : function() { return (100+(15*returnItemLevel(this.id)))/100}
 }
 
 item.loadedDice = {
@@ -198,7 +198,7 @@ item.loadedDice = {
 item.metronome = {
     type: "held",
     info: function() {return `When held: Moves that get more powerful the more stacks they have deal x${this.power()} more damage`},
-    power : function() { return (110+(10*returnItemLevel(this.id)))/100}
+    power : function() { return (110+(15*returnItemLevel(this.id)))/100}
 }
 
 item.powerHerb = {
@@ -210,13 +210,13 @@ item.powerHerb = {
 item.luckyPunch = {
     type: "held",
     info: function() {return `When held: Moves affected by Iron Fist deal x${this.power()} more damage, and their secondary effects are twice as likely to happen`},
-    power : function() { return (100+(10*returnItemLevel(this.id)))/100}
+    power : function() { return (100+(15*returnItemLevel(this.id)))/100}
 }
 
 item.laggingTail = {
     type: "held",
     info: function() {return `When held: Moves that attack slower than usual deal x${this.power()} more damage`},
-    power : function() { return (110+(10*returnItemLevel(this.id)))/100}
+    power : function() { return (110+(15*returnItemLevel(this.id)))/100}
 }
 
 item.weaknessPolicy = {
