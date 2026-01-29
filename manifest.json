@@ -1,0 +1,40 @@
+{
+  "name": "Pokechill - Monsters and Chill",
+  "short_name": "Pokechill",
+  "description": "Monsters and Chill by play-pokechill",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#2C3E50",
+  "theme_color": "#3498DB",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "img/icons/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/icons/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Wild Areas",
+      "short_name": "Wild",
+      "description": "Explore wild areas and catch Pokemon",
+      "url": "./index.html",
+      "icons": [
+        {
+          "src": "img/icons/icon.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,14 @@
     <title>Pokechill</title>
     <link rel="icon" type="image/x-icon" href="/img/icons/icon.png">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3498DB">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Pokechill">
+    <link rel="apple-touch-icon" href="img/icons/icon.png">
 
 
 
@@ -1514,6 +1522,47 @@ Game Guide
     <script src="scripts/tooltip.js"></script>
 
     <script src="scripts/save.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Pokechill: Service Worker registered successfully:', registration.scope);
+                        
+                        // Check for updates every 5 minutes (same as updateCheck.js)
+                        setInterval(() => {
+                            registration.update();
+                        }, 300000);
+                        
+                        // Listen for new service worker waiting to activate
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New service worker available, notify user
+                                    console.log('Pokechill: New version available');
+                                    // The existing updateCheck.js banner will handle the UI
+                                }
+                            });
+                        });
+                    })
+                    .catch(error => {
+                        console.log('Pokechill: Service Worker registration failed:', error);
+                    });
+                
+                // Force service worker to take control of the page
+                let refreshing = false;
+                navigator.serviceWorker.addEventListener('controllerchange', () => {
+                    if (!refreshing) {
+                        refreshing = true;
+                        console.log('Pokechill: Service Worker updated, reloading...');
+                    }
+                });
+            });
+        }
+    </script>
 </body>
 </html>
 
