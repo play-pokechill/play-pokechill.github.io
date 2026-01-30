@@ -655,17 +655,6 @@ item.destinyKnot = {
 
 
 
-
-
-
-item.glalitite = {
-    type: "held",
-    evo: true,
-    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
-    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
-    heldBonusPkmn: function() { return pkmn.megaGlalie.id },
-}
-
 item.absolite = {
     type: "held",
     evo: true,
@@ -832,6 +821,14 @@ item.gengarite = {
     info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
     heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaGengar.id },
+}
+
+item.glalitite = {
+    type: "held",
+    evo: true,
+    info: function() {return `When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower()}`},
+    heldBonusPower: function() { return 1+(0.1*returnItemLevel(this.id)) },
+    heldBonusPkmn: function() { return pkmn.megaGlalie.id },
 }
 
 item.gyaradosite = {
@@ -1364,4 +1361,5 @@ function joinWithAnd(list) {
 
     return `${formatted.slice(0, -1).join(", ")}, and ${formatted[len - 1]}`;
 }
+
 
