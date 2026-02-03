@@ -4190,6 +4190,10 @@ document.getElementById("pokedex-filter-level").addEventListener("change", e => 
   updatePokedex()
 });
 
+document.getElementById("pokedex-filter-iv").addEventListener("change", e => {
+  updatePokedex()
+});
+
 document.getElementById("pokedex-filter-ability").addEventListener("change", e => {
   updatePokedex()
 });
@@ -4220,6 +4224,7 @@ function resetPokedexFilters(){
     document.getElementById("pokedex-filter-type").value = "all";
     document.getElementById("pokedex-filter-type-2").value = "all";
     document.getElementById("pokedex-filter-level").value = "all";
+    document.getElementById("pokedex-filter-iv").value = "all";
     document.getElementById("pokedex-filter-division").value = "all";
     document.getElementById("pokedex-filter-evolution").value = "all";
     document.getElementById("pokedex-filter-ability").value = "all";
@@ -4376,6 +4381,11 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
 let fusePkmn;
 let searchedPkmn = []
 
+const totalIvs = pkmn => {
+    if (!pkmn || !pkmn.ivs) return 0
+    return (pkmn.ivs.hp || 0) + (pkmn.ivs.atk || 0) + (pkmn.ivs.def || 0) + (pkmn.ivs.satk || 0) + (pkmn.ivs.sdef || 0) + (pkmn.ivs.spe || 0)
+}
+
 
 function updatePokedex(){
 
@@ -4452,6 +4462,15 @@ function updatePokedex(){
         if (document.getElementById(`pokedex-filter-type`).value !== "all" && !pkmn[i].type.includes(document.getElementById(`pokedex-filter-type`).value)) continue
         if (document.getElementById(`pokedex-filter-type-2`).value !== "all" && !pkmn[i].type.includes(document.getElementById(`pokedex-filter-type-2`).value)) continue
         if (document.getElementById(`pokedex-filter-level`).value !== "all" && !( pkmn[i].level <= (document.getElementById(`pokedex-filter-level`).value) &&  pkmn[i].level >= (document.getElementById(`pokedex-filter-level`).value-19) )    ) continue
+        if (document.getElementById(`pokedex-filter-iv`).value !== "all") {
+            const totalIv = totalIvs(pkmn[i])
+            const ivFilter = document.getElementById(`pokedex-filter-iv`).value
+            if (ivFilter === "0" && totalIv !== 0) continue
+            if (ivFilter === "1-12" && (totalIv < 1 || totalIv > 12)) continue
+            if (ivFilter === "13-24" && (totalIv < 13 || totalIv > 24)) continue
+            if (ivFilter === "25-35" && (totalIv < 25 || totalIv > 35)) continue
+            if (ivFilter === "full" && totalIv !== 36) continue
+        }
         if (document.getElementById(`pokedex-filter-ability`).value !== "all" && document.getElementById(`pokedex-filter-ability`).value!=4 && ability[pkmn[i].ability].rarity !=  document.getElementById(`pokedex-filter-ability`).value   ) continue
         if (document.getElementById(`pokedex-filter-ability`).value == "4" && (pkmn[i].hiddenAbilityUnlocked == true ||  pkmn[i].hiddenAbility==undefined) ) continue        
         if ((v = document.getElementById("pokedex-filter-shiny").value) !== "all" && pkmn[i].shiny != (v === "true" ? true : undefined)) continue;
@@ -4513,6 +4532,8 @@ if (sort !== "default") {
             const stat = sort.replace("Bst", "")
             return a.bst[stat] - b.bst[stat]
         }
+        if (sort === "totalIv")
+            return totalIvs(a) - totalIvs(b)
         if (sort.endsWith("Iv")) {
             const stat = sort.replace("Iv", "")
             return a.ivs[stat] - b.ivs[stat]
@@ -4552,6 +4573,8 @@ if (document.getElementById("pokedex-search").value!="") {
                 const stat = sort.replace("Bst", "")
                 return a.bst[stat] - b.bst[stat]
             }
+            if (sort === "totalIv")
+                return totalIvs(a) - totalIvs(b)
             if (sort.endsWith("Iv")) {
                 const stat = sort.replace("Iv", "")
                 return a.ivs[stat] - b.ivs[stat]
@@ -4980,6 +5003,7 @@ if (document.getElementById("pokedex-search").value!="") {
 
     document.getElementById(`pokedex-total`).style.display = "flex"
     if (document.getElementById(`pokedex-filter-level`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
+    if (document.getElementById(`pokedex-filter-iv`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-tag`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-ability`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
     if (document.getElementById(`pokedex-filter-evolution`).value !== "all") document.getElementById(`pokedex-total`).style.display = "none"
