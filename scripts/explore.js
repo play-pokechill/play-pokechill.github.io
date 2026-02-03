@@ -4469,7 +4469,8 @@ function updatePokedex(){
             if (ivFilter === "1-12" && (totalIv < 1 || totalIv > 12)) continue
             if (ivFilter === "13-24" && (totalIv < 13 || totalIv > 24)) continue
             if (ivFilter === "25-35" && (totalIv < 25 || totalIv > 35)) continue
-            if (ivFilter === "full" && totalIv !== 36) continue
+            if (ivFilter === "0-35" && (totalIv < 0 || totalIv > 35)) continue
+            if (ivFilter === "36" && totalIv !== 36) continue
         }
         if (document.getElementById(`pokedex-filter-ability`).value !== "all" && document.getElementById(`pokedex-filter-ability`).value!=4 && ability[pkmn[i].ability].rarity !=  document.getElementById(`pokedex-filter-ability`).value   ) continue
         if (document.getElementById(`pokedex-filter-ability`).value == "4" && (pkmn[i].hiddenAbilityUnlocked == true ||  pkmn[i].hiddenAbility==undefined) ) continue        
