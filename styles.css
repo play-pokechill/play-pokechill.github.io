@@ -248,6 +248,44 @@ body {
     100% { scale: 0.9; filter: brightness(2);}
 }
 
+.explore-pkmn-hpxp {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.explore-pkmn-namelvl {
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.explore-pkmn-namelvlhpxp {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.explore-pkmn-health {
+    padding: 0 0.3rem;
+    background: var(--light1);
+    border-radius: 0.2rem;
+    text-align: center;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
+.explore-pkmn-xp {
+    padding: 0 0.3rem;
+    background: var(--light1);
+    color: #7ed0f0ff;
+    border-radius: 0.2rem;
+    text-align: center;
+    white-space: nowrap;
+    margin-left: auto;
+}
+
 .explore-header-hpbox{
     background: var(--dark1);
     height: auto;
@@ -263,9 +301,6 @@ body {
     flex-shrink: 0;
     white-space: nowrap;
 }
-
-
-
 
 .explore-hp{
     width: 100%;

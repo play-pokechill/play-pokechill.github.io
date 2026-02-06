@@ -586,8 +586,26 @@ function setPkmnTeam(){
     
     div.id = `explore-${i}-member`
 
+    const showStats = window.matchMedia("(min-width: 600px)").matches;
 
-    let pkmnName = `${format(team[i].pkmn.id)} <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[team[i].pkmn.id].level}</span>`
+    let pkmnName = `
+        <span class="explore-pkmn-namelvl">
+            ${format(team[i].pkmn.id)}
+            <span class="explore-pkmn-level" id="explore-${i}-lvl">
+                lvl ${pkmn[team[i].pkmn.id].level}
+            </span>
+        </span>
+        ${showStats ? `
+        <span class="explore-pkmn-hpxp">
+            <span class="explore-pkmn-xp" id="explore-${i}-xp">
+                ${pkmn[team[i].pkmn.id].exp}
+            </span>
+            <span class="explore-pkmn-health" id="explore-${i}-health">
+                ${Math.round(pkmn[team[i].pkmn.id].playerHp)}/${Math.round(pkmn[team[i].pkmn.id].playerHpMax)}
+            </span>
+        </span>
+        ` : ``}
+    `;
     if (pkmn[team[i].pkmn.id].shiny) pkmnName = `${format(team[i].pkmn.id)} <span style="color:#FF4671;">✦</span> <span class="explore-pkmn-level" id="explore-${i}-lvl">lvl ${pkmn[team[i].pkmn.id].level}</span>`
 
 
@@ -606,7 +624,7 @@ function setPkmnTeam(){
 
                 <img class="explore-team-member-flair" src="img/icons/pokeball.svg">
                 <div class="explore-header-hpbox">
-                <span style="color: white;">${pkmnName}</span>
+                <span class="explore-pkmn-namelvlhpxp">${pkmnName}</span>
                 <div class="explore-hp" id="explore-${i}-hp"></div>
                 <div class="explore-hp" style="background:#7ed0f0ff;" id="explore-${i}-exp"></div>
                 </div>

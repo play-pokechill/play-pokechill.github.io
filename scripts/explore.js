@@ -1697,9 +1697,18 @@ for (const i in team) {
 
     const percent = ((pkmn[ team[i].pkmn.id ].exp + 1) / 100 ) * 100;
     
-    document.getElementById(`explore-${i}-exp`).style.width = percent + "%"; 
-    if (pkmn[ team[i].pkmn.id ].level>=100) document.getElementById(`explore-${i}-exp`).style.width = "100%"; 
+    document.getElementById(`explore-${i}-exp`).style.width = percent + "%";
+    let xpTextElement = document.getElementById(`explore-${i}-xp`);
+    if (xpTextElement) {
+        xpTextElement.textContent = pkmn[team[i].pkmn.id].exp + "/100";
+    }
 
+    if (pkmn[ team[i].pkmn.id ].level>=100) {
+        document.getElementById(`explore-${i}-exp`).style.width = "100%"; 
+        if (xpTextElement) {
+            xpTextElement.textContent = "MAX LVL";
+        }
+    }
 
     if (pkmn[ team[i].pkmn.id ].exp>=100){ // on level up
 
@@ -1777,14 +1786,28 @@ function updateTeamPkmn(){
 
 
     const percent = (pkmn[ team[i].pkmn.id ].playerHp / pkmn[ team[i].pkmn.id ].playerHpMax) * 100;
-    if (percent > 60) document.getElementById(`explore-${i}-hp`).style.background = "rgb(130, 211, 130)"
-    if (percent < 60) document.getElementById(`explore-${i}-hp`).style.background = "rgba(221, 168, 99, 1)"
-    if (percent < 30) document.getElementById(`explore-${i}-hp`).style.background = "rgba(219, 112, 112, 1)"
+    let hpColor = "rgb(255, 255, 255)";
+    if (percent > 60) hpColor = "rgb(130, 211, 130)";
+    if (percent < 60) hpColor = "rgba(221, 168, 99, 1)";
+    if (percent < 30) hpColor = "rgba(219, 112, 112, 1)";
 
+    document.getElementById(`explore-${i}-hp`).style.background = hpColor;
     document.getElementById(`explore-${i}-hp`).style.width = percent + "%"; 
+    let hpTextElement = document.getElementById(`explore-${i}-health`);
+    
+    let isDead = pkmn[team[i].pkmn.id].playerHp <= 0;
 
+    if (hpTextElement) {
+        hpTextElement.style.color = hpColor;
+        if (isDead) {
+            hpTextElement.textContent = "DEAD";
+        }
+        else {
+            hpTextElement.textContent = Math.round(pkmn[ team[i].pkmn.id ].playerHp) + "/" + Math.round(pkmn[ team[i].pkmn.id ].playerHpMax);
+        }
+    }
 
-    if (pkmn[ team[i].pkmn.id ].playerHp <= 0) { //on player death
+    if (isDead) { //on player death
         document.getElementById(`explore-${i}-hp`).style.width = "0%"; 
         document.getElementById(`explore-team-member-${i}-sprite`).style.filter = "grayscale(1)"; 
         document.getElementById(`explore-team-member-${i}-sprite`).style.animation = "none"; 
