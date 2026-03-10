@@ -817,13 +817,13 @@ frontierArray.sort((a, b) => a.data.tier - b.data.tier);
         if (ttdata === `Dimension`) document.getElementById("tooltipBottom").innerHTML = `Welcome valiant trainer to the final frontier, the Mega-Dimension, housing only the strongest Pokemon of all the universe!<br><br>Wormholes have each separate rules, having both unique areas, field effects and skills. In addition to field effects, skills will trigger while fighting the boss<br><br>The Pokemon appearing on the rift are random and will change on each rotation`
 
         if (ttdata === `Genetics`) document.getElementById("tooltipTitle").innerHTML = `Genetics`
-        if (ttdata === `Genetics`) document.getElementById("tooltipBottom").innerHTML = `With genetics, you can modify the parameters of a level 100 Pokemon (the host) and influence them based on another Pokemon (the sample)<br><br>Doing so, the level of the host will reset back to 1 while keeping all 4 of its currently selected moves, and a chance to increase its IV's<br><br>Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation<br><br>You can find more information about the specifics of genetics in the guide section`
+        if (ttdata === `Genetics`) document.getElementById("tooltipBottom").innerHTML = `With genetics, you can modify the parameters of a level 100 Pokemon (the host) and influence them based on another Pokemon (the sample)<br><br>Doing so, the level of the host will reset back to 1 while keeping all 4 of its currently selected moves, and a chance to increase its IVs<br><br>Genetics can also be influenced by using genetic-aiding items, which you can use at the end of the operation<br><br>You can find more information about the specifics of genetics in the guide section`
 
         if (ttdata === `Pokerus`) document.getElementById("tooltipTitle").innerHTML = `Pokerus`
         if (ttdata === `Pokerus`) document.getElementById("tooltipBottom").innerHTML = `Every 12 hours, some of your Pokemon will contract Pokerus. This virus is entirely beneficial, and will add one level of compatibility to the Pokemon in genetics when used as a host`
 
         if (ttdata === `settingsNewPkmn`) document.getElementById("tooltipTitle").innerHTML = `Setting`
-        if (ttdata === `settingsNewPkmn`) document.getElementById("tooltipBottom").innerHTML = `Automatically hides got Pokemon that are not new after a battle. Excluded from this setting are: New Pokemon, Iv's Ups and Shiny Pokemon`
+        if (ttdata === `settingsNewPkmn`) document.getElementById("tooltipBottom").innerHTML = `Automatically hides got Pokemon that are not new after a battle. Excluded from this setting are: New Pokemon, IVs Ups and Shiny Pokemon`
 
         if (ttdata === `settingsAlternateWild`) document.getElementById("tooltipTitle").innerHTML = `Setting`
         if (ttdata === `settingsAlternateWild`) document.getElementById("tooltipBottom").innerHTML = `Decreases the current Wild Area rotation by -1. Useful if you missed yesterday's rotation, or if your schedule doesnt line up with my game`

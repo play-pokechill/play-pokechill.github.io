@@ -93,7 +93,7 @@
 
             <div onClick="bagCategory = 'held'; updateItemBag()">Held</div>
             <div onClick="bagCategory = 'evo'; updateItemBag()">Evo</div>
-            <div onClick="bagCategory = 'tm'; updateItemBag()">TM's</div>
+            <div onClick="bagCategory = 'tm'; updateItemBag()">TMs</div>
             <div onClick="bagCategory = 'memory'; updateItemBag()">Memo</div>
 
         </span>
@@ -410,12 +410,12 @@
                 <option value="satkBst">satk BST</option>
                 <option value="sdefBst">sdef BST</option>
                 <option value="speBst">spe BST</option>
-                <option value="hpIv">hp IV's</option>
-                <option value="atkIv">atk IV's</option>
-                <option value="defIv">def IV's</option>
-                <option value="satkIv">satk IV's</option>
-                <option value="sdefIv">sdef IV's</option>
-                <option value="speIv">spe IV's</option>
+                <option value="hpIv">hp IVs</option>
+                <option value="atkIv">atk IVs</option>
+                <option value="defIv">def IVs</option>
+                <option value="satkIv">satk IVs</option>
+                <option value="sdefIv">sdef IVs</option>
+                <option value="speIv">spe IVs</option>
             </select>
            
             <div class="clear-filters" onClick="resetPokedexFilters(); updatePokedex()" style="background: rgb(155, 102, 77); cursor: pointer;">Clear Filters</div>
@@ -713,16 +713,16 @@ Game Guide
             <div class="genetics-overview-data"><span>% to inherit sample's signature move</span><div></div><span>8%</span></div>
             <br> these require special items -->
 
-            <div class="genetics-overview-data"><span>% to inherit sample's HP Iv's</span><div></div><span id="genetics-data-hp">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's Attack Iv's</span><div></div><span id="genetics-data-atk">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's S. Attack Iv's</span><div></div><span id="genetics-data-satk">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's Defense Iv's</span><div></div><span id="genetics-data-def">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's S. Defense Iv's</span><div></div><span id="genetics-data-sdef">5%</span></div>
-            <div class="genetics-overview-data"><span>% to inherit sample's Speed Iv's</span><div></div><span id="genetics-data-spe">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's HP IVs</span><div></div><span id="genetics-data-hp">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's Attack IVs</span><div></div><span id="genetics-data-atk">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's S. Attack IVs</span><div></div><span id="genetics-data-satk">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's Defense IVs</span><div></div><span id="genetics-data-def">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's S. Defense IVs</span><div></div><span id="genetics-data-sdef">5%</span></div>
+            <div class="genetics-overview-data"><span>% to inherit sample's Speed IVs</span><div></div><span id="genetics-data-spe">5%</span></div>
 
             <div id="genetics-warning" class="genetics-warning" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="28" d="M12 10l4 7h-8Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0"/></path><path d="M12 10l4 7h-8Z" opacity="0"><animate attributeName="d" begin="0.4s" dur="0.8s" keyTimes="0;0.25;1" repeatCount="indefinite" values="M12 10l4 7h-8Z;M12 4l9.25 16h-18.5Z;M12 4l9.25 16h-18.5Z"/><animate attributeName="opacity" begin="0.4s" dur="0.8s" keyTimes="0;0.1;0.75;1" repeatCount="indefinite" values="0;1;1;0"/></path></g></svg>
-                Warning, power cost too high! Only 5 out of 6 maximum IV's per stat will be inherited!
+                Warning, power cost too high! Only 5 out of 6 maximum IVs per stat will be inherited!
             </div>
 
             <div id="pokerus-warning" class="genetics-warning">
@@ -810,7 +810,7 @@ Game Guide
             </div>
 
             <div onclick="shopCategory = 'tm'; updateItemShop() ">
-                <img src="img/items/tmDummy.png">TM's
+                <img src="img/items/tmDummy.png">TMs
             </div>
 
             <div onclick="shopCategory = 'genetics'; updateItemShop() ">
@@ -1304,7 +1304,7 @@ Game Guide
                         Base Stats</div>
                     <div onclick='document.getElementById("pkmn-editor-stats").style.display = "none"; document.getElementById("pkmn-editor-ivs").style.display = "flex"; '>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 22q0-3.475 1.45-5.637t4-4.363q-2.55-2.2-4-4.362T5 2v-.25q0-.425.288-.712T6 .75t.713.288T7 1.75V2q0 .275.013.513T7.05 3h9.9q.025-.25.038-.488T17 2v-.25q0-.425.288-.712T18 .75t.713.288t.287.712V2q0 3.475-1.45 5.638t-4 4.362q2.55 2.2 4 4.363T19 22v.25q0 .425-.288.713T18 23.25t-.712-.288T17 22.25V22q0-.275-.012-.513T16.95 21h-9.9q-.025.25-.037.488T7 22v.25q0 .425-.288.713T6 23.25t-.712-.288T5 22.25zM8.45 7h7.1q.325-.475.563-.95T16.55 5h-9.1q.2.55.437 1.038T8.45 7M12 10.7q.5-.425.975-.85t.9-.85h-3.75q.425.425.9.85t.975.85M10.125 15h3.75q-.425-.425-.9-.85T12 13.3q-.5.425-.975.85t-.9.85M7.45 19h9.1q-.2-.55-.437-1.037T15.55 17h-7.1q-.325.475-.562.95T7.45 19"/></svg>
-                        IV's Stats</div>
+                        IVs Stats</div>
                 </div>
 
                 <div class="pkmn-stats-stat-abilities">

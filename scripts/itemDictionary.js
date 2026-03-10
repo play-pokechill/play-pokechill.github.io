@@ -1058,48 +1058,48 @@ item.powerAnklet = {
     subtitle: `(Speed)`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Speed Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Speed IVs`},
 }
 
 item.powerBand = {
     subtitle: `(Special Defense)`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Defense Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Defense IVs`},
 }
 
 item.powerBelt = {
     subtitle: `(Defense)`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Defense Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Defense IVs`},
 }
 
 item.powerBracer = {
     subtitle: `(Attack)`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Attack Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Attack IVs`},
 }
 
 item.powerLens = {
     subtitle: `(Special Attack)`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Attack Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit Special Attack IVs`},
 }
 
 item.powerWeight = {
     subtitle: `(Hp)`,
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit HP Iv's`},
+    info: function() {return `Genetics-aiding item: Guarantees the chance to inherit HP IVs`},
 }
 
 item.machoBrace = {
     type: "key",
     genetics: true,
-    info: function() {return `Genetics-aiding item: Multiplies by 10 the chance to inherit Iv's`},
+    info: function() {return `Genetics-aiding item: Multiplies by 10 the chance to inherit IVs`},
 }
 
 item.lockCapsule = {
