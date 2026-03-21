@@ -761,6 +761,11 @@ guide.weather = {
   description: function() { return `Certain moves can change the weather to altered ones such as ${tagSunny}, ${tagRainy}, ${tagSandstorm}, ${tagHail}, ${tagFoggy}, ${tagElectricTerrain}, ${tagGrassyTerrain}, ${tagMistyTerrain}, ${tagTrickRoom}, ${tagWeirdRoom}, ${tagCrossRoom}, ${tagLightScreen} or ${tagSafeguard}<br><br>You can further check their effects by right click/long press<br><br>Altered weathers will last for 15 turns, and only can be changed after 30` }
 }
 
+guide.heldItems = {
+  name: `Held Items`,
+  description: function() { return `When a pokemon is added to a team, an item can be assigned to it by clicking the top left "+" button of the pokemon`}
+}
+
 guide.shiny = {
   name: `Shiny Pokemon`,
   description: function() { return `At a rate of 1/400, Pokemon can be shiny. These odds can be boosted through different means<br><br>Shiny Pokemon deal 15% more damage. The visual distinction can be toggled from their move menu. This wont affect the damage bonus they get<br><br>Shiny Pokemon do not carry over their evolutions. Instead, genetics must be used.<br><br>If the stars align, a shiny pokemon can receive a star sign, an even rarer pigmentation. This does not have any practical benefit, and can't be inherited or mutated trough genetics`}
