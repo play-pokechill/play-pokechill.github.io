@@ -1145,6 +1145,8 @@ item.absolite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaAbsol.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.aerodactylite = {
@@ -1177,6 +1179,8 @@ item.altarianite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaAltaria.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.ampharosite = {
@@ -1185,6 +1189,8 @@ item.ampharosite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaAmpharos.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.audinite = {
@@ -1193,6 +1199,8 @@ item.audinite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaAudino.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.banettite = {
@@ -1201,6 +1209,8 @@ item.banettite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaBanette.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.barbaracite = {
@@ -1272,6 +1282,8 @@ item.diancite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaDiancie.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.dragonitite = {
@@ -1319,6 +1331,8 @@ item.gardevoirite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaGardevoir.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.gengarite = {
@@ -1351,6 +1365,8 @@ item.houndoominite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaHoundoom.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.hawluchanite = {
@@ -1367,6 +1383,8 @@ item.kangaskhanite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaKangaskhan.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.lopunnite = {
@@ -1375,6 +1393,8 @@ item.lopunnite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaLopunny.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.lucarionite = {
@@ -1407,6 +1427,8 @@ item.medichamite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaMedicham.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.metagrossite = {
@@ -1423,6 +1445,8 @@ item.mewtwoniteX = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaMewtwoX.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.mewtwoniteY = {
@@ -1431,6 +1455,8 @@ item.mewtwoniteY = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaMewtwoY.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.pidgeotite = {
@@ -1481,6 +1507,8 @@ item.sablenite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaSableye.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 
@@ -1491,6 +1519,8 @@ item.salamencite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaSalamence.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.sceptilite = {
@@ -1515,6 +1545,8 @@ item.sharpedonite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaSharpedo.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.slowbronite = {
@@ -1523,6 +1555,8 @@ item.slowbronite = {
     info: function() {return `Use: Evolve a certain Pokemon<br>When held: Increases the damage dealt by ${format(this.heldBonusPkmn())} by x${this.heldBonusPower().toFixed(2)}`},
     heldBonusPower: function() { return 1.15+(0.1*returnItemLevel(this.id)) },
     heldBonusPkmn: function() { return pkmn.megaSlowbro.id },
+    // obtainable
+    cannotObtain: true,
 }
 
 item.steelixite = {

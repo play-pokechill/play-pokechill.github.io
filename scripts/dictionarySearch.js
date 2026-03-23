@@ -280,7 +280,7 @@ function setSearchTags() {
     //only required for unobtainable pokes
     for (const e in pkmn){
         if (pkmn[e].tagObtainedIn == undefined) {
-            const family = getEvolutionFamily(pkmn[e]);
+            const family = getEvolutionFamily(pkmn[e], true);
             const familyHasDirectObtainable = Array.from(family).some(member => {
                 return member.tagObtainedIn !== undefined && member.tagObtainedIn !== "unobtainable";
             });
