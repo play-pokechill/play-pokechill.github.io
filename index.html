@@ -468,6 +468,14 @@
             <div onclick="exportData()">Export Data</div>
             <div onclick="importData()">Import Data</div>
             <div onclick="textData()">Data to Text</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center;">
+            <div onclick="importDataFromRemote()" style="cursor: pointer;">Import Data From Gist</div>
+            <input
+                type="text"
+                id="dataInput"
+                placeholder="Enter your gist URL..."
+            />
+            </div>
 
             <div>Theme: <select id="settings-theme">
                 <option value="default">default</option>
@@ -1715,6 +1723,8 @@ Game Guide
     <script src="scripts/PR/movesetGenerator.js"></script>
     <script src="scripts/PR/teamDuplicate.js"></script>
     <script src="scripts/PR/updateCheck.js"></script>
+
+    
     
 
     <!--
