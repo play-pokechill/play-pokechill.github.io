@@ -49,7 +49,8 @@ pkmn.venusaur = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaVenusaur, item: item.venusaurite } } },
     hiddenAbility: ability.thickFat,
-    signature : move.frenzyPlant
+    signature : move.frenzyPlant,
+    variants: function() { return [pkmn.venusaurClone] },
 }
 
 pkmn.venusaurClone = {
@@ -142,7 +143,8 @@ pkmn.charizard = {
         } 
     },
     hiddenAbility: ability.toughClaws,
-    signature : move.flameBurst
+    signature : move.flameBurst,
+    variants: function() { return [pkmn.charizardClone] },
 }
 
 pkmn.charizardClone = {
@@ -244,7 +246,8 @@ pkmn.blastoise = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaBlastoise, item: item.blastoisinite } } },
     hiddenAbility: ability.rainDish,
-    signature : move.hydroCannon
+    signature : move.hydroCannon,
+    variants: function() { return [pkmn.blastoiseClone] },
 }
 
 pkmn.blastoiseClone = {
@@ -477,6 +480,7 @@ pkmn.rattata = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.raticate, level: evolutionLevel1 } } },
     hiddenAbility: ability.guts,
+    variants: function() { return [pkmn.alolanRattata] },
 }
 
 pkmn.alolanRattata = {
@@ -504,6 +508,7 @@ pkmn.raticate = {
         spe: 97,
     },
     hiddenAbility: ability.guts,
+    variants: function() { return [pkmn.alolanRaticate] },
 }
 
 pkmn.alolanRaticate = {
@@ -577,20 +582,6 @@ pkmn.arbok = {
 
 // 025 Pichu → Pikachu → Raichu
 
-pkmn.spikyPichu = {
-    type: ["electric"],
-    bst: {
-        hp: 20,
-        atk: 40,
-        def: 15,
-        satk: 35,
-        sdef: 35,
-        spe: 60,
-    },
-    hiddenAbility: ability.electricSurge,
-    signature : move.voltTackle
-}
-
 pkmn.pichu = {
     type: ["electric"],
     bst: {
@@ -602,6 +593,21 @@ pkmn.pichu = {
         spe: 60,
     },
     evolve: function() { return { 1: { pkmn: pkmn.pikachu, level: evolutionLevel1 } } },
+    hiddenAbility: ability.electricSurge,
+    signature : move.voltTackle,
+    variants: function() { return [pkmn.spikyPichu] },
+}
+
+pkmn.spikyPichu = {
+    type: ["electric"],
+    bst: {
+        hp: 20,
+        atk: 40,
+        def: 15,
+        satk: 35,
+        sdef: 35,
+        spe: 60,
+    },
     hiddenAbility: ability.electricSurge,
     signature : move.voltTackle
 }
@@ -618,7 +624,8 @@ pkmn.pikachu = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.raichu, item: item.thunderStone } } },
     hiddenAbility: ability.electricSurge,
-    signature : move.voltTackle
+    signature : move.voltTackle,
+    variants: function() { return [pkmn.pikachuAsh, pkmn.pikachuWorld, pkmn.pikachuHoenn, pkmn.pikachuUnova, pkmn.pikachuKalos, pkmn.pikachuBelle, pkmn.pikachuLibre, pkmn.pikachuPhd, pkmn.pikachuPopstar, pkmn.pikachuRockstar] },
 }
 
 pkmn.pikachuGmax = {
@@ -664,20 +671,6 @@ pkmn.pikachuWorld = {
 }
 
 pkmn.pikachuHoenn = {
-    type: ["electric"],
-    bst: {
-        hp: 35,
-        atk: 55,
-        def: 40,
-        satk: 50,
-        sdef: 50,
-        spe: 90,
-    },
-    hiddenAbility: ability.electricSurge,
-    signature : move.voltTackle
-}
-
-pkmn.pikachuWorld = {
     type: ["electric"],
     bst: {
         hp: 35,
@@ -742,7 +735,7 @@ pkmn.pikachuLibre = {
         sdef: 80,
         spe: 110,
     },
-    signature : move.voltTackle
+    signature : move.voltTackle,
 }
 
 pkmn.pikachuPhd = {
@@ -801,7 +794,8 @@ pkmn.raichu = {
         } 
     },
     hiddenAbility: ability.electricSurge,
-    signature : move.voltTackle
+    signature : move.voltTackle,
+    variants: function() { return [pkmn.alolanRaichu] },
 }
 
 pkmn.alolanRaichu = {
@@ -860,22 +854,9 @@ pkmn.sandshrew = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.sandslash, level: evolutionLevel1 } } },
     hiddenAbility: ability.skillLink,
-    eggMove : move.boneRush
+    eggMove : move.boneRush,
+    variants: function() { return [pkmn.alolanSandshrew] },
 }
-pkmn.sandslash = {
-    type: ["ground"],
-    bst: {
-        hp: 75,
-        atk: 100,
-        def: 110,
-        satk: 45,
-        sdef: 55,
-        spe: 65,
-    },
-    hiddenAbility: ability.skillLink,
-    eggMove : move.boneRush
-}
-
 
 pkmn.alolanSandshrew = {
     type: ["ice", "steel"],
@@ -892,7 +873,20 @@ pkmn.alolanSandshrew = {
     signature : move.iceBall
 }
 
-
+pkmn.sandslash = {
+    type: ["ground"],
+    bst: {
+        hp: 75,
+        atk: 100,
+        def: 110,
+        satk: 45,
+        sdef: 55,
+        spe: 65,
+    },
+    hiddenAbility: ability.skillLink,
+    eggMove : move.boneRush,
+    variants: function() { return [pkmn.alolanSandslash] },
+}
 
 pkmn.alolanSandslash = {
     type: ["ice", "steel"],
@@ -921,7 +915,8 @@ pkmn.nidoranF = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.nidorina, level: evolutionLevel1 } } },
     hiddenAbility: ability.sheerForce,
-    eggMove : move.poisonTail
+    eggMove : move.poisonTail,
+    variants: function() { return [pkmn.nidoranM] },
 }
 
 pkmn.nidorina = {
@@ -966,6 +961,7 @@ pkmn.nidoranM = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.nidorino, level: evolutionLevel1 } } },
     hiddenAbility: ability.sheerForce,
+    variants: function() { return [pkmn.nidoranF] },
 }
 
 pkmn.nidorino = {
@@ -1067,6 +1063,7 @@ pkmn.vulpix = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.ninetales, item: item.fireStone } } },
     hiddenAbility: ability.drought,
+    variants: function() { return [pkmn.alolanVulpix] },
 }
 
 pkmn.alolanVulpix = {
@@ -1094,6 +1091,7 @@ pkmn.ninetales = {
         spe: 100,
     },
     hiddenAbility: ability.drought,
+    variants: function() { return [pkmn.alolanNinetales] },
 }
 
 pkmn.alolanNinetales = {
@@ -1329,6 +1327,7 @@ pkmn.diglett = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.dugtrio, level: evolutionLevel2 } } },
     hiddenAbility: ability.sandForce,
+    variants: function() { return [pkmn.alolanDiglett] },
 }
 
 pkmn.alolanDiglett = {
@@ -1355,6 +1354,7 @@ pkmn.dugtrio = {
         spe: 120,
     },
     hiddenAbility: ability.sandForce,
+    variants: function() { return [pkmn.alolanDugtrio] },
 }
 
 pkmn.alolanDugtrio = {
@@ -1382,7 +1382,8 @@ pkmn.meowth = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.persian, level: evolutionLevel2 } } },
     hiddenAbility: ability.technician,
-    signature : move.payDay
+    signature : move.payDay,
+    variants: function() { return [pkmn.alolanMeowth, pkmn.galarianMeowth] },
 }
 
 pkmn.meowthGmax = {
@@ -1438,7 +1439,8 @@ pkmn.persian = {
         spe: 115,
     },
     hiddenAbility: ability.technician,
-    signature : move.payDay
+    signature : move.payDay,
+    variants: function() { return [pkmn.alolanPersian] },
 }
 
 pkmn.alolanPersian = {
@@ -1556,6 +1558,7 @@ pkmn.growlithe = {
     evolve: function() { return { 1: { pkmn: pkmn.arcanine, item: item.fireStone } } },
     hiddenAbility: ability.fieryPelt,
     eggMove : move.howl,
+    variants: function() { return [pkmn.hisuianGrowlithe] },
 }
 
 pkmn.hisuianGrowlithe = {
@@ -1585,6 +1588,7 @@ pkmn.arcanine = {
     },
     hiddenAbility: ability.fieryPelt,
     eggMove : move.howl,
+    variants: function() { return [pkmn.hisuianArcanine] },
 }
 
 pkmn.hisuianArcanine = {
@@ -1882,7 +1886,8 @@ pkmn.geodude = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.graveler, level: evolutionLevel2 } } },
     hiddenAbility: ability.stoned,
-    eggMove : move.rockWrecker
+    eggMove : move.rockWrecker,
+    variants: function() { return [pkmn.alolanGeodude] },
 }
 
 pkmn.alolanGeodude = {
@@ -1912,7 +1917,8 @@ pkmn.graveler = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.golem, item: item.linkStone } } },
     hiddenAbility: ability.stoned,
-    eggMove : move.rockWrecker
+    eggMove : move.rockWrecker,
+    variants: function() { return [pkmn.alolanGraveler] },
 }
 
 pkmn.alolanGraveler = {
@@ -1941,7 +1947,8 @@ pkmn.golem = {
         spe: 45,
     },
     hiddenAbility: ability.stoned,
-    eggMove : move.rockWrecker
+    eggMove : move.rockWrecker,
+    variants: function() { return [pkmn.alolanGolem] },
 }
 
 pkmn.alolanGolem = {
@@ -1971,6 +1978,7 @@ pkmn.ponyta = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.rapidash, level: evolutionLevel3 } } },
     hiddenAbility: ability.flameGuard,
+    variants: function() { return [pkmn.galarianPonyta] },
 }
 
 pkmn.galarianPonyta = {
@@ -1998,6 +2006,7 @@ pkmn.rapidash = {
         spe: 105,
     },
     hiddenAbility: ability.flameGuard,
+    variants: function() { return [pkmn.galarianRapidash] },
 }
 
 pkmn.galarianRapidash = {
@@ -2031,7 +2040,8 @@ pkmn.slowpoke = {
         } 
     },
     hiddenAbility: ability.unaware,
-    signature : move.chillyReception
+    signature : move.chillyReception,
+    variants: function() { return [pkmn.galarianSlowpoke] },
 }
 
 pkmn.galarianSlowpoke = {
@@ -2064,7 +2074,8 @@ pkmn.slowbro = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.megaSlowbro, item: item.slowbronite } } },
     hiddenAbility: ability.unaware,
-    signature : move.chillyReception
+    signature : move.chillyReception,
+    variants: function() { return [pkmn.galarianSlowbro] },
 }
 
 pkmn.megaSlowbro = {
@@ -2104,6 +2115,7 @@ pkmn.slowking = {
         spe: 30,
     },
     hiddenAbility: ability.strategist,
+    variants: function() { return [pkmn.galarianSlowking] },
 }
 
 pkmn.galarianSlowking = {
@@ -2171,6 +2183,7 @@ pkmn.farfetchd = {
         sdef: 62,
         spe: 60,
     },
+    variants: function() { return [pkmn.galarianFarfetchd] },
 }
 
 pkmn.galarianFarfetchd = {
@@ -2273,7 +2286,8 @@ pkmn.grimer = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.muk, level: evolutionLevel2 } } },
     hiddenAbility: ability.toxicBoost,
-    signature : move.venoshock
+    signature : move.venoshock,
+    variants: function() { return [pkmn.alolanGrimer] },
 }
 
 pkmn.alolanGrimer = {
@@ -2301,7 +2315,8 @@ pkmn.muk = {
         spe: 50,
     },
     hiddenAbility: ability.toxicBoost,
-    signature : move.venoshock
+    signature : move.venoshock,
+    variants: function() { return [pkmn.alolanMuk] },
 }
 
 pkmn.alolanMuk = {
@@ -2543,7 +2558,8 @@ pkmn.voltorb = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.electrode, level: evolutionLevel2 } } },
     hiddenAbility: ability.hyperconductor,
-    signature : move.electroBall
+    signature : move.electroBall,
+    variants: function() { return [pkmn.hisuianVoltorb] },
 }
 
 pkmn.hisuianVoltorb = {
@@ -2572,7 +2588,8 @@ pkmn.electrode = {
         spe: 150,
     },
     hiddenAbility: ability.hyperconductor,
-    signature : move.electroBall
+    signature : move.electroBall,
+    variants: function() { return [pkmn.hisuianElectrode] },
 }
 
 pkmn.hisuianElectrode = {
@@ -2616,7 +2633,8 @@ pkmn.exeggutor = {
         spe: 55,
     },
     hiddenAbility: ability.parentalBond,
-    signature : move.barrage
+    signature : move.barrage,
+    variants: function() { return [pkmn.alolanExeggutor] },
 }
 
 pkmn.alolanExeggutor = {
@@ -2660,7 +2678,8 @@ pkmn.marowak = {
         spe: 45,
     },
     hiddenAbility: ability.parentalBond,
-    signature : move.boneRush
+    signature : move.boneRush,
+    variants: function() { return [pkmn.alolanMarowak] },
 }
 
 pkmn.alolanMarowak = {
@@ -2790,6 +2809,7 @@ pkmn.weezing = {
         spe: 60,
     },
     hiddenAbility: ability.levitate,
+    variants: function() { return [pkmn.galarianWeezing] },
 }
 
 pkmn.galarianWeezing = {
@@ -3113,7 +3133,8 @@ pkmn.mrmime = {
         spe: 90,
     },
     hiddenAbility: ability.technician,
-    signature : move.mimic
+    signature : move.mimic,
+    variants: function() { return [pkmn.galarianMrmime] },
 }
 
 pkmn.galarianMrmime = {
@@ -3356,6 +3377,7 @@ pkmn.tauros = {
         spe: 110,
     },
     hiddenAbility: ability.sheerForce,
+    variants: function() { return [pkmn.taurosCombat, pkmn.taurosBlaze, pkmn.taurosAqua] },
 }
 
 pkmn.taurosCombat = {
@@ -3410,7 +3432,8 @@ pkmn.magikarp = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.gyarados, level: evolutionLevel1 } } },
     hiddenAbility: ability.waterGuard,
-    signature : move.splash
+    signature : move.splash,
+    variants: function() { return [pkmn.magikarpKoi, pkmn.magikarpRegal, pkmn.magikarpSakura, pkmn.magikarpSkelly, pkmn.magikarpSoar, pkmn.magikarpTiger] },
 }
 
 pkmn.magikarpKoi = {
@@ -3899,7 +3922,8 @@ pkmn.articuno = {
     },
     hiddenAbility: ability.glacialBody,
     lore : `The cold of winter. Air chills and frost gathers in its wake. Snowfall follows as it passes, and mountains are left sealed in ice where it lingers.`,
-    eggMove : move.snowscape
+    eggMove : move.snowscape,
+    variants: function() { return [pkmn.galarianArticuno] },
 }
 
 pkmn.galarianArticuno = {
@@ -3929,7 +3953,8 @@ pkmn.zapdos = {
     },
     hiddenAbility: ability.dauntingLook,
     lore: `The storm of summer. Thunder rolls with its cry, and lightning strikes in time with its wings. The skies darken as it passes, and violent storms follow its soar.`,
-    eggMove : move.charge
+    eggMove : move.charge,
+    variants: function() { return [pkmn.galarianZapdos] },
 }
 
 pkmn.galarianZapdos = {
@@ -3959,7 +3984,8 @@ pkmn.moltres = {
     },
     hiddenAbility: ability.fieryPelt,
     lore : `The warmth of spring. Its fire does not scorch the world, but stirs it awake, melting snow and kindling new life. The cold loosens its hold as it passes, and the land is renewed by heat and light.`,
-    eggMove : move.magmaStorm
+    eggMove : move.magmaStorm,
+    variants: function() { return [pkmn.galarianMoltres] },
 }
 
 pkmn.galarianMoltres = {
@@ -4187,7 +4213,8 @@ pkmn.typhlosion = {
         spe: 100,
     },
     hiddenAbility: ability.flareBoost,
-    signature : move.inferno
+    signature : move.inferno,
+    variants: function() { return [pkmn.hisuianTyphlosion] },
 }
 
 pkmn.hisuianTyphlosion = {
@@ -4766,6 +4793,7 @@ pkmn.wooper = {
     evolve: function() { return { 1: { pkmn: pkmn.quagsire, level: evolutionLevel1 } } },
     signature : move.mudSport,
     hiddenAbility: ability.unaware,
+    variants: function() { return [pkmn.paldeanWooper] },
 }
 
 pkmn.paldeanWooper = {
@@ -4882,6 +4910,7 @@ pkmn.unownA = {
         spe: 48,
     },
     hiddenAbility: ability.adaptability,
+    variants: function() { return [pkmn.unownB, pkmn.unownC, pkmn.unownD, pkmn.unownE, pkmn.unownF, pkmn.unownG, pkmn.unownH, pkmn.unownI, pkmn.unownJ, pkmn.unownK, pkmn.unownL, pkmn.unownM, pkmn.unownN, pkmn.unownO, pkmn.unownP, pkmn.unownQ, pkmn.unownR, pkmn.unownS, pkmn.unownT, pkmn.unownU, pkmn.unownV, pkmn.unownW, pkmn.unownX, pkmn.unownY, pkmn.unownZ, pkmn.unownExclamation, pkmn.unownQuestion] },
 }
 
 pkmn.unownB = {
@@ -5427,7 +5456,8 @@ pkmn.qwilfish = {
         spe: 85,
     },
     hiddenAbility: ability.intimidate,
-    signature : move.barbBarrage
+    signature : move.barbBarrage,
+    variants: function() { return [pkmn.hisuianQwilfish] },
 }
 
 pkmn.hisuianQwilfish = {
@@ -5519,7 +5549,8 @@ pkmn.sneasel = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.weavile, item: item.duskStone} } },
     hiddenAbility: ability.sharpness,
-    signature : move.tripleAxel
+    signature : move.tripleAxel,
+    variants: function() { return [pkmn.hisuianSneasel] },
 }
 
 pkmn.hisuianSneasel = {
@@ -5703,6 +5734,7 @@ pkmn.corsola = {
         spe: 35,
     },
     hiddenAbility: ability.costar,
+    variants: function() { return [pkmn.galarianCorsola] },
 }
 
 pkmn.galarianCorsola = {
@@ -6326,6 +6358,7 @@ pkmn.zigzagoon = {
         spe: 60,
     },
     evolve: function() { return { 1: { pkmn: pkmn.linoone, level: evolutionLevel1 } } },
+    variants: function() { return [pkmn.galarianZigzagoon] },
 }
 
 pkmn.galarianZigzagoon = {
@@ -6340,6 +6373,7 @@ pkmn.galarianZigzagoon = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.galarianLinoone, level: evolutionLevel1 } } },
     hiddenAbility: ability.blackPelt,
+    variants: function() { return [pkmn.galarianLinoone] },
 }
 
 pkmn.linoone = {
@@ -7792,6 +7826,7 @@ pkmn.castform = {
     },
     signature : move.weatherBall,
     hiddenAbility: ability.climaTact,
+    variants: function() { return [pkmn.castformSunny, pkmn.castformRainy, pkmn.castformSnowy] },
 }
 
 pkmn.castformSunny = {
@@ -8579,7 +8614,8 @@ pkmn.deoxys = {
         satk: 150,
         sdef: 50,
         spe: 150,
-    }
+    },
+    variants: function() { return [pkmn.deoxysAttack, pkmn.deoxysDefense, pkmn.deoxysSpeed] },
 }
 
 pkmn.deoxysAttack = {
@@ -9024,6 +9060,7 @@ pkmn.burmy = {
             2: { pkmn: pkmn.mothim, item: item.shinyStone }
         } 
     },
+    variants: function() { return [pkmn.burmySandy, pkmn.burmyTrash] },
 }
 
 pkmn.burmySandy = {
@@ -9073,7 +9110,8 @@ pkmn.wormadam = {
         satk: 59,
         sdef: 85,
         spe: 36,
-    }
+    },
+    variants: function() { return [pkmn.wormadamSandy, pkmn.wormadamTrash] },
 }
 
 pkmn.wormadamSandy = {
@@ -9216,7 +9254,8 @@ pkmn.cherrim = {
         spe: 85,
     },
     hiddenAbility: ability.drought,
-    eggMove : move.frenzyPlant
+    eggMove : move.frenzyPlant,
+    variants: function() { return [pkmn.cherrimSunshine] },
 }
 
 pkmn.cherrimSunshine = {
@@ -9247,6 +9286,7 @@ pkmn.shellos = {
     },
     evolve: function() { return { 1: { pkmn: pkmn.gastrodon, level: evolutionLevel2 } } },
     hiddenAbility: ability.sandForce,
+    variants: function() { return [pkmn.shellosEast] },
 }
 
 pkmn.shellosEast = {
@@ -9276,6 +9316,7 @@ pkmn.gastrodon = {
         spe: 39,
     },
     hiddenAbility: ability.sandForce,
+    variants: function() { return [pkmn.gastrodonEast] },
 }
 
 pkmn.gastrodonEast = {
@@ -9824,7 +9865,8 @@ pkmn.rotom = {
         spe: 91,
     },
     hiddenAbility: ability.levitate,
-    eggMove : move.conversion
+    eggMove : move.conversion,
+    variants: function() { return [pkmn.rotomHeat, pkmn.rotomWash, pkmn.rotomFrost, pkmn.rotomFan, pkmn.rotomMow] },
 }
 
 pkmn.rotomHeat = {
@@ -10154,7 +10196,8 @@ pkmn.shaymin = {
         spe: 100,
     },
     hiddenAbility: ability.verdify,
-    lore: `Embodying gratitude and the renewal of life, It moves across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned.`
+    lore: `Embodying gratitude and the renewal of life, It moves across barren lands, leaving fields of flowers in its wake and restoring the vitality of nature, bringing growth and bloom to places long abandoned.`,
+    variants: function() { return [pkmn.shayminSky] },
 }
 
 pkmn.shayminSky = {
@@ -10586,7 +10629,8 @@ pkmn.samurott = {
         spe: 70,
     },
     hiddenAbility: ability.iaido,
-    signature : move.razorShell
+    signature : move.razorShell,
+    variants: function() { return [pkmn.hisuianSamurott] },
 }
 
 pkmn.hisuianSamurott = {
@@ -11282,6 +11326,7 @@ pkmn.lilligant = {
     spe: 90,
   },
     hiddenAbility: ability.costar,
+    variants: function() { return [pkmn.hisuianLilligant] },
 }
 
 pkmn.hisuianLilligant = {
@@ -11310,6 +11355,7 @@ pkmn.basculin = {
     spe: 98,
   },
     hiddenAbility: ability.adaptability,
+    variants: function() { return [pkmn.basculinBlue, pkmn.basculinWhite] },
 }
 
 pkmn.basculinBlue = {
@@ -11354,6 +11400,7 @@ pkmn.basculegionM = {
         sdef: 75,
         spe: 78,
     },
+    variants: function() { return [pkmn.basculegionF] },
 }
 
 pkmn.basculegionF = {
@@ -11423,7 +11470,8 @@ pkmn.darumaka = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.darmanitan, level: evolutionLevel2 } } },
     hiddenAbility: ability.gorillaTactics,
-    eggMove : move.blazeKick
+    eggMove : move.blazeKick,
+    variants: function() { return [pkmn.galarianDarumaka] },
 }
 
 pkmn.galarianDarumaka = {
@@ -11450,7 +11498,8 @@ pkmn.darmanitan = {
     spe: 95,
   },
     hiddenAbility: ability.gorillaTactics,
-    eggMove : move.blazeKick
+    eggMove : move.blazeKick,
+    variants: function() { return [pkmn.galarianDarmanitan] },
 }
 
 pkmn.galarianDarmanitan = {
@@ -11564,6 +11613,7 @@ pkmn.yamask = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.cofagrigus, level: evolutionLevel2 } } },
     hiddenAbility: ability.somberField,
+    variants: function() { return [pkmn.galarianYamask] },
 }
 
 pkmn.galarianYamask = {
@@ -11719,7 +11769,8 @@ pkmn.zorua = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.zoroark, level: evolutionLevel2 } } },
     hiddenAbility: ability.imposter,
-    eggMove : move.mimic
+    eggMove : move.mimic,
+    variants: function() { return [pkmn.hisuianZorua] },
 }
 
 pkmn.hisuianZorua = {
@@ -11747,7 +11798,8 @@ pkmn.zoroark = {
     spe: 105,
   },
     hiddenAbility: ability.imposter,
-    eggMove : move.mimic
+    eggMove : move.mimic,
+    variants: function() { return [pkmn.hisuianZoroark] },
 }
 
 pkmn.hisuianZoroark = {
@@ -11958,7 +12010,8 @@ pkmn.deerling = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.sawsbuck, level: evolutionLevel2 } } },
     hiddenAbility: ability.sereneGrace,
-    eggMove : move.camouflage
+    eggMove : move.camouflage,
+    variants: function() { return [pkmn.deerlingAutumn, pkmn.deerlingSpring, pkmn.deerlingWinter] },
 }
 
 pkmn.deerlingAutumn = {
@@ -12017,7 +12070,8 @@ pkmn.sawsbuck = {
     spe: 95,
   },
     hiddenAbility: ability.sereneGrace,
-    eggMove : move.camouflage
+    eggMove : move.camouflage,
+    variants: function() { return [pkmn.sawsbuckAutumn, pkmn.sawsbuckSpring, pkmn.sawsbuckWinter] },
 }
 
 pkmn.sawsbuckAutumn = {
@@ -12741,7 +12795,8 @@ pkmn.braviary = {
     spe: 80,
   },
     hiddenAbility: ability.galeWings,
-    eggMove : move.braveBird
+    eggMove : move.braveBird,
+    variants: function() { return [pkmn.hisuianBraviary] },
 }
 
 pkmn.hisuianBraviary = {
@@ -12937,6 +12992,7 @@ pkmn.tornadus = {
     spe: 111,
   },
     hiddenAbility: ability.climaTact,
+    variants: function() { return [pkmn.tornadusTherian] },
 }
 
 pkmn.tornadusTherian = {
@@ -12963,6 +13019,7 @@ pkmn.thundurus = {
     spe: 111,
   },
     hiddenAbility: ability.climaTact,
+    variants: function() { return [pkmn.thundurusTherian] },
 }
 
 pkmn.thundurusTherian = {
@@ -12990,7 +13047,8 @@ pkmn.landorus = {
     spe: 101,
   },
     hiddenAbility: ability.climaTact,
-    signature : move.sandsearStorm
+    signature : move.sandsearStorm,
+    variants: function() { return [pkmn.landorusTherian] },
 }
 
 pkmn.landorusTherian = {
@@ -13017,6 +13075,7 @@ pkmn.enamorus = {
     spe: 106,
   },
     hiddenAbility: ability.contrary,
+    variants: function() { return [pkmn.enamorusTherian] },
 }
 
 pkmn.enamorusTherian = {
@@ -13072,7 +13131,8 @@ pkmn.kyurem = {
     spe: 95,
   },
     hiddenAbility: ability.glaciate,
-    signature : move.glaciate
+    signature : move.glaciate,
+    variants: function() { return [pkmn.kyuremBlack, pkmn.kyuremWhite] },
 }
 
 pkmn.kyuremBlack = {
@@ -13110,6 +13170,7 @@ pkmn.keldeo = {
     sdef: 90,
     spe: 108,
   },
+  variants: function() { return [pkmn.keldeoResolute] },
 }
 
 pkmn.keldeoResolute = {
@@ -13136,7 +13197,8 @@ pkmn.meloetta = {
     spe: 90,
   },
     hiddenAbility: ability.cacophony,
-    signature : move.relicSong
+    signature : move.relicSong,
+  variants: function() { return [pkmn.meloettaPirouette] },
 }
 
 pkmn.meloettaPirouette = {
@@ -13376,7 +13438,8 @@ pkmn.greninja = {
     spe: 122,
   },
     hiddenAbility: ability.protean,
-    signature : move.waterShuriken
+    signature : move.waterShuriken,
+    variants: function() { return [pkmn.greninjaAsh] },
 }
 
 pkmn.greninjaAsh = {
@@ -13521,6 +13584,7 @@ pkmn.vivillon = {
     spe: 89,
   },
     hiddenAbility: ability.tintedLens,
+    variants: function() { return [pkmn.vivillonArchipelago, pkmn.vivillonContinental, pkmn.vivillonElegant, pkmn.vivillonFancy, pkmn.vivillonGarden, pkmn.vivillonHighPlains, pkmn.vivillonIcySnow, pkmn.vivillonJungle, pkmn.vivillonMarine, pkmn.vivillonModern, pkmn.vivillonMonsoon, pkmn.vivillonOcean, pkmn.vivillonPokeball, pkmn.vivillonPolar, pkmn.vivillonRiver, pkmn.vivillonSandstorm, pkmn.vivillonSavanna, pkmn.vivillonSun, pkmn.vivillonTundra] },
 }
 
 pkmn.vivillonArchipelago = {
@@ -13828,6 +13892,7 @@ pkmn.flabebe = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.floette, level: evolutionLevel1 } } },
   hiddenAbility: ability.naturalCure,
+  variants: function() { return [pkmn.flabebeBlue, pkmn.flabebeOrange, pkmn.flabebeWhite, pkmn.flabebeYellow] },
 }
 
 pkmn.flabebeBlue = {
@@ -13912,6 +13977,7 @@ pkmn.floetteBlue = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.florgesBlue, item: item.shinyStone } } },
   hiddenAbility: ability.naturalCure,
+  variants: function() { return [pkmn.floetteBlue, pkmn.floetteOrange, pkmn.floetteWhite, pkmn.floetteYellow, pkmn.floetteEternal] },
 }
 
 pkmn.floetteOrange = {
@@ -13993,6 +14059,7 @@ pkmn.florges = {
     spe: 75,
   },
     hiddenAbility: ability.naturalCure,
+  variants: function() { return [pkmn.florgesBlue, pkmn.florgesOrange, pkmn.florgesWhite, pkmn.florgesYellow] },
 }
 
 pkmn.florgesBlue = {
@@ -14116,6 +14183,7 @@ pkmn.furfrou = {
     sdef: 90,
     spe: 102,
   },
+  variants: function() { return [pkmn.furfrouHeart, pkmn.furfrouStar, pkmn.furfrouDiamond, pkmn.furfrouDebutante, pkmn.furfrouMatron, pkmn.furfrouDandy, pkmn.furfrouReine, pkmn.furfrouKabuki, pkmn.furfrouPharaoh] },
 }
 
 pkmn.furfrouHeart = {
@@ -14708,6 +14776,7 @@ pkmn.sliggoo = {
   },
   evolve: function() { return { 1: { pkmn: pkmn.goodra, level: evolutionLevel3 } } },
     hiddenAbility: ability.gooey,
+  variants: function() { return [pkmn.hisuianSliggoo] },
 }
 
 pkmn.hisuianSliggoo = {
@@ -14735,6 +14804,7 @@ pkmn.goodra = {
     spe: 80,
   },
     hiddenAbility: ability.gooey,
+  variants: function() { return [pkmn.hisuianGoodra] },
 }
 
 pkmn.hisuianGoodra = {
@@ -14847,7 +14917,8 @@ pkmn.avalugg = {
     spe: 28,
   },
     hiddenAbility: ability.iceBody,
-    signature : move.mountainGale
+    signature : move.mountainGale,
+    variants: function() { return [pkmn.hisuianAvalugg] },
 }
 
 pkmn.hisuianAvalugg = {
@@ -14930,7 +15001,8 @@ pkmn.zygarde10 = {
         satk: 61,
         sdef: 85,
         spe: 115,
-    }
+    },
+    variants: function() { return [pkmn.zygarde50, pkmn.zygarde100] },
 }
 
 pkmn.zygarde50 = {
@@ -15008,7 +15080,8 @@ pkmn.hoopa = {
         satk: 150,
         sdef: 130,
         spe: 70,
-    }
+    },
+    variants: function() { return [pkmn.hoopaUnbound] },
 }
 
 pkmn.hoopaUnbound = {
@@ -15076,6 +15149,7 @@ pkmn.decidueye = {
     spe: 70,
   },
     hiddenAbility: ability.noGuard,
+    variants: function() { return [pkmn.hisuianDecidueye] },
 }
 
 pkmn.hisuianDecidueye = {
@@ -15355,6 +15429,7 @@ pkmn.oricorioBaile = {
   },
     signature : move.revelationDance,
     hiddenAbility: ability.dancer,
+    variants: function() { return [pkmn.oricorioPomPom, pkmn.oricorioPau, pkmn.oricorioSensu] },
 }
 
 pkmn.oricorioPomPom = {
@@ -15495,7 +15570,8 @@ pkmn.wishiwashi = {
     satk: 25,
     sdef: 25,
     spe: 40,
-  }
+  },
+  variants: function() { return [pkmn.wishiwashiSchool] },
 }
 
 pkmn.wishiwashiSchool = {
@@ -15927,8 +16003,8 @@ pkmn.minior = {
     spe: 60,
   },
     hiddenAbility: ability.shieldsDown,
-    eggMove : move.lunarDance
-
+    eggMove : move.lunarDance,
+    variants: function() { return [pkmn.miniorBlue, pkmn.miniorGreen, pkmn.miniorIndigo, pkmn.miniorOrange, pkmn.miniorRed, pkmn.miniorViolet, pkmn.miniorYellow] },
 }
 
 pkmn.miniorBlue = {
@@ -19968,7 +20044,8 @@ pkmn.ogerponTeal = {
         satk: 60,
         sdef: 96,
         spe: 110,
-    }
+    },
+    variants: function() { return [pkmn.ogerponWellspring, pkmn.ogerponHearthflame, pkmn.ogerponCornerstone] },
 }
 
 pkmn.ogerponWellspring = {

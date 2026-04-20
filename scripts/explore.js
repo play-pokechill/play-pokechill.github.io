@@ -5054,7 +5054,7 @@ document.getElementById("pokedex-search").addEventListener("keydown", e => {
 
     if (shouldExpandFamilies) {
       results.forEach(result => {
-        const family = getEvolutionFamily(result.item);
+        const family = getEvolutionFamily(result.item, true);
         family.forEach(member => {
           // only add if the member exists in the current fusePkmn index
           const memberInIndex = fusePkmn.getIndex().docs.find(doc => doc === member);
@@ -8273,7 +8273,7 @@ function updateFamilyStarsign() {
         if (!pkmn[i].starsignList || pkmn[i].starsignList.length === 0) continue;
         
         // Get the evolution family
-        const family = getEvolutionFamily(pkmn[i]);
+        const family = getEvolutionFamily(pkmn[i], true);
         
         // Create a unique identifier for this family (use sorted IDs)
         const familyIds = Array.from(family).map(p => {
@@ -8588,8 +8588,8 @@ if (pkmn[saved.geneticHost].pokerus || saved.geneticPokerus==true) document.getE
 document.getElementById("genetics-compat-text").innerHTML = `Compatibility <font style="color:#E58FFF; margin-left:0.3rem">[${compability-1}]</font>`
 
 
-const familyHost = getEvolutionFamily(hostPkmn);
-const familySample = getEvolutionFamily(samplePkmn);
+const familyHost = getEvolutionFamily(hostPkmn, true);
+const familySample = getEvolutionFamily(samplePkmn, true);
 if (familyHost.has(samplePkmn) || familySample.has(hostPkmn)) {
     compability = 4;
 }
@@ -9455,7 +9455,7 @@ function returnHMS(seconds) {
 
 
 
-function getEvolutionFamily(base) {
+function getEvolutionFamily(base, searchVariants) {
     const family = new Set();
     const stack = [base];
     
@@ -9473,6 +9473,29 @@ function getEvolutionFamily(base) {
             }
         }
         return preEvos;
+    }
+    
+    function findVariants(target) {
+        if (!searchVariants) {
+            return [];
+        };
+        const variants = [];
+        if (typeof target.variants === "function") {
+            for (const variant of target.variants()) {
+                variants.push(variant);
+            }
+        }
+        for (const key in pkmn) {
+            const pokemon = pkmn[key];
+            if (typeof pokemon.variants === "function") {
+                for (const variant of pokemon.variants()) {
+                    if (variant === target) {
+                        variants.push(pokemon);
+                    }
+                }
+            }
+        }
+        return variants;
     }
     
     while (stack.length > 0) {
@@ -9494,6 +9517,12 @@ function getEvolutionFamily(base) {
         const preEvos = findPreEvolutions(current);
         for (const preEvo of preEvos) {
             stack.push(preEvo);
+        }
+        
+        // search variants
+        const variants = findVariants(current);
+        for (const variant of variants) {
+            stack.push(variant);
         }
     }
     
