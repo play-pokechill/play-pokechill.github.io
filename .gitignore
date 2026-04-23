@@ -1,0 +1,23 @@
+# ─── Standard ignores ───
+node_modules/
+*.pyc
+__pycache__/
+
+# ─── ZdC / Frontier dev-only artifacts ────────────────────────────────
+# The probes and their audit markdowns live on the dev branch (playground
+# repo) — this PR branch only ships the overlay itself. If you pull dev
+# artifacts into this tree they stay local.
+_probe_*.js
+_probe_*_out/
+_probe_zdc_failures/
+_probe_factory_flow_end.png
+_ABILITY_ACTIVATION_AUDIT.md
+_TEAM_GEN_AUDIT.md
+_TEAM_GEN_AUDIT_V2.md
+_PWT_CONTEXT.md
+_CONTEXT.md
+
+# Reference save used by local probes
+save.json
+# Screenshots from manual testing
+screenshots/
